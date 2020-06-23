@@ -23,10 +23,12 @@ public class Suchleiste {
 	}
 	
 	public ArrayList implementiereAutofill() {
+		// Methode schreiben!
 		return tempListSuche;
 	}
 	
 	public ArrayList sortiereListe(ArrayList<String> unsortiert) {
+		// Methode schreiben!
 		ArrayList<String> sortiert = unsortiert;
 		return sortiert;
 	}

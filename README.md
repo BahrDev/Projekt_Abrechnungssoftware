@@ -10,6 +10,7 @@ Die Originalaufgabe lautet wie folgt:
 PROJEKT 2 – AUFTRAGS- UND ABRECHNUNGSSOFTWARE MADE BY CC_AE_KURS
 
 Was soll die Software können:
+
     • Anlegen von Auftraggeber/Kunden (die dann Rechnungsempfänger sind)
     • Anlegen von Rechnungspositionen (z.B. Unterrichtmodule, Dienstleistungen)
     • Anlegen von Stundensätzen/Honorarsätzen/Tagessätzen
@@ -27,6 +28,7 @@ Was soll die Software können:
     • der Kunde möchte, dass möglichst die Bearbeitung in einem Fenster, aber mit Tabs/Reitern umsetzbar ist
 
 Vor- und Nacharbeiten:
+
     • Analyse, was genau gebraucht wird
     • Organisation und Aufgabenaufteilung innerhalb der Gruppe
     • Planungen (Technik, Zeit) und Entwürfe (Funktionscode und Design, DB, UML  Klassen und Anwendungsfall-Diagramm)

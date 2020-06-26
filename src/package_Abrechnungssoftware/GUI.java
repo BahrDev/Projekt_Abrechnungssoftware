@@ -80,7 +80,8 @@ public class GUI {
 	private JButton btn_Position_Speichern;
 	private JButton btn_Optionen_Speicherpfad;
 	private JButton btn_Optionen_Speichern;
-	
+	private JLabel lbl_Optionen_Optionen;
+	private JCheckBox chckbx_Optionen_KundenAusblenden;
 	
 	
 	// Methoden
@@ -715,9 +716,9 @@ public class GUI {
 		tabbedPane.addTab("Optionen", null, TabOptionen, null);
 		GridBagLayout gbl_TabOptionen = new GridBagLayout();
 		gbl_TabOptionen.columnWidths = new int[]{25, 0, 25, 130, 100, 25, 0};
-		gbl_TabOptionen.rowHeights = new int[]{25, 0, 0, 0, 25, 0, 0, 0, 0, 25, 50, 25, 0};
+		gbl_TabOptionen.rowHeights = new int[]{25, 0, 0, 0, 25, 0, 0, 0, 0, 25, 0, 0, 50, 25, 0};
 		gbl_TabOptionen.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_TabOptionen.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_TabOptionen.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		TabOptionen.setLayout(gbl_TabOptionen);
 		
 		JLabel lbl_Optionen_Rechnungen = new JLabel("Rechnungen");
@@ -834,13 +835,31 @@ public class GUI {
 		gbc_passwordField_Optionen_dbPasswort.gridy = 2;
 		panel_Optionen_Datenbank_Benutzerdaten.add(passwordField_Optionen_dbPasswort, gbc_passwordField_Optionen_dbPasswort);
 		
+		lbl_Optionen_Optionen = new JLabel("Optionen");
+		lbl_Optionen_Optionen.setFont(new Font("Tahoma", Font.BOLD, 18));
+		GridBagConstraints gbc_lbl_Optionen_Optionen = new GridBagConstraints();
+		gbc_lbl_Optionen_Optionen.anchor = GridBagConstraints.WEST;
+		gbc_lbl_Optionen_Optionen.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_Optionen_Optionen.gridx = 1;
+		gbc_lbl_Optionen_Optionen.gridy = 10;
+		TabOptionen.add(lbl_Optionen_Optionen, gbc_lbl_Optionen_Optionen);
+		
+		chckbx_Optionen_KundenAusblenden = new JCheckBox("Inaktive Kunden ausblenden");
+		chckbx_Optionen_KundenAusblenden.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_chckbx_Optionen_KundenAusblenden = new GridBagConstraints();
+		gbc_chckbx_Optionen_KundenAusblenden.anchor = GridBagConstraints.WEST;
+		gbc_chckbx_Optionen_KundenAusblenden.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbx_Optionen_KundenAusblenden.gridx = 1;
+		gbc_chckbx_Optionen_KundenAusblenden.gridy = 11;
+		TabOptionen.add(chckbx_Optionen_KundenAusblenden, gbc_chckbx_Optionen_KundenAusblenden);
+		
 		btn_Optionen_Speichern = new JButton("Speichern");
 		btn_Optionen_Speichern.setPreferredSize(new Dimension(130, 25));
 		GridBagConstraints gbc_btn_Optionen_Speichern = new GridBagConstraints();
 		gbc_btn_Optionen_Speichern.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btn_Optionen_Speichern.insets = new Insets(0, 0, 5, 5);
 		gbc_btn_Optionen_Speichern.gridx = 3;
-		gbc_btn_Optionen_Speichern.gridy = 10;
+		gbc_btn_Optionen_Speichern.gridy = 12;
 		TabOptionen.add(btn_Optionen_Speichern, gbc_btn_Optionen_Speichern);
 		
 		frame.setVisible(true);

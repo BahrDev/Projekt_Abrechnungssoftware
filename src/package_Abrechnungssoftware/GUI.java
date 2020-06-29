@@ -27,82 +27,65 @@ public class GUI {
 
 	// Attribute
 	
-	private JFrame frame;
-	private JTextField textField_KundeStrasse;
-	private JTextField textField_KundeID;
-	private JTextField textField_KundeName;
-	private JTextField textField_KundeOrt;
-	private JTextField textField_KundeTelefon;
-	private JTextField textField_KundeEmail;
-	private JTextField textField_KundeSteuerNummer;
-	private JTextField textField_KundeHausnummer;
-	private JTextField textField_KundePLZ;
-	private JTextField textField_Positionsname;
-	private JTextField textField_Position_Kategorie_Satz_in_Euro;
-	private final ButtonGroup buttonGroup_Position_Satz = new ButtonGroup();
-	private JTextField textField_Optionen_Speicherpfad;
-	private JTextField textField_Optionen_dbAdresse;
-	private JTextField textField_Optionen_dbBenutzername;
-	private JPasswordField passwordField_Optionen_dbPasswort;
-	private JButton btn_Kunde_Anzeigen;
-	private JButton btn_Kunde_Neu;
-	private JComboBox comboBox_Kunde_Kunden;
-	private JLabel lbl_KundeName;
-	private JLabel lbl_KundeID;
-	private JLabel lbl_KundeStrasse;
-	private JLabel lbl_KundeHausnummer;
-	private JLabel lbl_KundeOrt;
-	private JLabel lbl_KundePLZ;
-	private JLabel lbl_KundeTelefon;
-	private JLabel lbl_KundeEmail;
-	private JLabel lbl_KundeSteuerNummer;
-	private JCheckBox chckbx_Kunde_Inaktiv;
-	private JButton btn_Kunde_Speichern;
-	private JLabel lblNewLabel;
-	private JList list_Kunde_Rechnungen;
-	private JButton btn_Kunde_Rechnung_Anzeigen;
-	private JButton btn_Kunde_Rechnung_Korrektur;
-	private JButton btn_Kunde_Rechnung_Neu;
-	private JPanel panel_KundenDaten;
-	private JPanel panel_Kunde_Speichern;
-	private JPanel panel_Kunde_Rechnungen;
-	private JPanel panel_Kunde_Rechnungen_Buttons;
-	private JComboBox comboBox_Position_Positionen;
-	private JButton btn_Position_Anzeigen;
-	private JButton btn_Position_Neu;
-	private JPanel panel_Position_Daten;
-	private JLabel lbl_Position_Name;
-	private JLabel lbl_Position_Kategorie;
-	private JComboBox comboBox_Position_Kategorie;
-	private JButton btn_Position_Kategorie_Neu;
-	private JLabel lbl_Position_Satz_in_Euro;
-	private JRadioButton rdbtn_Position_Stundensatz;
-	private JRadioButton rdbtn_Position_Tagessatz;
-	private JRadioButton rdbtn_Position_Honorarsatz;
-	private JButton btn_Position_Speichern;
-	private JButton btn_Optionen_Speicherpfad;
-	private JButton btn_Optionen_Speichern;
-	private JLabel lbl_Optionen_Optionen;
-	private JCheckBox chckbx_Optionen_KundenAusblenden;
+	private static JFrame frame;
+	private static JTextField textField_KundeStrasse;
+	private static JTextField textField_KundeID;
+	private static JTextField textField_KundeName;
+	private static JTextField textField_KundeOrt;
+	private static JTextField textField_KundeTelefon;
+	private static JTextField textField_KundeEmail;
+	private static JTextField textField_KundeSteuerNummer;
+	private static JTextField textField_KundeHausnummer;
+	private static JTextField textField_KundePLZ;
+	private static JTextField textField_Positionsname;
+	private static JTextField textField_Position_Kategorie_Satz_in_Euro;
+	private static final ButtonGroup buttonGroup_Position_Satz = new ButtonGroup();
+	private static JTextField textField_Optionen_Speicherpfad;
+	private static JTextField textField_Optionen_dbAdresse;
+	private static JTextField textField_Optionen_dbBenutzername;
+	private static JPasswordField passwordField_Optionen_dbPasswort;
+	private static JButton btn_Kunde_Anzeigen;
+	private static JButton btn_Kunde_Neu;
+	private static JComboBox comboBox_Kunde_Kunden;
+	private static JLabel lbl_KundeName;
+	private static JLabel lbl_KundeID;
+	private static JLabel lbl_KundeStrasse;
+	private static JLabel lbl_KundeHausnummer;
+	private static JLabel lbl_KundeOrt;
+	private static JLabel lbl_KundePLZ;
+	private static JLabel lbl_KundeTelefon;
+	private static JLabel lbl_KundeEmail;
+	private static JLabel lbl_KundeSteuerNummer;
+	private static JCheckBox chckbx_Kunde_Inaktiv;
+	private static JButton btn_Kunde_Speichern;
+	private static JLabel lblNewLabel;
+	private static JList list_Kunde_Rechnungen;
+	private static JButton btn_Kunde_Rechnung_Anzeigen;
+	private static JButton btn_Kunde_Rechnung_Korrektur;
+	private static JButton btn_Kunde_Rechnung_Neu;
+	private static JPanel panel_KundenDaten;
+	private static JPanel panel_Kunde_Speichern;
+	private static JPanel panel_Kunde_Rechnungen;
+	private static JPanel panel_Kunde_Rechnungen_Buttons;
+	private static JComboBox comboBox_Position_Positionen;
+	private static JButton btn_Position_Anzeigen;
+	private static JButton btn_Position_Neu;
+	private static JPanel panel_Position_Daten;
+	private static JLabel lbl_Position_Name;
+	private static JLabel lbl_Position_Kategorie;
+	private static JComboBox comboBox_Position_Kategorie;
+	private static JButton btn_Position_Kategorie_Neu;
+	private static JLabel lbl_Position_Satz_in_Euro;
+	private static JRadioButton rdbtn_Position_Stundensatz;
+	private static JRadioButton rdbtn_Position_Tagessatz;
+	private static JRadioButton rdbtn_Position_Honorarsatz;
+	private static JButton btn_Position_Speichern;
+	private static JButton btn_Optionen_Speicherpfad;
+	private static JButton btn_Optionen_Speichern;
+	private static JLabel lbl_Optionen_Optionen;
+	private static JCheckBox chckbx_Optionen_KundenAusblenden;
 	
-	// private JPanel contentPane;
-	private JTextField textField_Rechnung_Rechnung_Anrede;
-	private JTextField textField_Rechnung_Posten_Einheiten_1;
-	private JTextField textField_Rechnung_Posten_Satz_in_Euro_1;
-	private JTextField textField_Rechnung_Posten_Einheiten_2;
-	private JTextField textField_Rechnung_Posten_Satz_in_Euro_2;
-	private JFrame frame_Rechnung;
-	private JLabel lbl_Rechnung_Kunden_Name;
-	private JLabel lbl_Rechnung_Kunden_Strasse;
-	private JLabel lbl_Rechnung_Rechnung_PLZ_Stadt;
-	private JTextArea textArea_Rechnung_Rechnung_Betreff;
-	private JTextArea textArea_Rechnung_Rechnung_Anschreiben;
-	private JButton btn_Rechnung_Posten_Plus;
-	private JButton btn_Rechnung_Posten_Minus;
-	private JButton btn_Rechnung_Rechnung_Speichern;
-	private JButton btn_Rechnung_Rechnung_Drucken;
-	private JLabel lbl_Rechnung_Summe_Netto_in_Euro;
-	private JLabel lbl_Rechnung_Rechnung_Betrag_in_Euro;
+
 	
 	
 	// Methoden
@@ -883,530 +866,606 @@ public class GUI {
 		gbc_btn_Optionen_Speichern.gridy = 12;
 		TabOptionen.add(btn_Optionen_Speichern, gbc_btn_Optionen_Speichern);
 		
+		buttonActionListener();
 		frame.setVisible(true);
 	}
 
 
-
-	public void TabRechnung() {
-		frame_Rechnung = new JFrame();
-		frame_Rechnung.setVisible(true);
-		frame_Rechnung.setResizable(false);
-		frame_Rechnung.setAlwaysOnTop(true);
-		frame_Rechnung.setTitle("Rechnung");
-		frame_Rechnung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame_Rechnung.setBounds(100, 100, 900, 1000);
+	private void buttonActionListener() {
+		TabKunde tk1 = new TabKunde();
+		TabRechnungsposition rp1 = new TabRechnungsposition();
+		TabOptionen op1 = new TabOptionen();
 		
-//		contentPane = new JPanel();
-//		frame.getContentPane().setBorder(new EmptyBorder(5, 5, 5, 5));
-//		setContentPane(contentPane);
-//		GridBagLayout gbl_contentPane = new GridBagLayout();
-//		gbl_frame.getContentPane().columnWidths = new int[]{25, 100, 25, 0};
-//		gbl_frame.getContentPane().rowHeights = new int[]{25, 0, 0, 50, 0, 0, 0, 0, 0, 200, 0, 0, 25, 0};
-//		gbl_frame.getContentPane().columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-//		gbl_frame.getContentPane().rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-//		frame.getContentPane().setLayout(gbl_contentPane);
-		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]{25, 100, 25, 0};
-        gridBagLayout.rowHeights = new int[]{25, 0, 0, 50, 0, 0, 0, 0, 0, 200, 0, 0, 25, 0};
-        gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-        frame_Rechnung.getContentPane().setLayout(gridBagLayout);
-		
-		JPanel panel_Rechnung_Kunden_Daten = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Kunden_Daten = new GridBagConstraints();
-		gbc_panel_Rechnung_Kunden_Daten.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_panel_Rechnung_Kunden_Daten.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_Rechnung_Kunden_Daten.gridx = 1;
-		gbc_panel_Rechnung_Kunden_Daten.gridy = 1;
-		frame_Rechnung.getContentPane().add(panel_Rechnung_Kunden_Daten, gbc_panel_Rechnung_Kunden_Daten);
-		GridBagLayout gbl_panel_Rechnung_Kunden_Daten = new GridBagLayout();
-		gbl_panel_Rechnung_Kunden_Daten.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_Rechnung_Kunden_Daten.rowHeights = new int[]{20, 0, 10, 0, 10, 0, 20, 0};
-		gbl_panel_Rechnung_Kunden_Daten.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Kunden_Daten.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_Rechnung_Kunden_Daten.setLayout(gbl_panel_Rechnung_Kunden_Daten);
-		
-		lbl_Rechnung_Kunden_Name = new JLabel("KundenName");
-		lbl_Rechnung_Kunden_Name.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Kunden_Name = new GridBagConstraints();
-		gbc_lbl_Rechnung_Kunden_Name.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Kunden_Name.insets = new Insets(0, 0, 5, 0);
-		gbc_lbl_Rechnung_Kunden_Name.gridx = 1;
-		gbc_lbl_Rechnung_Kunden_Name.gridy = 1;
-		panel_Rechnung_Kunden_Daten.add(lbl_Rechnung_Kunden_Name, gbc_lbl_Rechnung_Kunden_Name);
-		
-		lbl_Rechnung_Kunden_Strasse = new JLabel("KundenStra\u00DFe");
-		lbl_Rechnung_Kunden_Strasse.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Kunden_Strasse = new GridBagConstraints();
-		gbc_lbl_Rechnung_Kunden_Strasse.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Kunden_Strasse.insets = new Insets(0, 0, 5, 0);
-		gbc_lbl_Rechnung_Kunden_Strasse.gridx = 1;
-		gbc_lbl_Rechnung_Kunden_Strasse.gridy = 3;
-		panel_Rechnung_Kunden_Daten.add(lbl_Rechnung_Kunden_Strasse, gbc_lbl_Rechnung_Kunden_Strasse);
-		
-		lbl_Rechnung_Rechnung_PLZ_Stadt = new JLabel("KundePLZ/Stadt");
-		lbl_Rechnung_Rechnung_PLZ_Stadt.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_PLZ_Stadt = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_PLZ_Stadt.insets = new Insets(0, 0, 5, 0);
-		gbc_lbl_Rechnung_Rechnung_PLZ_Stadt.gridx = 1;
-		gbc_lbl_Rechnung_Rechnung_PLZ_Stadt.gridy = 5;
-		panel_Rechnung_Kunden_Daten.add(lbl_Rechnung_Rechnung_PLZ_Stadt, gbc_lbl_Rechnung_Rechnung_PLZ_Stadt);
-		
-		JLabel lbl_Rechnung_Rechnung_Betreff = new JLabel("Betreff");
-		lbl_Rechnung_Rechnung_Betreff.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Betreff = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Betreff.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Betreff.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Rechnung_Rechnung_Betreff.gridx = 1;
-		gbc_lbl_Rechnung_Rechnung_Betreff.gridy = 2;
-		frame_Rechnung.getContentPane().add(lbl_Rechnung_Rechnung_Betreff, gbc_lbl_Rechnung_Rechnung_Betreff);
-		
-		textArea_Rechnung_Rechnung_Betreff = new JTextArea();
-		textArea_Rechnung_Rechnung_Betreff.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textArea_Rechnung_Rechnung_Betreff.setPreferredSize(new Dimension(575, 75));
-		textArea_Rechnung_Rechnung_Betreff.setMinimumSize(new Dimension(575, 75));
-		textArea_Rechnung_Rechnung_Betreff.setMaximumSize(new Dimension(575, 75));
-		GridBagConstraints gbc_textArea_Rechnung_Rechnung_Betreff = new GridBagConstraints();
-		gbc_textArea_Rechnung_Rechnung_Betreff.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea_Rechnung_Rechnung_Betreff.fill = GridBagConstraints.BOTH;
-		gbc_textArea_Rechnung_Rechnung_Betreff.gridx = 1;
-		gbc_textArea_Rechnung_Rechnung_Betreff.gridy = 3;
-		frame_Rechnung.getContentPane().add(textArea_Rechnung_Rechnung_Betreff, gbc_textArea_Rechnung_Rechnung_Betreff);
-		
-		JLabel lbl_Rechnung_Rechnung_Anrede = new JLabel("Anrede");
-		lbl_Rechnung_Rechnung_Anrede.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Anrede = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Anrede.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Anrede.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Rechnung_Rechnung_Anrede.gridx = 1;
-		gbc_lbl_Rechnung_Rechnung_Anrede.gridy = 4;
-		frame_Rechnung.getContentPane().add(lbl_Rechnung_Rechnung_Anrede, gbc_lbl_Rechnung_Rechnung_Anrede);
-		
-		textField_Rechnung_Rechnung_Anrede = new JTextField();
-		textField_Rechnung_Rechnung_Anrede.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_Rechnung_Rechnung_Anrede.setPreferredSize(new Dimension(575, 25));
-		textField_Rechnung_Rechnung_Anrede.setMinimumSize(new Dimension(575, 25));
-		textField_Rechnung_Rechnung_Anrede.setMaximumSize(new Dimension(575, 25));
-		GridBagConstraints gbc_textField_Rechnung_Rechnung_Anrede = new GridBagConstraints();
-		gbc_textField_Rechnung_Rechnung_Anrede.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_Rechnung_Rechnung_Anrede.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_Rechnung_Rechnung_Anrede.gridx = 1;
-		gbc_textField_Rechnung_Rechnung_Anrede.gridy = 5;
-		frame_Rechnung.getContentPane().add(textField_Rechnung_Rechnung_Anrede, gbc_textField_Rechnung_Rechnung_Anrede);
-		textField_Rechnung_Rechnung_Anrede.setColumns(10);
-		
-		JLabel lbl_Rechnung_Rechnung_Anschreiben = new JLabel("Anschreiben");
-		lbl_Rechnung_Rechnung_Anschreiben.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Anschreiben = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Anschreiben.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Anschreiben.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Rechnung_Rechnung_Anschreiben.gridx = 1;
-		gbc_lbl_Rechnung_Rechnung_Anschreiben.gridy = 6;
-		frame_Rechnung.getContentPane().add(lbl_Rechnung_Rechnung_Anschreiben, gbc_lbl_Rechnung_Rechnung_Anschreiben);
-		
-		JPanel panel_Rechnung_Anschreiben = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Anschreiben = new GridBagConstraints();
-		gbc_panel_Rechnung_Anschreiben.fill = GridBagConstraints.BOTH;
-		gbc_panel_Rechnung_Anschreiben.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_Rechnung_Anschreiben.gridx = 1;
-		gbc_panel_Rechnung_Anschreiben.gridy = 7;
-		frame_Rechnung.getContentPane().add(panel_Rechnung_Anschreiben, gbc_panel_Rechnung_Anschreiben);
-		GridBagLayout gbl_panel_Rechnung_Anschreiben = new GridBagLayout();
-		gbl_panel_Rechnung_Anschreiben.columnWidths = new int[]{100, 0};
-		gbl_panel_Rechnung_Anschreiben.rowHeights = new int[]{0, 0};
-		gbl_panel_Rechnung_Anschreiben.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Anschreiben.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		panel_Rechnung_Anschreiben.setLayout(gbl_panel_Rechnung_Anschreiben);
-		
-		textArea_Rechnung_Rechnung_Anschreiben = new JTextArea();
-		textArea_Rechnung_Rechnung_Anschreiben.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textArea_Rechnung_Rechnung_Anschreiben.setMinimumSize(new Dimension(575, 130));
-		textArea_Rechnung_Rechnung_Anschreiben.setMaximumSize(new Dimension(575, 130));
-		textArea_Rechnung_Rechnung_Anschreiben.setPreferredSize(new Dimension(575, 130));
-		GridBagConstraints gbc_textArea_Rechnung_Rechnung_Anschreiben = new GridBagConstraints();
-		gbc_textArea_Rechnung_Rechnung_Anschreiben.fill = GridBagConstraints.BOTH;
-		gbc_textArea_Rechnung_Rechnung_Anschreiben.gridx = 0;
-		gbc_textArea_Rechnung_Rechnung_Anschreiben.gridy = 0;
-		panel_Rechnung_Anschreiben.add(textArea_Rechnung_Rechnung_Anschreiben, gbc_textArea_Rechnung_Rechnung_Anschreiben);
-		
-		JPanel panel_Rechnung_Posten_Überschrift = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Posten_Überschrift = new GridBagConstraints();
-		gbc_panel_Rechnung_Posten_Überschrift.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_Rechnung_Posten_Überschrift.anchor = GridBagConstraints.SOUTH;
-		gbc_panel_Rechnung_Posten_Überschrift.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_Rechnung_Posten_Überschrift.gridx = 1;
-		gbc_panel_Rechnung_Posten_Überschrift.gridy = 8;
-		frame_Rechnung.getContentPane().add(panel_Rechnung_Posten_Überschrift, gbc_panel_Rechnung_Posten_Überschrift);
-		GridBagLayout gbl_panel_Rechnung_Posten_Überschrift = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Überschrift.columnWidths = new int[]{0, 30, 15, 250, 30, 100, 25, 60, 25, 110, 25, 110, 20, 0};
-		gbl_panel_Rechnung_Posten_Überschrift.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_Rechnung_Posten_Überschrift.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_Überschrift.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_Überschrift.setLayout(gbl_panel_Rechnung_Posten_Überschrift);
-		
-		JLabel lbl_Rechnung_Rechnung_Nr = new JLabel("Nr.");
-		lbl_Rechnung_Rechnung_Nr.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Nr = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Nr.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Nr.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Rechnung_Nr.gridx = 1;
-		gbc_lbl_Rechnung_Rechnung_Nr.gridy = 1;
-		panel_Rechnung_Posten_Überschrift.add(lbl_Rechnung_Rechnung_Nr, gbc_lbl_Rechnung_Rechnung_Nr);
-		
-		JLabel lbl_Rechnung_Rechnung_Bezeichnung = new JLabel("Bezeichnung");
-		lbl_Rechnung_Rechnung_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Bezeichnung = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Bezeichnung.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Bezeichnung.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Rechnung_Bezeichnung.gridx = 3;
-		gbc_lbl_Rechnung_Rechnung_Bezeichnung.gridy = 1;
-		panel_Rechnung_Posten_Überschrift.add(lbl_Rechnung_Rechnung_Bezeichnung, gbc_lbl_Rechnung_Rechnung_Bezeichnung);
-		
-		JLabel lbl_Rechnung_Rechnung_Satz = new JLabel("Satz");
-		lbl_Rechnung_Rechnung_Satz.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Satz = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Satz.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Satz.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Rechnung_Satz.gridx = 5;
-		gbc_lbl_Rechnung_Rechnung_Satz.gridy = 1;
-		panel_Rechnung_Posten_Überschrift.add(lbl_Rechnung_Rechnung_Satz, gbc_lbl_Rechnung_Rechnung_Satz);
-		
-		JLabel lbl_Rechnung_Rechnung_Einheiten = new JLabel("Einheiten");
-		lbl_Rechnung_Rechnung_Einheiten.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Einheiten = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Einheiten.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Einheiten.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Rechnung_Einheiten.gridx = 7;
-		gbc_lbl_Rechnung_Rechnung_Einheiten.gridy = 1;
-		panel_Rechnung_Posten_Überschrift.add(lbl_Rechnung_Rechnung_Einheiten, gbc_lbl_Rechnung_Rechnung_Einheiten);
-		
-		JLabel lbl_Rechnungen_Rechnung_Satz_in_Euro = new JLabel("Satz/\u20AC");
-		lbl_Rechnungen_Rechnung_Satz_in_Euro.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnungen_Rechnung_Satz_in_Euro = new GridBagConstraints();
-		gbc_lbl_Rechnungen_Rechnung_Satz_in_Euro.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnungen_Rechnung_Satz_in_Euro.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnungen_Rechnung_Satz_in_Euro.gridx = 9;
-		gbc_lbl_Rechnungen_Rechnung_Satz_in_Euro.gridy = 1;
-		panel_Rechnung_Posten_Überschrift.add(lbl_Rechnungen_Rechnung_Satz_in_Euro, gbc_lbl_Rechnungen_Rechnung_Satz_in_Euro);
-		
-		JLabel lbl_Rechnung_rechnung_Gesamt_in_Euro = new JLabel("Gesamt/\u20AC");
-		lbl_Rechnung_rechnung_Gesamt_in_Euro.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro = new GridBagConstraints();
-		gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro.gridx = 11;
-		gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro.gridy = 1;
-		panel_Rechnung_Posten_Überschrift.add(lbl_Rechnung_rechnung_Gesamt_in_Euro, gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro);
-		
-		JScrollPane scrollPane_Rechnung_Posten = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_Rechnung_Posten = new GridBagConstraints();
-		gbc_scrollPane_Rechnung_Posten.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_Rechnung_Posten.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_Rechnung_Posten.gridx = 1;
-		gbc_scrollPane_Rechnung_Posten.gridy = 9;
-		frame_Rechnung.getContentPane().add(scrollPane_Rechnung_Posten, gbc_scrollPane_Rechnung_Posten);
-		
-		JPanel panel_Rechnung_Posten_Gesamt = new JPanel();
-		panel_Rechnung_Posten_Gesamt.setPreferredSize(new Dimension(575, 150));
-		panel_Rechnung_Posten_Gesamt.setMinimumSize(new Dimension(575, 150));
-		panel_Rechnung_Posten_Gesamt.setMaximumSize(new Dimension(575, 150));
-		scrollPane_Rechnung_Posten.setViewportView(panel_Rechnung_Posten_Gesamt);
-		GridBagLayout gbl_panel_Rechnung_Posten_Gesamt = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Gesamt.columnWidths = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_Gesamt.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_Rechnung_Posten_Gesamt.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_Gesamt.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_Gesamt.setLayout(gbl_panel_Rechnung_Posten_Gesamt);
-		
-		JPanel panel_Rechnung_Posten_sub = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Posten_sub = new GridBagConstraints();
-		gbc_panel_Rechnung_Posten_sub.anchor = GridBagConstraints.NORTH;
-		gbc_panel_Rechnung_Posten_sub.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_Rechnung_Posten_sub.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_Rechnung_Posten_sub.gridx = 0;
-		gbc_panel_Rechnung_Posten_sub.gridy = 0;
-		panel_Rechnung_Posten_Gesamt.add(panel_Rechnung_Posten_sub, gbc_panel_Rechnung_Posten_sub);
-		GridBagLayout gbl_panel_Rechnung_Posten_sub = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_sub.columnWidths = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_sub.rowHeights = new int[]{25, 25, 0, 0};
-		gbl_panel_Rechnung_Posten_sub.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_sub.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_sub.setLayout(gbl_panel_Rechnung_Posten_sub);
-		
-		JPanel panel_Rechnung_Posten_Posten_1 = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Posten_Posten_1 = new GridBagConstraints();
-		gbc_panel_Rechnung_Posten_Posten_1.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_Rechnung_Posten_Posten_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_Rechnung_Posten_Posten_1.gridx = 0;
-		gbc_panel_Rechnung_Posten_Posten_1.gridy = 0;
-		panel_Rechnung_Posten_sub.add(panel_Rechnung_Posten_Posten_1, gbc_panel_Rechnung_Posten_Posten_1);
-		GridBagLayout gbl_panel_Rechnung_Posten_Posten_1 = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Posten_1.columnWidths = new int[]{0, 30, 15, 250, 25, 100, 25, 60, 25, 110, 25, 110, 20, 0};
-		gbl_panel_Rechnung_Posten_Posten_1.rowHeights = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_Posten_1.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_Posten_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_Posten_1.setLayout(gbl_panel_Rechnung_Posten_Posten_1);
-		
-		JLabel lbl_Rechnung_Posten_Nr_1 = new JLabel("123");
-		lbl_Rechnung_Posten_Nr_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lbl_Rechnung_Posten_Nr_1 = new GridBagConstraints();
-		gbc_lbl_Rechnung_Posten_Nr_1.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Posten_Nr_1.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Posten_Nr_1.gridx = 1;
-		gbc_lbl_Rechnung_Posten_Nr_1.gridy = 0;
-		panel_Rechnung_Posten_Posten_1.add(lbl_Rechnung_Posten_Nr_1, gbc_lbl_Rechnung_Posten_Nr_1);
-		
-		JComboBox comboBox_Rechnung_Posten_Bezeichnung_1 = new JComboBox();
-		comboBox_Rechnung_Posten_Bezeichnung_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_comboBox_Rechnung_Posten_Bezeichnung_1 = new GridBagConstraints();
-		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.gridx = 3;
-		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.gridy = 0;
-		panel_Rechnung_Posten_Posten_1.add(comboBox_Rechnung_Posten_Bezeichnung_1, gbc_comboBox_Rechnung_Posten_Bezeichnung_1);
-		
-		JLabel lbl_Rechnung_Posten_Satz_1 = new JLabel("Honorarbasis");
-		lbl_Rechnung_Posten_Satz_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lbl_Rechnung_Posten_Satz_1 = new GridBagConstraints();
-		gbc_lbl_Rechnung_Posten_Satz_1.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Posten_Satz_1.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Posten_Satz_1.gridx = 5;
-		gbc_lbl_Rechnung_Posten_Satz_1.gridy = 0;
-		panel_Rechnung_Posten_Posten_1.add(lbl_Rechnung_Posten_Satz_1, gbc_lbl_Rechnung_Posten_Satz_1);
-		
-		textField_Rechnung_Posten_Einheiten_1 = new JTextField();
-		textField_Rechnung_Posten_Einheiten_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_textField_Rechnung_Posten_Einheiten_1 = new GridBagConstraints();
-		gbc_textField_Rechnung_Posten_Einheiten_1.insets = new Insets(0, 0, 0, 5);
-		gbc_textField_Rechnung_Posten_Einheiten_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_Rechnung_Posten_Einheiten_1.gridx = 7;
-		gbc_textField_Rechnung_Posten_Einheiten_1.gridy = 0;
-		panel_Rechnung_Posten_Posten_1.add(textField_Rechnung_Posten_Einheiten_1, gbc_textField_Rechnung_Posten_Einheiten_1);
-		textField_Rechnung_Posten_Einheiten_1.setColumns(10);
-		
-		textField_Rechnung_Posten_Satz_in_Euro_1 = new JTextField();
-		textField_Rechnung_Posten_Satz_in_Euro_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_textField_Rechnung_Posten_Satz_in_Euro_1 = new GridBagConstraints();
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.insets = new Insets(0, 0, 0, 5);
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.gridx = 9;
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.gridy = 0;
-		panel_Rechnung_Posten_Posten_1.add(textField_Rechnung_Posten_Satz_in_Euro_1, gbc_textField_Rechnung_Posten_Satz_in_Euro_1);
-		textField_Rechnung_Posten_Satz_in_Euro_1.setColumns(10);
-		
-		JLabel lbl_Rechnung_Posten_Gesamt_in_Euro_1 = new JLabel("1.000.000,00\u20AC");
-		lbl_Rechnung_Posten_Gesamt_in_Euro_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1 = new GridBagConstraints();
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.anchor = GridBagConstraints.EAST;
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.gridx = 11;
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.gridy = 0;
-		panel_Rechnung_Posten_Posten_1.add(lbl_Rechnung_Posten_Gesamt_in_Euro_1, gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1);
-		
-		JPanel panel_Rechnung_Posten_Posten_2 = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Posten_Posten_2 = new GridBagConstraints();
-		gbc_panel_Rechnung_Posten_Posten_2.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_Rechnung_Posten_Posten_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_Rechnung_Posten_Posten_2.gridx = 0;
-		gbc_panel_Rechnung_Posten_Posten_2.gridy = 1;
-		panel_Rechnung_Posten_sub.add(panel_Rechnung_Posten_Posten_2, gbc_panel_Rechnung_Posten_Posten_2);
-		GridBagLayout gbl_panel_Rechnung_Posten_Posten_2 = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Posten_2.columnWidths = new int[]{0, 30, 15, 250, 25, 100, 25, 60, 25, 110, 25, 110, 20, 0};
-		gbl_panel_Rechnung_Posten_Posten_2.rowHeights = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_Posten_2.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_Posten_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_Posten_2.setLayout(gbl_panel_Rechnung_Posten_Posten_2);
-		
-		JLabel lbl_Rechnung_Posten_Nr_2 = new JLabel("123");
-		lbl_Rechnung_Posten_Nr_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lbl_Rechnung_Posten_Nr_2 = new GridBagConstraints();
-		gbc_lbl_Rechnung_Posten_Nr_2.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Posten_Nr_2.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Posten_Nr_2.gridx = 1;
-		gbc_lbl_Rechnung_Posten_Nr_2.gridy = 0;
-		panel_Rechnung_Posten_Posten_2.add(lbl_Rechnung_Posten_Nr_2, gbc_lbl_Rechnung_Posten_Nr_2);
-		
-		JComboBox comboBox_Rechung_Posten_Bezeichnung_2 = new JComboBox();
-		comboBox_Rechung_Posten_Bezeichnung_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_comboBox_Rechung_Posten_Bezeichnung_2 = new GridBagConstraints();
-		gbc_comboBox_Rechung_Posten_Bezeichnung_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_Rechung_Posten_Bezeichnung_2.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBox_Rechung_Posten_Bezeichnung_2.gridx = 3;
-		gbc_comboBox_Rechung_Posten_Bezeichnung_2.gridy = 0;
-		panel_Rechnung_Posten_Posten_2.add(comboBox_Rechung_Posten_Bezeichnung_2, gbc_comboBox_Rechung_Posten_Bezeichnung_2);
-		
-		JLabel lbl_Rechnung_Posten_Satz_2 = new JLabel("Honorarbasis");
-		lbl_Rechnung_Posten_Satz_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lbl_Rechnung_Posten_Satz_2 = new GridBagConstraints();
-		gbc_lbl_Rechnung_Posten_Satz_2.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Posten_Satz_2.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Posten_Satz_2.gridx = 5;
-		gbc_lbl_Rechnung_Posten_Satz_2.gridy = 0;
-		panel_Rechnung_Posten_Posten_2.add(lbl_Rechnung_Posten_Satz_2, gbc_lbl_Rechnung_Posten_Satz_2);
-		
-		textField_Rechnung_Posten_Einheiten_2 = new JTextField();
-		textField_Rechnung_Posten_Einheiten_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_Rechnung_Posten_Einheiten_2.setColumns(10);
-		GridBagConstraints gbc_textField_Rechnung_Posten_Einheiten_2 = new GridBagConstraints();
-		gbc_textField_Rechnung_Posten_Einheiten_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_Rechnung_Posten_Einheiten_2.insets = new Insets(0, 0, 0, 5);
-		gbc_textField_Rechnung_Posten_Einheiten_2.gridx = 7;
-		gbc_textField_Rechnung_Posten_Einheiten_2.gridy = 0;
-		panel_Rechnung_Posten_Posten_2.add(textField_Rechnung_Posten_Einheiten_2, gbc_textField_Rechnung_Posten_Einheiten_2);
-		
-		textField_Rechnung_Posten_Satz_in_Euro_2 = new JTextField();
-		textField_Rechnung_Posten_Satz_in_Euro_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_Rechnung_Posten_Satz_in_Euro_2.setColumns(10);
-		GridBagConstraints gbc_textField_Rechnung_Posten_Satz_in_Euro_2 = new GridBagConstraints();
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.insets = new Insets(0, 0, 0, 5);
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.gridx = 9;
-		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.gridy = 0;
-		panel_Rechnung_Posten_Posten_2.add(textField_Rechnung_Posten_Satz_in_Euro_2, gbc_textField_Rechnung_Posten_Satz_in_Euro_2);
-		
-		JLabel lbl_Rechnung_Posten_Gesamt_in_Euro_2 = new JLabel("1.000.000,00\u20AC");
-		lbl_Rechnung_Posten_Gesamt_in_Euro_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2 = new GridBagConstraints();
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.anchor = GridBagConstraints.EAST;
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.gridx = 11;
-		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.gridy = 0;
-		panel_Rechnung_Posten_Posten_2.add(lbl_Rechnung_Posten_Gesamt_in_Euro_2, gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2);
-		
-		JPanel panel_Rechnung_Posten_Buttons = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Posten_Buttons = new GridBagConstraints();
-		gbc_panel_Rechnung_Posten_Buttons.fill = GridBagConstraints.BOTH;
-		gbc_panel_Rechnung_Posten_Buttons.gridx = 0;
-		gbc_panel_Rechnung_Posten_Buttons.gridy = 1;
-		panel_Rechnung_Posten_Gesamt.add(panel_Rechnung_Posten_Buttons, gbc_panel_Rechnung_Posten_Buttons);
-		GridBagLayout gbl_panel_Rechnung_Posten_Buttons = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Buttons.columnWidths = new int[]{0, 0, 10, 0, 0};
-		gbl_panel_Rechnung_Posten_Buttons.rowHeights = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_Buttons.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_Buttons.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_Buttons.setLayout(gbl_panel_Rechnung_Posten_Buttons);
-		
-		btn_Rechnung_Posten_Plus = new JButton("+");
-		btn_Rechnung_Posten_Plus.setPreferredSize(new Dimension(50, 50));
-		btn_Rechnung_Posten_Plus.setMinimumSize(new Dimension(50, 50));
-		btn_Rechnung_Posten_Plus.setMaximumSize(new Dimension(50, 50));
-		btn_Rechnung_Posten_Plus.setFont(new Font("Tahoma", Font.BOLD, 18));
-		GridBagConstraints gbc_btn_Rechnung_Posten_Plus = new GridBagConstraints();
-		gbc_btn_Rechnung_Posten_Plus.insets = new Insets(0, 0, 0, 5);
-		gbc_btn_Rechnung_Posten_Plus.gridx = 1;
-		gbc_btn_Rechnung_Posten_Plus.gridy = 0;
-		panel_Rechnung_Posten_Buttons.add(btn_Rechnung_Posten_Plus, gbc_btn_Rechnung_Posten_Plus);
-		
-		btn_Rechnung_Posten_Minus = new JButton("-");
-		btn_Rechnung_Posten_Minus.setPreferredSize(new Dimension(50, 50));
-		btn_Rechnung_Posten_Minus.setMinimumSize(new Dimension(50, 50));
-		btn_Rechnung_Posten_Minus.setMaximumSize(new Dimension(50, 50));
-		btn_Rechnung_Posten_Minus.setFont(new Font("Tahoma", Font.BOLD, 18));
-		GridBagConstraints gbc_btn_Rechnung_Posten_Minus = new GridBagConstraints();
-		gbc_btn_Rechnung_Posten_Minus.gridx = 3;
-		gbc_btn_Rechnung_Posten_Minus.gridy = 0;
-		panel_Rechnung_Posten_Buttons.add(btn_Rechnung_Posten_Minus, gbc_btn_Rechnung_Posten_Minus);
-		
-		JPanel panel_Rechnung_Summe = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Summe = new GridBagConstraints();
-		gbc_panel_Rechnung_Summe.anchor = GridBagConstraints.EAST;
-		gbc_panel_Rechnung_Summe.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_Rechnung_Summe.gridx = 1;
-		gbc_panel_Rechnung_Summe.gridy = 10;
-		frame_Rechnung.getContentPane().add(panel_Rechnung_Summe, gbc_panel_Rechnung_Summe);
-		GridBagLayout gbl_panel_Rechnung_Summe = new GridBagLayout();
-		gbl_panel_Rechnung_Summe.columnWidths = new int[]{25, 0, 25, 120, 20, 0};
-		gbl_panel_Rechnung_Summe.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_Rechnung_Summe.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Summe.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		panel_Rechnung_Summe.setLayout(gbl_panel_Rechnung_Summe);
-		
-		JLabel lbl_Rechnung_Summe_Netto = new JLabel("Summe Netto: ");
-		lbl_Rechnung_Summe_Netto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Summe_Netto = new GridBagConstraints();
-		gbc_lbl_Rechnung_Summe_Netto.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Summe_Netto.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Rechnung_Summe_Netto.gridx = 1;
-		gbc_lbl_Rechnung_Summe_Netto.gridy = 0;
-		panel_Rechnung_Summe.add(lbl_Rechnung_Summe_Netto, gbc_lbl_Rechnung_Summe_Netto);
-		
-		lbl_Rechnung_Summe_Netto_in_Euro = new JLabel("1.000.000,00\u20AC");
-		lbl_Rechnung_Summe_Netto_in_Euro.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Summe_Netto_in_Euro = new GridBagConstraints();
-		gbc_lbl_Rechnung_Summe_Netto_in_Euro.anchor = GridBagConstraints.EAST;
-		gbc_lbl_Rechnung_Summe_Netto_in_Euro.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl_Rechnung_Summe_Netto_in_Euro.gridx = 3;
-		gbc_lbl_Rechnung_Summe_Netto_in_Euro.gridy = 0;
-		panel_Rechnung_Summe.add(lbl_Rechnung_Summe_Netto_in_Euro, gbc_lbl_Rechnung_Summe_Netto_in_Euro);
-		
-		JLabel lbl_Rechnung_Rechnung_Betrag = new JLabel("Rechnungsbetrag: ");
-		lbl_Rechnung_Rechnung_Betrag.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Betrag = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Betrag.anchor = GridBagConstraints.WEST;
-		gbc_lbl_Rechnung_Rechnung_Betrag.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Rechnung_Betrag.gridx = 1;
-		gbc_lbl_Rechnung_Rechnung_Betrag.gridy = 1;
-		panel_Rechnung_Summe.add(lbl_Rechnung_Rechnung_Betrag, gbc_lbl_Rechnung_Rechnung_Betrag);
-		
-		lbl_Rechnung_Rechnung_Betrag_in_Euro = new JLabel("0.00\u20AC");
-		lbl_Rechnung_Rechnung_Betrag_in_Euro.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lbl_Rechnung_Rechnung_Betrag_in_Euro = new GridBagConstraints();
-		gbc_lbl_Rechnung_Rechnung_Betrag_in_Euro.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl_Rechnung_Rechnung_Betrag_in_Euro.anchor = GridBagConstraints.EAST;
-		gbc_lbl_Rechnung_Rechnung_Betrag_in_Euro.gridx = 3;
-		gbc_lbl_Rechnung_Rechnung_Betrag_in_Euro.gridy = 1;
-		panel_Rechnung_Summe.add(lbl_Rechnung_Rechnung_Betrag_in_Euro, gbc_lbl_Rechnung_Rechnung_Betrag_in_Euro);
-		
-		JPanel panel_Rechnung_Speichern_Buttons = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Speichern_Buttons = new GridBagConstraints();
-		gbc_panel_Rechnung_Speichern_Buttons.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_Rechnung_Speichern_Buttons.fill = GridBagConstraints.BOTH;
-		gbc_panel_Rechnung_Speichern_Buttons.gridx = 1;
-		gbc_panel_Rechnung_Speichern_Buttons.gridy = 11;
-		frame_Rechnung.getContentPane().add(panel_Rechnung_Speichern_Buttons, gbc_panel_Rechnung_Speichern_Buttons);
-		GridBagLayout gbl_panel_Rechnung_Speichern_Buttons = new GridBagLayout();
-		gbl_panel_Rechnung_Speichern_Buttons.columnWidths = new int[]{0, 25, 0, 0};
-		gbl_panel_Rechnung_Speichern_Buttons.rowHeights = new int[]{0, 0};
-		gbl_panel_Rechnung_Speichern_Buttons.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Speichern_Buttons.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		panel_Rechnung_Speichern_Buttons.setLayout(gbl_panel_Rechnung_Speichern_Buttons);
-		
-		btn_Rechnung_Rechnung_Speichern = new JButton("Speichern");
-		btn_Rechnung_Rechnung_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btn_Rechnung_Rechnung_Speichern.setPreferredSize(new Dimension(130, 25));
-		btn_Rechnung_Rechnung_Speichern.setMinimumSize(new Dimension(130, 25));
-		btn_Rechnung_Rechnung_Speichern.setMaximumSize(new Dimension(130, 25));
-		GridBagConstraints gbc_btn_Rechnung_Rechnung_Speichern = new GridBagConstraints();
-		gbc_btn_Rechnung_Rechnung_Speichern.insets = new Insets(0, 0, 0, 5);
-		gbc_btn_Rechnung_Rechnung_Speichern.gridx = 0;
-		gbc_btn_Rechnung_Rechnung_Speichern.gridy = 0;
-		panel_Rechnung_Speichern_Buttons.add(btn_Rechnung_Rechnung_Speichern, gbc_btn_Rechnung_Rechnung_Speichern);
-		
-		JPanel panel_Rechnung_Abstandshalter_1 = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Abstandshalter_1 = new GridBagConstraints();
-		gbc_panel_Rechnung_Abstandshalter_1.insets = new Insets(0, 0, 0, 5);
-		gbc_panel_Rechnung_Abstandshalter_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_Rechnung_Abstandshalter_1.gridx = 1;
-		gbc_panel_Rechnung_Abstandshalter_1.gridy = 0;
-		panel_Rechnung_Speichern_Buttons.add(panel_Rechnung_Abstandshalter_1, gbc_panel_Rechnung_Abstandshalter_1);
-		
-		btn_Rechnung_Rechnung_Drucken = new JButton("Speichern und Drucken");
-		btn_Rechnung_Rechnung_Drucken.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btn_Rechnung_Rechnung_Drucken.setPreferredSize(new Dimension(230, 25));
-		btn_Rechnung_Rechnung_Drucken.setMinimumSize(new Dimension(230, 25));
-		btn_Rechnung_Rechnung_Drucken.setMaximumSize(new Dimension(230, 25));
-		GridBagConstraints gbc_btn_Rechnung_Rechnung_Drucken = new GridBagConstraints();
-		gbc_btn_Rechnung_Rechnung_Drucken.gridx = 2;
-		gbc_btn_Rechnung_Rechnung_Drucken.gridy = 0;
-		panel_Rechnung_Speichern_Buttons.add(btn_Rechnung_Rechnung_Drucken, gbc_btn_Rechnung_Rechnung_Drucken);
+		btn_Kunde_Rechnung_Neu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tk1.rechnungStellen();
+			}
+		});
 	}
+	
+	
+	public void tabAktualisieren (){
+		
+	}
+
+
+
+	// Getter/Setter	
+	
+	
+	
+	public static JFrame getFrame() {
+		return frame;
+	}
+
+
+	public static void setFrame(JFrame frame) {
+		GUI.frame = frame;
+	}
+
+
+	public static JTextField getTextField_KundeStrasse() {
+		return textField_KundeStrasse;
+	}
+
+
+	public static void setTextField_KundeStrasse(JTextField textField_KundeStrasse) {
+		GUI.textField_KundeStrasse = textField_KundeStrasse;
+	}
+
+
+	public static JTextField getTextField_KundeID() {
+		return textField_KundeID;
+	}
+
+
+	public static void setTextField_KundeID(JTextField textField_KundeID) {
+		GUI.textField_KundeID = textField_KundeID;
+	}
+
+
+	public static JTextField getTextField_KundeName() {
+		return textField_KundeName;
+	}
+
+
+	public static void setTextField_KundeName(JTextField textField_KundeName) {
+		GUI.textField_KundeName = textField_KundeName;
+	}
+
+
+	public static JTextField getTextField_KundeOrt() {
+		return textField_KundeOrt;
+	}
+
+
+	public static void setTextField_KundeOrt(JTextField textField_KundeOrt) {
+		GUI.textField_KundeOrt = textField_KundeOrt;
+	}
+
+
+	public static JTextField getTextField_KundeTelefon() {
+		return textField_KundeTelefon;
+	}
+
+
+	public static void setTextField_KundeTelefon(JTextField textField_KundeTelefon) {
+		GUI.textField_KundeTelefon = textField_KundeTelefon;
+	}
+
+
+	public static JTextField getTextField_KundeEmail() {
+		return textField_KundeEmail;
+	}
+
+
+	public static void setTextField_KundeEmail(JTextField textField_KundeEmail) {
+		GUI.textField_KundeEmail = textField_KundeEmail;
+	}
+
+
+	public static JTextField getTextField_KundeSteuerNummer() {
+		return textField_KundeSteuerNummer;
+	}
+
+
+	public static void setTextField_KundeSteuerNummer(JTextField textField_KundeSteuerNummer) {
+		GUI.textField_KundeSteuerNummer = textField_KundeSteuerNummer;
+	}
+
+
+	public static JTextField getTextField_KundeHausnummer() {
+		return textField_KundeHausnummer;
+	}
+
+
+	public static void setTextField_KundeHausnummer(JTextField textField_KundeHausnummer) {
+		GUI.textField_KundeHausnummer = textField_KundeHausnummer;
+	}
+
+
+	public static JTextField getTextField_KundePLZ() {
+		return textField_KundePLZ;
+	}
+
+
+	public static void setTextField_KundePLZ(JTextField textField_KundePLZ) {
+		GUI.textField_KundePLZ = textField_KundePLZ;
+	}
+
+
+	public static JTextField getTextField_Positionsname() {
+		return textField_Positionsname;
+	}
+
+
+	public static void setTextField_Positionsname(JTextField textField_Positionsname) {
+		GUI.textField_Positionsname = textField_Positionsname;
+	}
+
+
+	public static JTextField getTextField_Position_Kategorie_Satz_in_Euro() {
+		return textField_Position_Kategorie_Satz_in_Euro;
+	}
+
+
+	public static void setTextField_Position_Kategorie_Satz_in_Euro(JTextField textField_Position_Kategorie_Satz_in_Euro) {
+		GUI.textField_Position_Kategorie_Satz_in_Euro = textField_Position_Kategorie_Satz_in_Euro;
+	}
+
+
+	public static JTextField getTextField_Optionen_Speicherpfad() {
+		return textField_Optionen_Speicherpfad;
+	}
+
+
+	public static void setTextField_Optionen_Speicherpfad(JTextField textField_Optionen_Speicherpfad) {
+		GUI.textField_Optionen_Speicherpfad = textField_Optionen_Speicherpfad;
+	}
+
+
+	public static JTextField getTextField_Optionen_dbAdresse() {
+		return textField_Optionen_dbAdresse;
+	}
+
+
+	public static void setTextField_Optionen_dbAdresse(JTextField textField_Optionen_dbAdresse) {
+		GUI.textField_Optionen_dbAdresse = textField_Optionen_dbAdresse;
+	}
+
+
+	public static JTextField getTextField_Optionen_dbBenutzername() {
+		return textField_Optionen_dbBenutzername;
+	}
+
+
+	public static void setTextField_Optionen_dbBenutzername(JTextField textField_Optionen_dbBenutzername) {
+		GUI.textField_Optionen_dbBenutzername = textField_Optionen_dbBenutzername;
+	}
+
+
+	public static JPasswordField getPasswordField_Optionen_dbPasswort() {
+		return passwordField_Optionen_dbPasswort;
+	}
+
+
+	public static void setPasswordField_Optionen_dbPasswort(JPasswordField passwordField_Optionen_dbPasswort) {
+		GUI.passwordField_Optionen_dbPasswort = passwordField_Optionen_dbPasswort;
+	}
+
+
+	public static JButton getBtn_Kunde_Anzeigen() {
+		return btn_Kunde_Anzeigen;
+	}
+
+
+	public static void setBtn_Kunde_Anzeigen(JButton btn_Kunde_Anzeigen) {
+		GUI.btn_Kunde_Anzeigen = btn_Kunde_Anzeigen;
+	}
+
+
+	public static JButton getBtn_Kunde_Neu() {
+		return btn_Kunde_Neu;
+	}
+
+
+	public static void setBtn_Kunde_Neu(JButton btn_Kunde_Neu) {
+		GUI.btn_Kunde_Neu = btn_Kunde_Neu;
+	}
+
+
+	public static JComboBox getComboBox_Kunde_Kunden() {
+		return comboBox_Kunde_Kunden;
+	}
+
+
+	public static void setComboBox_Kunde_Kunden(JComboBox comboBox_Kunde_Kunden) {
+		GUI.comboBox_Kunde_Kunden = comboBox_Kunde_Kunden;
+	}
+
+
+	public static JLabel getLbl_KundeName() {
+		return lbl_KundeName;
+	}
+
+
+	public static void setLbl_KundeName(JLabel lbl_KundeName) {
+		GUI.lbl_KundeName = lbl_KundeName;
+	}
+
+
+	public static JLabel getLbl_KundeID() {
+		return lbl_KundeID;
+	}
+
+
+	public static void setLbl_KundeID(JLabel lbl_KundeID) {
+		GUI.lbl_KundeID = lbl_KundeID;
+	}
+
+
+	public static JLabel getLbl_KundeStrasse() {
+		return lbl_KundeStrasse;
+	}
+
+
+	public static void setLbl_KundeStrasse(JLabel lbl_KundeStrasse) {
+		GUI.lbl_KundeStrasse = lbl_KundeStrasse;
+	}
+
+
+	public static JLabel getLbl_KundeHausnummer() {
+		return lbl_KundeHausnummer;
+	}
+
+
+	public static void setLbl_KundeHausnummer(JLabel lbl_KundeHausnummer) {
+		GUI.lbl_KundeHausnummer = lbl_KundeHausnummer;
+	}
+
+
+	public static JLabel getLbl_KundeOrt() {
+		return lbl_KundeOrt;
+	}
+
+
+	public static void setLbl_KundeOrt(JLabel lbl_KundeOrt) {
+		GUI.lbl_KundeOrt = lbl_KundeOrt;
+	}
+
+
+	public static JLabel getLbl_KundePLZ() {
+		return lbl_KundePLZ;
+	}
+
+
+	public static void setLbl_KundePLZ(JLabel lbl_KundePLZ) {
+		GUI.lbl_KundePLZ = lbl_KundePLZ;
+	}
+
+
+	public static JLabel getLbl_KundeTelefon() {
+		return lbl_KundeTelefon;
+	}
+
+
+	public static void setLbl_KundeTelefon(JLabel lbl_KundeTelefon) {
+		GUI.lbl_KundeTelefon = lbl_KundeTelefon;
+	}
+
+
+	public static JLabel getLbl_KundeEmail() {
+		return lbl_KundeEmail;
+	}
+
+
+	public static void setLbl_KundeEmail(JLabel lbl_KundeEmail) {
+		GUI.lbl_KundeEmail = lbl_KundeEmail;
+	}
+
+
+	public static JLabel getLbl_KundeSteuerNummer() {
+		return lbl_KundeSteuerNummer;
+	}
+
+
+	public static void setLbl_KundeSteuerNummer(JLabel lbl_KundeSteuerNummer) {
+		GUI.lbl_KundeSteuerNummer = lbl_KundeSteuerNummer;
+	}
+
+
+	public static JCheckBox getChckbx_Kunde_Inaktiv() {
+		return chckbx_Kunde_Inaktiv;
+	}
+
+
+	public static void setChckbx_Kunde_Inaktiv(JCheckBox chckbx_Kunde_Inaktiv) {
+		GUI.chckbx_Kunde_Inaktiv = chckbx_Kunde_Inaktiv;
+	}
+
+
+	public static JButton getBtn_Kunde_Speichern() {
+		return btn_Kunde_Speichern;
+	}
+
+
+	public static void setBtn_Kunde_Speichern(JButton btn_Kunde_Speichern) {
+		GUI.btn_Kunde_Speichern = btn_Kunde_Speichern;
+	}
+
+
+	public static JLabel getLblNewLabel() {
+		return lblNewLabel;
+	}
+
+
+	public static void setLblNewLabel(JLabel lblNewLabel) {
+		GUI.lblNewLabel = lblNewLabel;
+	}
+
+
+	public static JList getList_Kunde_Rechnungen() {
+		return list_Kunde_Rechnungen;
+	}
+
+
+	public static void setList_Kunde_Rechnungen(JList list_Kunde_Rechnungen) {
+		GUI.list_Kunde_Rechnungen = list_Kunde_Rechnungen;
+	}
+
+
+	public static JButton getBtn_Kunde_Rechnung_Anzeigen() {
+		return btn_Kunde_Rechnung_Anzeigen;
+	}
+
+
+	public static void setBtn_Kunde_Rechnung_Anzeigen(JButton btn_Kunde_Rechnung_Anzeigen) {
+		GUI.btn_Kunde_Rechnung_Anzeigen = btn_Kunde_Rechnung_Anzeigen;
+	}
+
+
+	public static JButton getBtn_Kunde_Rechnung_Korrektur() {
+		return btn_Kunde_Rechnung_Korrektur;
+	}
+
+
+	public static void setBtn_Kunde_Rechnung_Korrektur(JButton btn_Kunde_Rechnung_Korrektur) {
+		GUI.btn_Kunde_Rechnung_Korrektur = btn_Kunde_Rechnung_Korrektur;
+	}
+
+
+	public static JButton getBtn_Kunde_Rechnung_Neu() {
+		return btn_Kunde_Rechnung_Neu;
+	}
+
+
+	public static void setBtn_Kunde_Rechnung_Neu(JButton btn_Kunde_Rechnung_Neu) {
+		GUI.btn_Kunde_Rechnung_Neu = btn_Kunde_Rechnung_Neu;
+	}
+
+
+	public static JPanel getPanel_KundenDaten() {
+		return panel_KundenDaten;
+	}
+
+
+	public static void setPanel_KundenDaten(JPanel panel_KundenDaten) {
+		GUI.panel_KundenDaten = panel_KundenDaten;
+	}
+
+
+	public static JPanel getPanel_Kunde_Speichern() {
+		return panel_Kunde_Speichern;
+	}
+
+
+	public static void setPanel_Kunde_Speichern(JPanel panel_Kunde_Speichern) {
+		GUI.panel_Kunde_Speichern = panel_Kunde_Speichern;
+	}
+
+
+	public static JPanel getPanel_Kunde_Rechnungen() {
+		return panel_Kunde_Rechnungen;
+	}
+
+
+	public static void setPanel_Kunde_Rechnungen(JPanel panel_Kunde_Rechnungen) {
+		GUI.panel_Kunde_Rechnungen = panel_Kunde_Rechnungen;
+	}
+
+
+	public static JPanel getPanel_Kunde_Rechnungen_Buttons() {
+		return panel_Kunde_Rechnungen_Buttons;
+	}
+
+
+	public static void setPanel_Kunde_Rechnungen_Buttons(JPanel panel_Kunde_Rechnungen_Buttons) {
+		GUI.panel_Kunde_Rechnungen_Buttons = panel_Kunde_Rechnungen_Buttons;
+	}
+
+
+	public static JComboBox getComboBox_Position_Positionen() {
+		return comboBox_Position_Positionen;
+	}
+
+
+	public static void setComboBox_Position_Positionen(JComboBox comboBox_Position_Positionen) {
+		GUI.comboBox_Position_Positionen = comboBox_Position_Positionen;
+	}
+
+
+	public static JButton getBtn_Position_Anzeigen() {
+		return btn_Position_Anzeigen;
+	}
+
+
+	public static void setBtn_Position_Anzeigen(JButton btn_Position_Anzeigen) {
+		GUI.btn_Position_Anzeigen = btn_Position_Anzeigen;
+	}
+
+
+	public static JButton getBtn_Position_Neu() {
+		return btn_Position_Neu;
+	}
+
+
+	public static void setBtn_Position_Neu(JButton btn_Position_Neu) {
+		GUI.btn_Position_Neu = btn_Position_Neu;
+	}
+
+
+	public static JPanel getPanel_Position_Daten() {
+		return panel_Position_Daten;
+	}
+
+
+	public static void setPanel_Position_Daten(JPanel panel_Position_Daten) {
+		GUI.panel_Position_Daten = panel_Position_Daten;
+	}
+
+
+	public static JLabel getLbl_Position_Name() {
+		return lbl_Position_Name;
+	}
+
+
+	public static void setLbl_Position_Name(JLabel lbl_Position_Name) {
+		GUI.lbl_Position_Name = lbl_Position_Name;
+	}
+
+
+	public static JLabel getLbl_Position_Kategorie() {
+		return lbl_Position_Kategorie;
+	}
+
+
+	public static void setLbl_Position_Kategorie(JLabel lbl_Position_Kategorie) {
+		GUI.lbl_Position_Kategorie = lbl_Position_Kategorie;
+	}
+
+
+	public static JComboBox getComboBox_Position_Kategorie() {
+		return comboBox_Position_Kategorie;
+	}
+
+
+	public static void setComboBox_Position_Kategorie(JComboBox comboBox_Position_Kategorie) {
+		GUI.comboBox_Position_Kategorie = comboBox_Position_Kategorie;
+	}
+
+
+	public static JButton getBtn_Position_Kategorie_Neu() {
+		return btn_Position_Kategorie_Neu;
+	}
+
+
+	public static void setBtn_Position_Kategorie_Neu(JButton btn_Position_Kategorie_Neu) {
+		GUI.btn_Position_Kategorie_Neu = btn_Position_Kategorie_Neu;
+	}
+
+
+	public static JLabel getLbl_Position_Satz_in_Euro() {
+		return lbl_Position_Satz_in_Euro;
+	}
+
+
+	public static void setLbl_Position_Satz_in_Euro(JLabel lbl_Position_Satz_in_Euro) {
+		GUI.lbl_Position_Satz_in_Euro = lbl_Position_Satz_in_Euro;
+	}
+
+
+	public static JRadioButton getRdbtn_Position_Stundensatz() {
+		return rdbtn_Position_Stundensatz;
+	}
+
+
+	public static void setRdbtn_Position_Stundensatz(JRadioButton rdbtn_Position_Stundensatz) {
+		GUI.rdbtn_Position_Stundensatz = rdbtn_Position_Stundensatz;
+	}
+
+
+	public static JRadioButton getRdbtn_Position_Tagessatz() {
+		return rdbtn_Position_Tagessatz;
+	}
+
+
+	public static void setRdbtn_Position_Tagessatz(JRadioButton rdbtn_Position_Tagessatz) {
+		GUI.rdbtn_Position_Tagessatz = rdbtn_Position_Tagessatz;
+	}
+
+
+	public static JRadioButton getRdbtn_Position_Honorarsatz() {
+		return rdbtn_Position_Honorarsatz;
+	}
+
+
+	public static void setRdbtn_Position_Honorarsatz(JRadioButton rdbtn_Position_Honorarsatz) {
+		GUI.rdbtn_Position_Honorarsatz = rdbtn_Position_Honorarsatz;
+	}
+
+
+	public static JButton getBtn_Position_Speichern() {
+		return btn_Position_Speichern;
+	}
+
+
+	public static void setBtn_Position_Speichern(JButton btn_Position_Speichern) {
+		GUI.btn_Position_Speichern = btn_Position_Speichern;
+	}
+
+
+	public static JButton getBtn_Optionen_Speicherpfad() {
+		return btn_Optionen_Speicherpfad;
+	}
+
+
+	public static void setBtn_Optionen_Speicherpfad(JButton btn_Optionen_Speicherpfad) {
+		GUI.btn_Optionen_Speicherpfad = btn_Optionen_Speicherpfad;
+	}
+
+
+	public static JButton getBtn_Optionen_Speichern() {
+		return btn_Optionen_Speichern;
+	}
+
+
+	public static void setBtn_Optionen_Speichern(JButton btn_Optionen_Speichern) {
+		GUI.btn_Optionen_Speichern = btn_Optionen_Speichern;
+	}
+
+
+	public static JLabel getLbl_Optionen_Optionen() {
+		return lbl_Optionen_Optionen;
+	}
+
+
+	public static void setLbl_Optionen_Optionen(JLabel lbl_Optionen_Optionen) {
+		GUI.lbl_Optionen_Optionen = lbl_Optionen_Optionen;
+	}
+
+
+	public static JCheckBox getChckbx_Optionen_KundenAusblenden() {
+		return chckbx_Optionen_KundenAusblenden;
+	}
+
+
+	public static void setChckbx_Optionen_KundenAusblenden(JCheckBox chckbx_Optionen_KundenAusblenden) {
+		GUI.chckbx_Optionen_KundenAusblenden = chckbx_Optionen_KundenAusblenden;
+	}
+
+
+	public static ButtonGroup getButtongroupPositionSatz() {
+		return buttonGroup_Position_Satz;
+	}
+
+
+
+	
 
 	
 	
-	public void tabAktualisieren ()
-	{
-		
-	}
+
+
 }

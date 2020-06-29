@@ -45,7 +45,7 @@ public class TabRechnung {
 		gbl_panel_Rechnung_Posten_Posten.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_Rechnung_Posten_Posten.setLayout(gbl_panel_Rechnung_Posten_Posten);
 		
-		JLabel lbl_Rechnung_Posten_Nr = new JLabel(PostenNummer.toString());
+		JLabel lbl_Rechnung_Posten_Nr = new JLabel(String.format("%03d", PostenNummer));
 		lbl_Rechnung_Posten_Nr.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lbl_Rechnung_Posten_Nr = new GridBagConstraints();
 		gbc_lbl_Rechnung_Posten_Nr.anchor = GridBagConstraints.WEST;

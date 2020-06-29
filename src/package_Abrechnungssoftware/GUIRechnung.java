@@ -37,19 +37,24 @@ public class GUIRechnung {
 	private JLabel lbl_Rechnung_Rechnung_PLZ_Stadt;
 	private JTextArea textArea_Rechnung_Rechnung_Betreff;
 	private JTextArea textArea_Rechnung_Rechnung_Anschreiben;
-	private JButton btn_Rechnung_Posten_Plus;
-	private JButton btn_Rechnung_Posten_Minus;
 	private JButton btn_Rechnung_Rechnung_Speichern;
 	private JButton btn_Rechnung_Rechnung_Drucken;
 	private JLabel lbl_Rechnung_Summe_Netto_in_Euro;
 	private JLabel lbl_Rechnung_Rechnung_Betrag_in_Euro;
-	private JPanel panel_Rechnung_Posten_sub;
-	private JScrollPane scrollPane_Rechnung_Posten;
+	private JButton btn_Rechnung_Posten_Plus;
+	private JButton btn_Rechnung_Posten_Minus;
+	private JPanel panel_Rechnung_Posten_Innen_Posten;
+	private JPanel panel_Rechnung_Posten_Innen_Gesamt;
+	private JScrollPane scrollPane_Rechnung_Posten_Innen;
+	private JPanel panel_Rechnung_Posten_Aussen;
 	// Konstruktor
 	
 	
 	// Methoden
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void fensterRechnung() {
 		frame_Rechnung = new JFrame();
 		frame_Rechnung.setVisible(true);
@@ -57,7 +62,7 @@ public class GUIRechnung {
 		frame_Rechnung.setAlwaysOnTop(true);
 		frame_Rechnung.setTitle("Rechnung");
 		frame_Rechnung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame_Rechnung.setBounds(100, 100, 900, 1000);
+		frame_Rechnung.setBounds(100, 100, 1000, 1000);
 		
 //		contentPane = new JPanel();
 //		frame.getContentPane().setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -202,7 +207,7 @@ public class GUIRechnung {
 		gbc_panel_Rechnung_Posten_Überschrift.gridy = 8;
 		frame_Rechnung.getContentPane().add(panel_Rechnung_Posten_Überschrift, gbc_panel_Rechnung_Posten_Überschrift);
 		GridBagLayout gbl_panel_Rechnung_Posten_Überschrift = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Überschrift.columnWidths = new int[]{0, 30, 15, 250, 30, 100, 25, 60, 25, 110, 25, 110, 20, 0};
+		gbl_panel_Rechnung_Posten_Überschrift.columnWidths = new int[]{0, 30, 15, 265, 25, 100, 25, 140, 25, 140, 25, 110, 20, 0};
 		gbl_panel_Rechnung_Posten_Überschrift.rowHeights = new int[]{0, 0, 0};
 		gbl_panel_Rechnung_Posten_Überschrift.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_Rechnung_Posten_Überschrift.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
@@ -262,194 +267,68 @@ public class GUIRechnung {
 		gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro.gridy = 1;
 		panel_Rechnung_Posten_Überschrift.add(lbl_Rechnung_rechnung_Gesamt_in_Euro, gbc_lbl_Rechnung_rechnung_Gesamt_in_Euro);
 		
-		scrollPane_Rechnung_Posten = new JScrollPane();
-		scrollPane_Rechnung_Posten.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		GridBagConstraints gbc_scrollPane_Rechnung_Posten = new GridBagConstraints();
-		gbc_scrollPane_Rechnung_Posten.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_Rechnung_Posten.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_Rechnung_Posten.gridx = 1;
-		gbc_scrollPane_Rechnung_Posten.gridy = 9;
-		frame_Rechnung.getContentPane().add(scrollPane_Rechnung_Posten, gbc_scrollPane_Rechnung_Posten);
+		panel_Rechnung_Posten_Aussen = new JPanel();
+		panel_Rechnung_Posten_Aussen.setPreferredSize(new Dimension(575, 150));
+		panel_Rechnung_Posten_Aussen.setMinimumSize(new Dimension(575, 150));
+		panel_Rechnung_Posten_Aussen.setMaximumSize(new Dimension(575, 150));
+		GridBagConstraints gbc_panel_Rechnung_Posten_Aussen = new GridBagConstraints();
+		gbc_panel_Rechnung_Posten_Aussen.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_Rechnung_Posten_Aussen.fill = GridBagConstraints.BOTH;
+		gbc_panel_Rechnung_Posten_Aussen.gridx = 1;
+		gbc_panel_Rechnung_Posten_Aussen.gridy = 9;
+		frame_Rechnung.getContentPane().add(panel_Rechnung_Posten_Aussen, gbc_panel_Rechnung_Posten_Aussen);
+		GridBagLayout gbl_panel_Rechnung_Posten_Aussen = new GridBagLayout();
+		gbl_panel_Rechnung_Posten_Aussen.columnWidths = new int[]{0, 0};
+		gbl_panel_Rechnung_Posten_Aussen.rowHeights = new int[]{0, 0};
+		gbl_panel_Rechnung_Posten_Aussen.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_Rechnung_Posten_Aussen.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_Rechnung_Posten_Aussen.setLayout(gbl_panel_Rechnung_Posten_Aussen);
 		
-		JPanel panel_Rechnung_Posten_Gesamt = new JPanel();
-		panel_Rechnung_Posten_Gesamt.setPreferredSize(new Dimension(575, 150));
-		panel_Rechnung_Posten_Gesamt.setMinimumSize(new Dimension(575, 150));
-		panel_Rechnung_Posten_Gesamt.setMaximumSize(new Dimension(575, 150));
-		scrollPane_Rechnung_Posten.setViewportView(panel_Rechnung_Posten_Gesamt);		// Orig: posten_gesamt
-		GridBagLayout gbl_panel_Rechnung_Posten_Gesamt = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Gesamt.columnWidths = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_Gesamt.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_Rechnung_Posten_Gesamt.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_Gesamt.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_Gesamt.setLayout(gbl_panel_Rechnung_Posten_Gesamt);
+		scrollPane_Rechnung_Posten_Innen = new JScrollPane();
+		scrollPane_Rechnung_Posten_Innen.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_Rechnung_Posten_Innen.getVerticalScrollBar().setUnitIncrement(10);
+		GridBagConstraints gbc_scrollPane_Rechnung_Posten_Innen = new GridBagConstraints();
+		gbc_scrollPane_Rechnung_Posten_Innen.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_Rechnung_Posten_Innen.gridx = 0;
+		gbc_scrollPane_Rechnung_Posten_Innen.gridy = 0;
+		panel_Rechnung_Posten_Aussen.add(scrollPane_Rechnung_Posten_Innen, gbc_scrollPane_Rechnung_Posten_Innen);
 		
-		panel_Rechnung_Posten_sub = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Posten_sub = new GridBagConstraints();
-		gbc_panel_Rechnung_Posten_sub.anchor = GridBagConstraints.NORTH;
-		gbc_panel_Rechnung_Posten_sub.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_Rechnung_Posten_sub.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_Rechnung_Posten_sub.gridx = 0;
-		gbc_panel_Rechnung_Posten_sub.gridy = 0;
-		panel_Rechnung_Posten_Gesamt.add(panel_Rechnung_Posten_sub, gbc_panel_Rechnung_Posten_sub);
-		GridBagLayout gbl_panel_Rechnung_Posten_sub = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_sub.columnWidths = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_sub.rowHeights = new int[]{25, 25, 0, 0};
-		gbl_panel_Rechnung_Posten_sub.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_sub.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_sub.setLayout(gbl_panel_Rechnung_Posten_sub);
+		panel_Rechnung_Posten_Innen_Gesamt = new JPanel();
+		scrollPane_Rechnung_Posten_Innen.setViewportView(panel_Rechnung_Posten_Innen_Gesamt);
+		GridBagLayout gbl_panel_Rechnung_Posten_Innen_Gesamt = new GridBagLayout();
+		gbl_panel_Rechnung_Posten_Innen_Gesamt.columnWidths = new int[]{0, 0};
+		gbl_panel_Rechnung_Posten_Innen_Gesamt.rowHeights = new int[]{0, 60, 0};
+		gbl_panel_Rechnung_Posten_Innen_Gesamt.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_Rechnung_Posten_Innen_Gesamt.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		panel_Rechnung_Posten_Innen_Gesamt.setLayout(gbl_panel_Rechnung_Posten_Innen_Gesamt);
 		
-//		JPanel panel_Rechnung_Posten_Posten_1 = new JPanel();
-//		GridBagConstraints gbc_panel_Rechnung_Posten_Posten_1 = new GridBagConstraints();
-//		gbc_panel_Rechnung_Posten_Posten_1.insets = new Insets(0, 0, 5, 0);
-//		gbc_panel_Rechnung_Posten_Posten_1.fill = GridBagConstraints.BOTH;
-//		gbc_panel_Rechnung_Posten_Posten_1.gridx = 0;
-//		gbc_panel_Rechnung_Posten_Posten_1.gridy = 0;
-//		panel_Rechnung_Posten_sub.add(panel_Rechnung_Posten_Posten_1, gbc_panel_Rechnung_Posten_Posten_1);
-//		GridBagLayout gbl_panel_Rechnung_Posten_Posten_1 = new GridBagLayout();
-//		gbl_panel_Rechnung_Posten_Posten_1.columnWidths = new int[]{0, 30, 15, 250, 25, 100, 25, 60, 25, 110, 25, 110, 20, 0};
-//		gbl_panel_Rechnung_Posten_Posten_1.rowHeights = new int[]{0, 0};
-//		gbl_panel_Rechnung_Posten_Posten_1.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-//		gbl_panel_Rechnung_Posten_Posten_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-//		panel_Rechnung_Posten_Posten_1.setLayout(gbl_panel_Rechnung_Posten_Posten_1);
-//		
-//		JLabel lbl_Rechnung_Posten_Nr_1 = new JLabel("123");
-//		lbl_Rechnung_Posten_Nr_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_lbl_Rechnung_Posten_Nr_1 = new GridBagConstraints();
-//		gbc_lbl_Rechnung_Posten_Nr_1.anchor = GridBagConstraints.WEST;
-//		gbc_lbl_Rechnung_Posten_Nr_1.insets = new Insets(0, 0, 0, 5);
-//		gbc_lbl_Rechnung_Posten_Nr_1.gridx = 1;
-//		gbc_lbl_Rechnung_Posten_Nr_1.gridy = 0;
-//		panel_Rechnung_Posten_Posten_1.add(lbl_Rechnung_Posten_Nr_1, gbc_lbl_Rechnung_Posten_Nr_1);
-//		
-//		JComboBox comboBox_Rechnung_Posten_Bezeichnung_1 = new JComboBox();
-//		comboBox_Rechnung_Posten_Bezeichnung_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_comboBox_Rechnung_Posten_Bezeichnung_1 = new GridBagConstraints();
-//		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.insets = new Insets(0, 0, 0, 5);
-//		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.gridx = 3;
-//		gbc_comboBox_Rechnung_Posten_Bezeichnung_1.gridy = 0;
-//		panel_Rechnung_Posten_Posten_1.add(comboBox_Rechnung_Posten_Bezeichnung_1, gbc_comboBox_Rechnung_Posten_Bezeichnung_1);
-//		
-//		JLabel lbl_Rechnung_Posten_Satz_1 = new JLabel("Honorarbasis");
-//		lbl_Rechnung_Posten_Satz_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_lbl_Rechnung_Posten_Satz_1 = new GridBagConstraints();
-//		gbc_lbl_Rechnung_Posten_Satz_1.anchor = GridBagConstraints.WEST;
-//		gbc_lbl_Rechnung_Posten_Satz_1.insets = new Insets(0, 0, 0, 5);
-//		gbc_lbl_Rechnung_Posten_Satz_1.gridx = 5;
-//		gbc_lbl_Rechnung_Posten_Satz_1.gridy = 0;
-//		panel_Rechnung_Posten_Posten_1.add(lbl_Rechnung_Posten_Satz_1, gbc_lbl_Rechnung_Posten_Satz_1);
-//		
-//		textField_Rechnung_Posten_Einheiten_1 = new JTextField();
-//		textField_Rechnung_Posten_Einheiten_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_textField_Rechnung_Posten_Einheiten_1 = new GridBagConstraints();
-//		gbc_textField_Rechnung_Posten_Einheiten_1.insets = new Insets(0, 0, 0, 5);
-//		gbc_textField_Rechnung_Posten_Einheiten_1.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_textField_Rechnung_Posten_Einheiten_1.gridx = 7;
-//		gbc_textField_Rechnung_Posten_Einheiten_1.gridy = 0;
-//		panel_Rechnung_Posten_Posten_1.add(textField_Rechnung_Posten_Einheiten_1, gbc_textField_Rechnung_Posten_Einheiten_1);
-//		textField_Rechnung_Posten_Einheiten_1.setColumns(10);
-//		
-//		textField_Rechnung_Posten_Satz_in_Euro_1 = new JTextField();
-//		textField_Rechnung_Posten_Satz_in_Euro_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_textField_Rechnung_Posten_Satz_in_Euro_1 = new GridBagConstraints();
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.insets = new Insets(0, 0, 0, 5);
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.gridx = 9;
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_1.gridy = 0;
-//		panel_Rechnung_Posten_Posten_1.add(textField_Rechnung_Posten_Satz_in_Euro_1, gbc_textField_Rechnung_Posten_Satz_in_Euro_1);
-//		textField_Rechnung_Posten_Satz_in_Euro_1.setColumns(10);
-//		
-//		JLabel lbl_Rechnung_Posten_Gesamt_in_Euro_1 = new JLabel("1.000.000,00\u20AC");
-//		lbl_Rechnung_Posten_Gesamt_in_Euro_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1 = new GridBagConstraints();
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.anchor = GridBagConstraints.EAST;
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.insets = new Insets(0, 0, 0, 5);
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.gridx = 11;
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1.gridy = 0;
-//		panel_Rechnung_Posten_Posten_1.add(lbl_Rechnung_Posten_Gesamt_in_Euro_1, gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_1);
-//		
-//		JPanel panel_Rechnung_Posten_Posten_2 = new JPanel();
-//		GridBagConstraints gbc_panel_Rechnung_Posten_Posten_2 = new GridBagConstraints();
-//		gbc_panel_Rechnung_Posten_Posten_2.insets = new Insets(0, 0, 5, 0);
-//		gbc_panel_Rechnung_Posten_Posten_2.fill = GridBagConstraints.BOTH;
-//		gbc_panel_Rechnung_Posten_Posten_2.gridx = 0;
-//		gbc_panel_Rechnung_Posten_Posten_2.gridy = 1;
-//		panel_Rechnung_Posten_sub.add(panel_Rechnung_Posten_Posten_2, gbc_panel_Rechnung_Posten_Posten_2);
-//		GridBagLayout gbl_panel_Rechnung_Posten_Posten_2 = new GridBagLayout();
-//		gbl_panel_Rechnung_Posten_Posten_2.columnWidths = new int[]{0, 30, 15, 250, 25, 100, 25, 60, 25, 110, 25, 110, 20, 0};
-//		gbl_panel_Rechnung_Posten_Posten_2.rowHeights = new int[]{0, 0};
-//		gbl_panel_Rechnung_Posten_Posten_2.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-//		gbl_panel_Rechnung_Posten_Posten_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-//		panel_Rechnung_Posten_Posten_2.setLayout(gbl_panel_Rechnung_Posten_Posten_2);
-//		
-//		JLabel lbl_Rechnung_Posten_Nr_2 = new JLabel("123");
-//		lbl_Rechnung_Posten_Nr_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_lbl_Rechnung_Posten_Nr_2 = new GridBagConstraints();
-//		gbc_lbl_Rechnung_Posten_Nr_2.anchor = GridBagConstraints.WEST;
-//		gbc_lbl_Rechnung_Posten_Nr_2.insets = new Insets(0, 0, 0, 5);
-//		gbc_lbl_Rechnung_Posten_Nr_2.gridx = 1;
-//		gbc_lbl_Rechnung_Posten_Nr_2.gridy = 0;
-//		panel_Rechnung_Posten_Posten_2.add(lbl_Rechnung_Posten_Nr_2, gbc_lbl_Rechnung_Posten_Nr_2);
-//		
-//		JComboBox comboBox_Rechung_Posten_Bezeichnung_2 = new JComboBox();
-//		comboBox_Rechung_Posten_Bezeichnung_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_comboBox_Rechung_Posten_Bezeichnung_2 = new GridBagConstraints();
-//		gbc_comboBox_Rechung_Posten_Bezeichnung_2.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_comboBox_Rechung_Posten_Bezeichnung_2.insets = new Insets(0, 0, 0, 5);
-//		gbc_comboBox_Rechung_Posten_Bezeichnung_2.gridx = 3;
-//		gbc_comboBox_Rechung_Posten_Bezeichnung_2.gridy = 0;
-//		panel_Rechnung_Posten_Posten_2.add(comboBox_Rechung_Posten_Bezeichnung_2, gbc_comboBox_Rechung_Posten_Bezeichnung_2);
-//		
-//		JLabel lbl_Rechnung_Posten_Satz_2 = new JLabel("Honorarbasis");
-//		lbl_Rechnung_Posten_Satz_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_lbl_Rechnung_Posten_Satz_2 = new GridBagConstraints();
-//		gbc_lbl_Rechnung_Posten_Satz_2.anchor = GridBagConstraints.WEST;
-//		gbc_lbl_Rechnung_Posten_Satz_2.insets = new Insets(0, 0, 0, 5);
-//		gbc_lbl_Rechnung_Posten_Satz_2.gridx = 5;
-//		gbc_lbl_Rechnung_Posten_Satz_2.gridy = 0;
-//		panel_Rechnung_Posten_Posten_2.add(lbl_Rechnung_Posten_Satz_2, gbc_lbl_Rechnung_Posten_Satz_2);
-//		
-//		textField_Rechnung_Posten_Einheiten_2 = new JTextField();
-//		textField_Rechnung_Posten_Einheiten_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		textField_Rechnung_Posten_Einheiten_2.setColumns(10);
-//		GridBagConstraints gbc_textField_Rechnung_Posten_Einheiten_2 = new GridBagConstraints();
-//		gbc_textField_Rechnung_Posten_Einheiten_2.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_textField_Rechnung_Posten_Einheiten_2.insets = new Insets(0, 0, 0, 5);
-//		gbc_textField_Rechnung_Posten_Einheiten_2.gridx = 7;
-//		gbc_textField_Rechnung_Posten_Einheiten_2.gridy = 0;
-//		panel_Rechnung_Posten_Posten_2.add(textField_Rechnung_Posten_Einheiten_2, gbc_textField_Rechnung_Posten_Einheiten_2);
-//		
-//		textField_Rechnung_Posten_Satz_in_Euro_2 = new JTextField();
-//		textField_Rechnung_Posten_Satz_in_Euro_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		textField_Rechnung_Posten_Satz_in_Euro_2.setColumns(10);
-//		GridBagConstraints gbc_textField_Rechnung_Posten_Satz_in_Euro_2 = new GridBagConstraints();
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.insets = new Insets(0, 0, 0, 5);
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.gridx = 9;
-//		gbc_textField_Rechnung_Posten_Satz_in_Euro_2.gridy = 0;
-//		panel_Rechnung_Posten_Posten_2.add(textField_Rechnung_Posten_Satz_in_Euro_2, gbc_textField_Rechnung_Posten_Satz_in_Euro_2);
-//		
-//		JLabel lbl_Rechnung_Posten_Gesamt_in_Euro_2 = new JLabel("1.000.000,00\u20AC");
-//		lbl_Rechnung_Posten_Gesamt_in_Euro_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		GridBagConstraints gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2 = new GridBagConstraints();
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.anchor = GridBagConstraints.EAST;
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.insets = new Insets(0, 0, 0, 5);
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.gridx = 11;
-//		gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2.gridy = 0;
-//		panel_Rechnung_Posten_Posten_2.add(lbl_Rechnung_Posten_Gesamt_in_Euro_2, gbc_lbl_Rechnung_Posten_Gesamt_in_Euro_2);
-//		
-		JPanel panel_Rechnung_Posten_Buttons = new JPanel();
-		GridBagConstraints gbc_panel_Rechnung_Posten_Buttons = new GridBagConstraints();
-		gbc_panel_Rechnung_Posten_Buttons.fill = GridBagConstraints.BOTH;
-		gbc_panel_Rechnung_Posten_Buttons.gridx = 0;
-		gbc_panel_Rechnung_Posten_Buttons.gridy = 1;
-		panel_Rechnung_Posten_Gesamt.add(panel_Rechnung_Posten_Buttons, gbc_panel_Rechnung_Posten_Buttons);
-		GridBagLayout gbl_panel_Rechnung_Posten_Buttons = new GridBagLayout();
-		gbl_panel_Rechnung_Posten_Buttons.columnWidths = new int[]{0, 0, 10, 0, 0};
-		gbl_panel_Rechnung_Posten_Buttons.rowHeights = new int[]{0, 0};
-		gbl_panel_Rechnung_Posten_Buttons.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_Rechnung_Posten_Buttons.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_Rechnung_Posten_Buttons.setLayout(gbl_panel_Rechnung_Posten_Buttons);
+		panel_Rechnung_Posten_Innen_Posten = new JPanel();
+		GridBagConstraints gbc_panel_Rechnung_Posten_Innen_Posten = new GridBagConstraints();
+		gbc_panel_Rechnung_Posten_Innen_Posten.anchor = GridBagConstraints.NORTH;
+		gbc_panel_Rechnung_Posten_Innen_Posten.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_Rechnung_Posten_Innen_Posten.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel_Rechnung_Posten_Innen_Posten.gridx = 0;
+		gbc_panel_Rechnung_Posten_Innen_Posten.gridy = 0;
+		panel_Rechnung_Posten_Innen_Gesamt.add(panel_Rechnung_Posten_Innen_Posten, gbc_panel_Rechnung_Posten_Innen_Posten);
+		GridBagLayout gbl_panel_Rechnung_Posten_Innen_Posten = new GridBagLayout();
+		gbl_panel_Rechnung_Posten_Innen_Posten.columnWidths = new int[]{0};
+		gbl_panel_Rechnung_Posten_Innen_Posten.rowHeights = new int[]{0};
+		gbl_panel_Rechnung_Posten_Innen_Posten.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_panel_Rechnung_Posten_Innen_Posten.rowWeights = new double[]{Double.MIN_VALUE};
+		panel_Rechnung_Posten_Innen_Posten.setLayout(gbl_panel_Rechnung_Posten_Innen_Posten);
+		
+		JPanel panel_Rechnung_Posten_Innen_Buttons = new JPanel();
+		GridBagConstraints gbc_panel_Rechnung_Posten_Innen_Buttons = new GridBagConstraints();
+		gbc_panel_Rechnung_Posten_Innen_Buttons.fill = GridBagConstraints.BOTH;
+		gbc_panel_Rechnung_Posten_Innen_Buttons.gridx = 0;
+		gbc_panel_Rechnung_Posten_Innen_Buttons.gridy = 1;
+		panel_Rechnung_Posten_Innen_Gesamt.add(panel_Rechnung_Posten_Innen_Buttons, gbc_panel_Rechnung_Posten_Innen_Buttons);
+		GridBagLayout gbl_panel_Rechnung_Posten_Innen_Buttons = new GridBagLayout();
+		gbl_panel_Rechnung_Posten_Innen_Buttons.columnWidths = new int[]{10, 0, 10, 0, 0};
+		gbl_panel_Rechnung_Posten_Innen_Buttons.rowHeights = new int[]{0, 0};
+		gbl_panel_Rechnung_Posten_Innen_Buttons.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_Rechnung_Posten_Innen_Buttons.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_Rechnung_Posten_Innen_Buttons.setLayout(gbl_panel_Rechnung_Posten_Innen_Buttons);
 		
 		btn_Rechnung_Posten_Plus = new JButton("+");
 		btn_Rechnung_Posten_Plus.setPreferredSize(new Dimension(50, 50));
@@ -460,7 +339,7 @@ public class GUIRechnung {
 		gbc_btn_Rechnung_Posten_Plus.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_Rechnung_Posten_Plus.gridx = 1;
 		gbc_btn_Rechnung_Posten_Plus.gridy = 0;
-		panel_Rechnung_Posten_Buttons.add(btn_Rechnung_Posten_Plus, gbc_btn_Rechnung_Posten_Plus);
+		panel_Rechnung_Posten_Innen_Buttons.add(btn_Rechnung_Posten_Plus, gbc_btn_Rechnung_Posten_Plus);
 		
 		btn_Rechnung_Posten_Minus = new JButton("-");
 		btn_Rechnung_Posten_Minus.setPreferredSize(new Dimension(50, 50));
@@ -470,7 +349,7 @@ public class GUIRechnung {
 		GridBagConstraints gbc_btn_Rechnung_Posten_Minus = new GridBagConstraints();
 		gbc_btn_Rechnung_Posten_Minus.gridx = 3;
 		gbc_btn_Rechnung_Posten_Minus.gridy = 0;
-		panel_Rechnung_Posten_Buttons.add(btn_Rechnung_Posten_Minus, gbc_btn_Rechnung_Posten_Minus);
+		panel_Rechnung_Posten_Innen_Buttons.add(btn_Rechnung_Posten_Minus, gbc_btn_Rechnung_Posten_Minus);
 		
 		JPanel panel_Rechnung_Summe = new JPanel();
 		GridBagConstraints gbc_panel_Rechnung_Summe = new GridBagConstraints();
@@ -495,7 +374,7 @@ public class GUIRechnung {
 		gbc_lbl_Rechnung_Summe_Netto.gridy = 0;
 		panel_Rechnung_Summe.add(lbl_Rechnung_Summe_Netto, gbc_lbl_Rechnung_Summe_Netto);
 		
-		lbl_Rechnung_Summe_Netto_in_Euro = new JLabel("1.000.000,00\u20AC");
+		lbl_Rechnung_Summe_Netto_in_Euro = new JLabel("0,00\u20AC");
 		lbl_Rechnung_Summe_Netto_in_Euro.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lbl_Rechnung_Summe_Netto_in_Euro = new GridBagConstraints();
 		gbc_lbl_Rechnung_Summe_Netto_in_Euro.anchor = GridBagConstraints.EAST;
@@ -581,13 +460,14 @@ public class GUIRechnung {
 				anzahlPosten++;
 				posten.add(tr1.rechnungspostenHinzufügen(anzahlPosten));
 				for (int i = 0; i < posten.size(); i++) {
-					panel_Rechnung_Posten_sub.add((JPanel)posten.get(i).get(0), posten.get(i).get(1));
+					panel_Rechnung_Posten_Innen_Posten.add((JPanel)posten.get(i).get(0), posten.get(i).get(1));
 				}
-				System.out.println("Anzahl an Posten im Array: " + panel_Rechnung_Posten_sub.getComponentCount());
-				panel_Rechnung_Posten_sub.revalidate();
-				scrollPane_Rechnung_Posten.revalidate();
-				scrollPane_Rechnung_Posten.repaint();
+				System.out.println("Anzahl an Posten im Array: " + panel_Rechnung_Posten_Innen_Posten.getComponentCount());
+				panel_Rechnung_Posten_Innen_Posten.revalidate();
+				scrollPane_Rechnung_Posten_Innen.revalidate();
+				scrollPane_Rechnung_Posten_Innen.repaint();
 				frame_Rechnung.repaint();
+				scrollPane_Rechnung_Posten_Innen.getVerticalScrollBar().setValue(scrollPane_Rechnung_Posten_Innen.getVerticalScrollBar().getMaximum());
 			}
 		});
 	}
@@ -711,27 +591,7 @@ public class GUIRechnung {
 		this.textArea_Rechnung_Rechnung_Anschreiben = textArea_Rechnung_Rechnung_Anschreiben;
 	}
 
-
-	public JButton getBtn_Rechnung_Posten_Plus() {
-		return btn_Rechnung_Posten_Plus;
-	}
-
-
-	public void setBtn_Rechnung_Posten_Plus(JButton btn_Rechnung_Posten_Plus) {
-		this.btn_Rechnung_Posten_Plus = btn_Rechnung_Posten_Plus;
-	}
-
-
-	public JButton getBtn_Rechnung_Posten_Minus() {
-		return btn_Rechnung_Posten_Minus;
-	}
-
-
-	public void setBtn_Rechnung_Posten_Minus(JButton btn_Rechnung_Posten_Minus) {
-		this.btn_Rechnung_Posten_Minus = btn_Rechnung_Posten_Minus;
-	}
-
-
+	
 	public JButton getBtn_Rechnung_Rechnung_Speichern() {
 		return btn_Rechnung_Rechnung_Speichern;
 	}
@@ -772,4 +632,22 @@ public class GUIRechnung {
 	}
 
 
+	public JButton getBtn_Rechnung_Posten_Plus_1_1() {
+		return btn_Rechnung_Posten_Plus;
+	}
+	public JButton getBtn_Rechnung_Posten_Minus_1_1() {
+		return btn_Rechnung_Posten_Minus;
+	}
+	public JPanel getPanel_Rechnung_Posten_Innen_Posten() {
+		return panel_Rechnung_Posten_Innen_Posten;
+	}
+	public JPanel getPanel_Rechnung_Posten_Innen_Gesamt() {
+		return panel_Rechnung_Posten_Innen_Gesamt;
+	}
+	public JScrollPane getScrollPane_Rechnung_Posten_Innen() {
+		return scrollPane_Rechnung_Posten_Innen;
+	}
+	public JPanel getPanel_Rechnung_Posten_Aussen() {
+		return panel_Rechnung_Posten_Aussen;
+	}
 }

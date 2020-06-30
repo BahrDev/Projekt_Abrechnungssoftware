@@ -871,12 +871,12 @@ public class GUI {
 		tk1 = new TabKunde();
 		rp1 = new TabRechnungsposition();
 		op1 = new TabOptionen();
-		buttonActionListener();
+		buttonActionListenerHinzufügen();
 		frame.setVisible(true);
 	}
 
 
-	private void buttonActionListener() {
+	private void buttonActionListenerHinzufügen() {
 		btn_Kunde_Anzeigen_ActionListener();
 		btn_Kunde_Rechnung_Neu_ActionListener();
 		btn_Kunde_Speichern_ActionListener();

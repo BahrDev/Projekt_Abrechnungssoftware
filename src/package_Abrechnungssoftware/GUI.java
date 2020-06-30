@@ -46,7 +46,7 @@ public class GUI {
 	private static JPasswordField passwordField_Optionen_dbPasswort;
 	private static JButton btn_Kunde_Anzeigen;
 	private static JButton btn_Kunde_Neu;
-	private static JComboBox comboBox_Kunde_Kunden;
+	private static JComboBox<String> comboBox_Kunde_Kunden;
 	private static JLabel lbl_KundeName;
 	private static JLabel lbl_KundeID;
 	private static JLabel lbl_KundeStrasse;
@@ -67,7 +67,7 @@ public class GUI {
 	private static JPanel panel_Kunde_Speichern;
 	private static JPanel panel_Kunde_Rechnungen;
 	private static JPanel panel_Kunde_Rechnungen_Buttons;
-	private static JComboBox comboBox_Position_Positionen;
+	private static JComboBox<String> comboBox_Position_Positionen;
 	private static JButton btn_Position_Anzeigen;
 	private static JButton btn_Position_Neu;
 	private static JPanel panel_Position_Daten;
@@ -872,6 +872,8 @@ public class GUI {
 		rp1 = new TabRechnungsposition();
 		op1 = new TabOptionen();
 		buttonActionListenerHinzufügen();
+		comboBox_kunde_kunden_aktualisieren();
+		comboBox_Position_Positionen_aktualisieren();
 		frame.setVisible(true);
 	}
 
@@ -1014,7 +1016,20 @@ public class GUI {
 	
 	
 	
+	private void comboBox_kunde_kunden_aktualisieren() {
+		Suchleiste.generiereArrayLists();
+		for (int i = 0; i < Suchleiste.getKunden().size(); i++) {
+			comboBox_Kunde_Kunden.addItem(Suchleiste.getKunden().get(i));
+		}
+		System.out.println("Test");
+	}
 	
+	private void comboBox_Position_Positionen_aktualisieren() {
+		//Suchleiste.generiereArrayLists();
+		for (int i = 0; i < Suchleiste.getRechnungspositionen().size(); i++) {
+			comboBox_Position_Positionen.addItem(Suchleiste.getRechnungspositionen().get(i));
+		}
+	}
 	
 	
 	public void tabAktualisieren (){

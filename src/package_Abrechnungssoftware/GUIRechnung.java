@@ -47,6 +47,8 @@ public class GUIRechnung {
 	private JPanel panel_Rechnung_Posten_Innen_Gesamt;
 	private JScrollPane scrollPane_Rechnung_Posten_Innen;
 	private JPanel panel_Rechnung_Posten_Aussen;
+	private TabRechnung tr1;
+	
 	// Konstruktor
 	
 	
@@ -444,15 +446,20 @@ public class GUIRechnung {
 		gbc_btn_Rechnung_Rechnung_Drucken.gridy = 0;
 		panel_Rechnung_Speichern_Buttons.add(btn_Rechnung_Rechnung_Drucken, gbc_btn_Rechnung_Rechnung_Drucken);
 	
-		
-		
-		buttonActionListener();
+		// Funktionen den Elementen hinzufügen
+		tr1 = new TabRechnung();
+		buttonActionListenerHinzufügen();
 	}
 
 	
-	public void buttonActionListener() {
-		TabRechnung tr1 = new TabRechnung();
+	public void buttonActionListenerHinzufügen() {
+		btn_Rechnung_Posten_Plus_ActionListener();
+		btn_Rechnung_Posten_Minus_ActionListener();
 		
+		
+	}
+	
+	public void btn_Rechnung_Posten_Plus_ActionListener() {
 		btn_Rechnung_Posten_Plus.addActionListener(new ActionListener() {
 			
 			@Override
@@ -462,23 +469,60 @@ public class GUIRechnung {
 				for (int i = 0; i < posten.size(); i++) {
 					panel_Rechnung_Posten_Innen_Posten.add((JPanel)posten.get(i).get(0), posten.get(i).get(1));
 				}
-				System.out.println("Anzahl an Posten im Array: " + panel_Rechnung_Posten_Innen_Posten.getComponentCount());
-				panel_Rechnung_Posten_Innen_Posten.revalidate();
-				scrollPane_Rechnung_Posten_Innen.revalidate();
-				scrollPane_Rechnung_Posten_Innen.repaint();
-				frame_Rechnung.repaint();
-				scrollPane_Rechnung_Posten_Innen.getVerticalScrollBar().setValue(scrollPane_Rechnung_Posten_Innen.getVerticalScrollBar().getMaximum());
+				fensterAktualisieren();
 			}
 		});
 	}
 	
+	public void btn_Rechnung_Posten_Minus_ActionListener() {
+		btn_Rechnung_Posten_Minus.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panel_Rechnung_Posten_Innen_Posten.remove(panel_Rechnung_Posten_Innen_Posten.getComponentCount()-1);
+				fensterAktualisieren();
+				posten.remove(posten.size()-1);
+				anzahlPosten--;
+			}
+		});
+	}
 	
-	public void fensterAktualisieren ()
-	{
-		
+	public void btn_Rechnung_Rechnung_Speichern_ActionListener() {
+		btn_Rechnung_Rechnung_Speichern.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void btn_Rechnung_Rechnung_Drucken_ActionListener() {
+		btn_Rechnung_Rechnung_Drucken.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void fensterAktualisieren (){
+		panel_Rechnung_Posten_Innen_Posten.revalidate();
+		scrollPane_Rechnung_Posten_Innen.revalidate();
+		scrollPane_Rechnung_Posten_Innen.repaint();
+		frame_Rechnung.repaint();
+		scrollPane_Rechnung_Posten_Innen.getVerticalScrollBar().setValue(scrollPane_Rechnung_Posten_Innen.getVerticalScrollBar().getMaximum());
 	}
 
 
+	
+	
+	
+	
+	
 	// Getter/Setter
 	
 	

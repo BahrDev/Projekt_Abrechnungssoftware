@@ -84,7 +84,9 @@ public class GUI {
 	private static JButton btn_Optionen_Speichern;
 	private static JLabel lbl_Optionen_Optionen;
 	private static JCheckBox chckbx_Optionen_KundenAusblenden;
-	
+	private static TabKunde tk1;
+	private static TabRechnungsposition rp1;
+	private static TabOptionen op1;
 
 	
 	
@@ -866,16 +868,41 @@ public class GUI {
 		gbc_btn_Optionen_Speichern.gridy = 12;
 		TabOptionen.add(btn_Optionen_Speichern, gbc_btn_Optionen_Speichern);
 		
+		tk1 = new TabKunde();
+		rp1 = new TabRechnungsposition();
+		op1 = new TabOptionen();
 		buttonActionListener();
 		frame.setVisible(true);
 	}
 
 
 	private void buttonActionListener() {
-		TabKunde tk1 = new TabKunde();
-		TabRechnungsposition rp1 = new TabRechnungsposition();
-		TabOptionen op1 = new TabOptionen();
+		btn_Kunde_Anzeigen_ActionListener();
+		btn_Kunde_Rechnung_Neu_ActionListener();
+		btn_Kunde_Speichern_ActionListener();
+		btn_Kunde_Rechnung_Anzeigen_ActionListener();
+		btn_Kunde_Rechnung_Korrektur_ActionListener();
+		btn_Position_Anzeigen_ActionListener();
+		btn_Position_Neu_ActionListener();
+		btn_Position_Kategorie_Neu_ActionListener();
+		btn_Position_Speichern_ActionListener();
+		btn_Optionen_Speicherpfad_ActionListener();
+		btn_Optionen_Speichern_ActionListener();
 		
+	}
+	
+	private void btn_Kunde_Anzeigen_ActionListener() {
+		btn_Kunde_Anzeigen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	private void btn_Kunde_Rechnung_Neu_ActionListener() {
 		btn_Kunde_Rechnung_Neu.addActionListener(new ActionListener() {
 			
 			@Override
@@ -883,7 +910,111 @@ public class GUI {
 				tk1.rechnungStellen();
 			}
 		});
+	
 	}
+	
+	private void btn_Kunde_Speichern_ActionListener() {
+		btn_Kunde_Speichern.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	private void btn_Kunde_Rechnung_Anzeigen_ActionListener() {
+		btn_Kunde_Rechnung_Anzeigen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	private void btn_Kunde_Rechnung_Korrektur_ActionListener() {
+		btn_Kunde_Rechnung_Korrektur.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	private void btn_Position_Anzeigen_ActionListener() {
+		btn_Position_Anzeigen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
+	private void btn_Position_Neu_ActionListener() {
+		btn_Position_Neu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
+	private void btn_Position_Kategorie_Neu_ActionListener() {
+		btn_Position_Kategorie_Neu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
+	private void btn_Position_Speichern_ActionListener() {
+		btn_Position_Speichern.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	private void btn_Optionen_Speicherpfad_ActionListener() {
+		btn_Optionen_Speicherpfad.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	private void btn_Optionen_Speichern_ActionListener() {
+		btn_Optionen_Speichern.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	
+	
+	
 	
 	
 	public void tabAktualisieren (){

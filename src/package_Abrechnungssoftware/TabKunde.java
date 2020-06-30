@@ -46,9 +46,9 @@ public class TabKunde {
 		
 	}
 	
-	public void rechnungStellen()
-	{
-		
+	public void rechnungStellen(){
+		GUIRechnung neueRechnung = new GUIRechnung();
+		neueRechnung.fensterRechnung();
 	}
 	
 	public ArrayList<String> ladeRechnungen()
@@ -73,5 +73,8 @@ public class TabKunde {
 	//Methode schreiben
 	JOptionPane sind_sie_sicher = new JOptionPane();	
 	}
+	
+	
+	
 	
 }

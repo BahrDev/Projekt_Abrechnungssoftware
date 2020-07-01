@@ -25,9 +25,9 @@ public class Suchleiste {
 		String kundenSpalte = "kundeName";
 		String rechnungspositionenTabelle = "rechnungsposition";
 		String rechnungspositionenSpalte = "rechnungspositionName";
-		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenTabelle, kundenSpalte);
+		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle);
 		kunden = sqlAuftrag.holeArrayAusDatenbank(sqlBefehl, kundenSpalte);
-		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", rechnungspositionenTabelle, rechnungspositionenSpalte);
+		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", rechnungspositionenSpalte, rechnungspositionenTabelle);
 		rechnungspositionen = sqlAuftrag.holeArrayAusDatenbank(sqlBefehl, rechnungspositionenSpalte);
 	}
 	

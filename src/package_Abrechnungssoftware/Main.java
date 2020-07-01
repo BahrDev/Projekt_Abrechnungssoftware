@@ -7,9 +7,9 @@ public class Main {
 		// --------- TESTBEREICH ---------
 		
 //		SQLAnbindung sqltest = new SQLAnbindung();
-//		String befehl = sqltest.erstelleBefehl("SELECT", "kunde", "kundeName");
+//		String befehl = sqltest.erstelleBefehl("SELECT", true, "kategoriepositionName", "rechnungsposition", "kategorieposition", "kategoriepositionID", "rechnungspositionName", "Java für Anfänger");
 //		System.out.println(befehl);
-//		System.out.println(sqltest.holeArrayAusDatenbank(befehl, "kundeName").get(0));
+//		System.out.println(sqltest.holeStringAusDatenbank(befehl, "kategoriepositionName"));
 		
 		// --------- TESTBEREICH ---------
 		

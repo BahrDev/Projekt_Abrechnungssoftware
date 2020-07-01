@@ -92,6 +92,9 @@ public class GUI {
 	
 	// Methoden
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void hauptfenster() {
 		frame = new JFrame();
 		frame.setResizable(false);

@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SQLAnbindung {
 	
@@ -13,6 +14,7 @@ public class SQLAnbindung {
 	Connection verbindung = null;	
 	Statement befehl = null;
 	ResultSet ausgabe = null;
+	HashMap<String, Object> insertMap;
 	
 	//Konstruktoren
 	
@@ -196,19 +198,44 @@ public class SQLAnbindung {
 	}
 	
 	public String erstelleBefehl(String insertKategorie, String tabelle1, String spalte1, String wert1String) {
-		return null;
+		insertMap = new HashMap<String, Object>();
+		insertMap.put(spalte1, wert1String);
+		return erstelleBefehl(insertKategorie, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
 	}
 	
-	public String erstelleBefehl(String insertRechnungsposition, String tabelle1, String spalte1, int wert1Int, String spalte2, String Wert2String, String spalte3, String wert3String, String spalte4, double wert4Double) {
-		return null;
+	public String erstelleBefehl(String insertRechnungsposition, String tabelle1, String spalte1, int wert1Int, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, double wert4Double) {
+		insertMap = new HashMap<String, Object>();
+		insertMap.put(spalte1, wert1Int);
+		insertMap.put(spalte2, wert2String);
+		insertMap.put(spalte3, wert3String);
+		insertMap.put(spalte4, wert4Double);
+		return erstelleBefehl(insertRechnungsposition, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
 	}
 	
 	public String erstelleBefehl(String insertRechnungsposten, String tabelle1, String spalte1, int wert1Int, String spalte2, int wert2Int, String spalte3, int wert3Int, String spalte4, int wert4Int, String spalte5, String wert5String, String spalte6, double wert6Double, String spalte7, double wert7Double) {
-		return null;
+		insertMap = new HashMap<String, Object>();
+		insertMap.put(spalte1, wert1Int);
+		insertMap.put(spalte2, wert2Int);
+		insertMap.put(spalte3, wert3Int);
+		insertMap.put(spalte4, wert4Int);
+		insertMap.put(spalte5, wert5String);
+		insertMap.put(spalte6, wert6Double);
+		insertMap.put(spalte7, wert7Double);
+		return erstelleBefehl(insertRechnungsposten, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
 	}
 	
-	public String erstelleBefehl(String insertRechnung, String tabelle1, String spalte1, String wert1String, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, double wert4Double, String spalte5, double wert5Double, String spalte6, Date datum, String spalte7, String wert7String, String spalte8, String wert8String, String spalte9, int wert9Int) {
-		return null;
+	public String erstelleBefehl(String insertRechnung, String tabelle1, String spalte1, String wert1String, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, double wert4Double, String spalte5, double wert5Double, String spalte6, Date wert6datum, String spalte7, String wert7String, String spalte8, String wert8String, String spalte9, int wert9Int) {
+		insertMap = new HashMap<String, Object>();
+		insertMap.put(spalte1, wert1String);
+		insertMap.put(spalte2, wert2String);
+		insertMap.put(spalte3, wert3String);
+		insertMap.put(spalte4, wert4Double);
+		insertMap.put(spalte5, wert5Double);
+		insertMap.put(spalte6, wert6datum);
+		insertMap.put(spalte7, wert7String);
+		insertMap.put(spalte8, wert8String);
+		insertMap.put(spalte9, wert9Int);
+		return erstelleBefehl(insertRechnung, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
 	}
 	
 	public String erstelleBefehl(String insertKunde, String tabelle1, String spalte1, String wert1String, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, int wert4Int, String spalte5, String wert5String, String spalte6, String wert6String, String spalte7, String wert7String, String spalte8, String wert8String, String spalte9, boolean wert9String) {
@@ -225,36 +252,87 @@ public class SQLAnbindung {
 		if (befehl == "SELECT") {
 			sqlBefehl+= "SELECT";
 		
-		if (auswahl != "ALL") {
-			sqlBefehl+= " " + auswahl;
-		}else {
-			sqlBefehl+= " *";
-		}
-		
-		sqlBefehl+= " FROM " + tabelle1;
-		
-		if(befehlMarker == false) {
-			if(suchSpalte1 != null) {
-				sqlBefehl+= " WHERE " + suchSpalte1 + " = ";
-				if(wert1String != null) {
-					sqlBefehl+= "'" + wert1String +"'";
-				}else if(wert1Int != 0) {
-					sqlBefehl+= wert1Int;
+			if (auswahl != "ALL") {
+				sqlBefehl+= " " + auswahl;
+			}else {
+				sqlBefehl+= " *";
+			}
+			
+			sqlBefehl+= " FROM " + tabelle1;
+			
+			if(befehlMarker == false) {
+				if(suchSpalte1 != null) {
+					sqlBefehl+= " WHERE " + suchSpalte1 + " = ";
+					if(wert1String != null) {
+						sqlBefehl+= "'" + wert1String +"'";
+					}else if(wert1Int != 0) {
+						sqlBefehl+= wert1Int;
+					}
+				}
+			}else {
+				sqlBefehl+= " INNER JOIN " + tabelle2 + " ON " + tabelle1 + "." + keySpalte + " = " + tabelle2 + "." + keySpalte;
+			}
+			
+			if (suchSpalte2 != null) {
+				sqlBefehl+= " AND " + suchSpalte2 + " = ";
+				if(wert2String != null) {
+					sqlBefehl+= "'" + wert2String +"'";
+				}else if(wert2Int != 0) {
+					sqlBefehl+= wert2Int;
 				}
 			}
-		}else {
-			sqlBefehl+= " INNER JOIN " + tabelle2 + " ON " + tabelle1 + "." + keySpalte + " = " + tabelle2 + "." + keySpalte;
-		}
-		
-		if (suchSpalte2 != null) {
-			sqlBefehl+= " AND " + suchSpalte2 + " = ";
+		}else if(befehl == "UPDATE") {
+			sqlBefehl+= "UPDATE " + tabelle1 + " SET " + spalte1 + " = ";
+			
+			if(wert1String != null) {
+				sqlBefehl+= "'" + wert1String +"'";
+			}else if (wert1Int != 0) {
+				sqlBefehl+= wert1Int;
+			}
+			
+			sqlBefehl+= " WHERE " + spalte2 + " = ";
+			
 			if(wert2String != null) {
 				sqlBefehl+= "'" + wert2String +"'";
-			}else if(wert2Int != 0) {
+			}else if (wert2Int != 0) {
 				sqlBefehl+= wert2Int;
 			}
+		}else if(befehl == "INSERT") {
+			String tabellen = "(";
+			String werte = "(";
+			int counter = 0;
+			sqlBefehl+= "INSERT INTO " + tabelle1 + " ";
+			
+			for (HashMap.Entry<String, Object> eintrag : insertMap.entrySet()) {
+				counter++;
+				tabellen+= eintrag.getKey();
+				
+				if(eintrag.getValue() instanceof String) {
+					werte+= "'" + (String)eintrag.getValue() + "'";
+				}else if(eintrag.getValue() instanceof Integer) {
+					werte+= (int)eintrag.getValue();
+				}else if(eintrag.getValue() instanceof Double) {
+					werte+= (double)eintrag.getValue();
+				}else if (eintrag.getValue() instanceof Date) {
+					werte+= "";												// DATE recherchieren und hier einfügen
+				}else if (eintrag.getValue() instanceof Boolean) {
+					werte += (boolean)eintrag.getValue();
+				}else {
+					System.out.println("Fehler bei der HashMap-Verarbeitung in der SQL-Befehlszusammenstellung");
+				}
+				
+				if (counter <= insertMap.size()) {
+					tabellen+= ", ";
+					werte+= ", ";
+				}
+			}
+			
+			tabellen+= ")";
+			werte+= ")";
+			sqlBefehl+= tabellen + " VALUES " + werte;		
+		}else {
+			System.out.println("Fehler bei der Befehlsgenerierung");
 		}
-	}
 		
 		return sqlBefehl;
 	}

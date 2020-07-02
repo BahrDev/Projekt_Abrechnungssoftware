@@ -3,6 +3,7 @@ package package_Abrechnungssoftware;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -34,40 +35,8 @@ public class SQLAnbindung {
 		}		
 		return null;
 	}
-	
-	public Object zeigeDatensatz(){
-		ArrayList<String> kunden = new ArrayList<String>();
-		
-		try 
-		{
-			//Zugriff auf Verbindungsmethode
-			verbindung = datenbankAnwahl();
-			befehl = verbindung.createStatement();
-			
-			String sql ="SELECT * FROM kunde";
-			
-			
-			ausgabe = befehl.executeQuery(sql);
-			
-			while(ausgabe.next())
-			{
-				//System.out.println("\n" + ausgabe.getInt("TeilnehmerID") + " " + ausgabe.getString("Nachname") + " " + ausgabe.getString("Vorname") + " " + ausgabe.getString("Standort") + " " + ausgabe.getString("Fachrichtung"));
-				//System.out.println("\n" + ausgabe.getInt(1) + " " + ausgabe.getString(2) + " " + ausgabe.getString(3) + " " + ausgabe.getString(4)+ " " + ausgabe.getString(5));
-				kunden.add(ausgabe.getString("kundeName"));
-			}
-			verbindung.close();
-			
-		} 
-		catch (Exception e) 
-		{
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-		return kunden;
-	}
-	
-	public void datenbankAuftrag(String sqlBefehl) {
+
+	public void datenbankAnfrage(String sqlBefehl) {
 		try {
 			verbindung = datenbankAnwahl();
 			befehl = verbindung.createStatement();
@@ -78,9 +47,20 @@ public class SQLAnbindung {
 		}
 	}
 	
+	public void datenbankÄnderung(String sqlBefehl) {
+		try {
+			verbindung = datenbankAnwahl();
+			PreparedStatement neuerDatensatz = verbindung.prepareStatement(sqlBefehl);
+			neuerDatensatz.executeUpdate();
+			verbindung.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public ArrayList<String> holeStringArrayAusDatenbank(String sqlBefehl, String spaltenName) {
 		ArrayList<String> retArray = new ArrayList<String>();
-		datenbankAuftrag(sqlBefehl);
+		datenbankAnfrage(sqlBefehl);
 		
 		try {
 			while(ausgabe.next()){
@@ -96,7 +76,7 @@ public class SQLAnbindung {
 	
 	public ArrayList<Integer> holeIntegerArrayAusDatenbank(String sqlBefehl, String spaltenName) {
 		ArrayList<Integer> retArray = new ArrayList<Integer>();
-		datenbankAuftrag(sqlBefehl);
+		datenbankAnfrage(sqlBefehl);
 		
 		try {
 			while(ausgabe.next()){
@@ -112,7 +92,7 @@ public class SQLAnbindung {
 	
 	public String holeStringAusDatenbank(String sqlBefehl, String spaltenName) {
 		String retString = "";
-		datenbankAuftrag(sqlBefehl);
+		datenbankAnfrage(sqlBefehl);
 		
 		try {
 			while(ausgabe.next()){
@@ -128,7 +108,7 @@ public class SQLAnbindung {
 	
 	public int holeIntAusDatenbank(String sqlBefehl, String spaltenName) {
 		int retInt = 0;
-		datenbankAuftrag(sqlBefehl);
+		datenbankAnfrage(sqlBefehl);
 		
 		try {
 			while(ausgabe.next()){
@@ -144,7 +124,7 @@ public class SQLAnbindung {
 	
 	public double holeDoubleAusDatenbank(String sqlBefehl, String spaltenName) {
 		double retDouble = 0;
-		datenbankAuftrag(sqlBefehl);
+		datenbankAnfrage(sqlBefehl);
 		
 		try {
 			while(ausgabe.next()){
@@ -159,17 +139,8 @@ public class SQLAnbindung {
 	}
 
 	
-//	public void ändereDaten(String befehl) {
-//
-//	}
-//	
-//	public String holeDaten(String befehl) {
-//		// Methode schreiben!
-//		return befehl;
-//	}
-	
 	// Einzel-Methoden die als Methoden-Konstruktoren dienen und ihre Werte an die Ziel-Methode weiterreichen
-	public String erstelleBefehl(String selectALL, String auswahl, String tabelle1) {
+ 	public String erstelleBefehl(String selectALL, String auswahl, String tabelle1) {
 		return erstelleBefehl(selectALL, auswahl, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	

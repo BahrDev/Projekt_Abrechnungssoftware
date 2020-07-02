@@ -26,9 +26,9 @@ public class Suchleiste {
 		String rechnungspositionenTabelle = "rechnungsposition";
 		String rechnungspositionenSpalte = "rechnungspositionName";
 		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle);
-		kunden = sqlAuftrag.holeArrayAusDatenbank(sqlBefehl, kundenSpalte);
+		kunden = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, kundenSpalte);
 		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", rechnungspositionenSpalte, rechnungspositionenTabelle);
-		rechnungspositionen = sqlAuftrag.holeArrayAusDatenbank(sqlBefehl, rechnungspositionenSpalte);
+		rechnungspositionen = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, rechnungspositionenSpalte);
 	}
 	
 	public ArrayList implementiereAutofill() {

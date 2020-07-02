@@ -122,6 +122,22 @@ public class SQLAnbindung {
 		return retInt;
 	}
 	
+	public boolean holeBoolAusDatenbank(String sqlBefehl, String spaltenName) {
+		boolean retBool = false;
+		datenbankAnfrage(sqlBefehl);
+		
+		try {
+			while(ausgabe.next()){
+				retBool = ausgabe.getBoolean(spaltenName);
+			}
+			verbindung.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return retBool;
+	}
+	
 	public double holeDoubleAusDatenbank(String sqlBefehl, String spaltenName) {
 		double retDouble = 0;
 		datenbankAnfrage(sqlBefehl);
@@ -144,8 +160,16 @@ public class SQLAnbindung {
 		return erstelleBefehl(selectALL, auswahl, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
-	public String erstelleBefehl(String selectWhere, String auswahl, String tabelle1, String suchSpalte1, String suchWert1) {
-		return erstelleBefehl(selectWhere, auswahl, tabelle1, null, suchSpalte1, null, null, null, null, suchWert1, null, 0, 0, false, false);
+	public String erstelleBefehl(String selectString, String auswahl, String tabelle1, String suchSpalte1, String suchWert1) {
+		return erstelleBefehl(selectString, auswahl, tabelle1, null, suchSpalte1, null, null, null, null, suchWert1, null, 0, 0, false, false);
+	}
+	
+	public String erstelleBefehl(String selectInt, String auswahl, String tabelle1, String suchSpalte1, int suchWert1) {
+		return erstelleBefehl(selectInt, auswahl, tabelle1, null, suchSpalte1, null, null, null, null, null, null, suchWert1, 0, false, false);
+	}
+	
+	public String erstelleBefehl(String selectBool, String auswahl, String tabelle1, String suchSpalte1, boolean suchWert1) {
+		return erstelleBefehl(selectBool, auswahl, tabelle1, null, suchSpalte1, null, null, null, null, null, null, 0, 0, false, suchWert1);
 	}
 	
 	public String erstelleBefehl(String selectStringString, String auswahl, String tabelle1, String suchSpalte1, String suchWert1, String suchSpalte2, String suchWert2) {
@@ -181,7 +205,7 @@ public class SQLAnbindung {
 	}
 	
 	public String erstelleBefehl(String updateBool, String tabelle1, String auswahlSpalte, boolean neuerWert, String suchSpalte2, int suchWert2) {
-		return erstelleBefehl(updateBool, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null, 0, suchWert2, true, true);
+		return erstelleBefehl(updateBool, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null, 0, suchWert2, true, neuerWert);
 	}
 	
 	public String erstelleBefehl(String insertKategorie, String tabelle1, String spalte1, String wert1String) {
@@ -225,8 +249,18 @@ public class SQLAnbindung {
 		return erstelleBefehl(insertRechnung, null, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
-	public String erstelleBefehl(String insertKunde, String tabelle1, String spalte1, String wert1String, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, int wert4Int, String spalte5, String wert5String, String spalte6, String wert6String, String spalte7, String wert7String, String spalte8, String wert8String, String spalte9, boolean wert9String) {
-		return null;
+	public String erstelleBefehl(String insertKunde, String tabelle1, String spalte1, String wert1String, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, int wert4Int, String spalte5, String wert5String, String spalte6, String wert6String, String spalte7, String wert7String, String spalte8, String wert8String, String spalte9, boolean wert9Bool) {
+		insertMap = new HashMap<String, Object>();
+		insertMap.put(spalte1, wert1String);
+		insertMap.put(spalte2, wert2String);
+		insertMap.put(spalte3, wert3String);
+		insertMap.put(spalte4, wert4Int);
+		insertMap.put(spalte5, wert5String);
+		insertMap.put(spalte6, wert6String);
+		insertMap.put(spalte7, wert7String);
+		insertMap.put(spalte8, wert8String);
+		insertMap.put(spalte9, wert9Bool);
+		return erstelleBefehl(insertKunde, null, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
 	// Ziel-Methode die eigentlich die Befehle zusammen stellt
@@ -252,6 +286,8 @@ public class SQLAnbindung {
 						sqlBefehl+= "'" + wert1String +"'";
 					}else if(wert1Int != 0) {
 						sqlBefehl+= wert1Int;
+					}else if(wert1String == null && wert1Int == 0) {
+						sqlBefehl+= wert1Bool;
 					}
 				}
 			}else {
@@ -308,7 +344,7 @@ public class SQLAnbindung {
 					System.out.println("Fehler bei der HashMap-Verarbeitung in der SQL-Befehlszusammenstellung");
 				}
 				
-				if (counter <= insertMap.size()) {
+				if (counter < insertMap.size()) {
 					tabellen+= ", ";
 					werte+= ", ";
 				}

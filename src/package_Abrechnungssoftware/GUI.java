@@ -27,6 +27,11 @@ public class GUI {
 
 	// Attribute
 	
+	private static TabKunde tk1;
+	private static TabRechnungsposition rp1;
+	private static TabOptionen op1;
+	private static boolean neuerKunde = false;
+	
 	private static JFrame frame;
 	private static JTextField textField_KundeStrasse;
 	private static JTextField textField_KundeID;
@@ -84,9 +89,7 @@ public class GUI {
 	private static JButton btn_Optionen_Speichern;
 	private static JLabel lbl_Optionen_Optionen;
 	private static JCheckBox chckbx_Optionen_KundenAusblenden;
-	private static TabKunde tk1;
-	private static TabRechnungsposition rp1;
-	private static TabOptionen op1;
+
 
 	
 	
@@ -883,8 +886,9 @@ public class GUI {
 
 	private void buttonActionListenerHinzufügen() {
 		btn_Kunde_Anzeigen_ActionListener();
-		btn_Kunde_Rechnung_Neu_ActionListener();
+		btn_Kunde_Neu_ActionListener();
 		btn_Kunde_Speichern_ActionListener();
+		btn_Kunde_Rechnung_Neu_ActionListener();
 		btn_Kunde_Rechnung_Anzeigen_ActionListener();
 		btn_Kunde_Rechnung_Korrektur_ActionListener();
 		btn_Position_Anzeigen_ActionListener();
@@ -901,7 +905,48 @@ public class GUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				neuerKunde = false;
+				tk1.setKundenName(String.valueOf(comboBox_Kunde_Kunden.getSelectedItem()));
+				tk1.kundeAnzeigen();
+				textField_KundeName.setText(tk1.getKundenName());
+				textField_KundeID.setText(Integer.toString(tk1.getKundeID()));
+				textField_KundeStrasse.setText(tk1.getStrasse());
+				textField_KundeHausnummer.setText(tk1.getHausnummer());
+				textField_KundeOrt.setText(tk1.getOrt());
+				textField_KundePLZ.setText(Integer.toString(tk1.getPlz()));
+				textField_KundeTelefon.setText(tk1.getTelefonNr());
+				textField_KundeEmail.setText(tk1.getEmail());
+				textField_KundeSteuerNummer.setText(tk1.getSteuerNr());
+				chckbx_Kunde_Inaktiv.setSelected(tk1.isInaktiv());
+				tabAktualisieren();
+			}
+		});
+	}
+
+	private void btn_Kunde_Neu_ActionListener() {
+		btn_Kunde_Neu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				neuerKunde = true;
+				formularLeerenKunde();
+				tabAktualisieren();
+				
+			}
+		});
+	}
+	
+	private void btn_Kunde_Speichern_ActionListener() {
+		btn_Kunde_Speichern.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(neuerKunde == false) {
+					tk1.speichern();
+				}else {
+					tk1.kundeAnlegen();
+				}
+				comboBox_kunde_kunden_aktualisieren();
 				
 			}
 		});
@@ -916,17 +961,6 @@ public class GUI {
 			}
 		});
 	
-	}
-	
-	private void btn_Kunde_Speichern_ActionListener() {
-		btn_Kunde_Speichern.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 	}
 	
 	private void btn_Kunde_Rechnung_Anzeigen_ActionListener() {
@@ -1021,25 +1055,44 @@ public class GUI {
 	
 	private void comboBox_kunde_kunden_aktualisieren() {
 		Suchleiste.generiereArrayLists();
+		comboBox_Kunde_Kunden.removeAllItems();
 		for (int i = 0; i < Suchleiste.getKunden().size(); i++) {
 			comboBox_Kunde_Kunden.addItem(Suchleiste.getKunden().get(i));
 		}
-		System.out.println("Test");
+		comboBox_Kunde_Kunden.setSelectedItem(tk1.getKundenName());
+		comboBox_Kunde_Kunden.revalidate();
+		comboBox_Kunde_Kunden.repaint();
 	}
 	
 	private void comboBox_Position_Positionen_aktualisieren() {
 		//Suchleiste.generiereArrayLists();
+		comboBox_Position_Positionen.removeAllItems();
 		for (int i = 0; i < Suchleiste.getRechnungspositionen().size(); i++) {
 			comboBox_Position_Positionen.addItem(Suchleiste.getRechnungspositionen().get(i));
 		}
+		comboBox_Position_Positionen.revalidate();
+		comboBox_Position_Positionen.repaint();
 	}
 	
 	
 	public void tabAktualisieren (){
-		
+		frame.revalidate();
+		frame.repaint();
 	}
 
 
+	public void formularLeerenKunde() {
+		textField_KundeStrasse.setText("");
+		textField_KundeID.setText("");
+		textField_KundeName.setText("");
+		textField_KundeOrt.setText("");
+		textField_KundeTelefon.setText("");
+		textField_KundeEmail.setText("");
+		textField_KundeSteuerNummer.setText("");
+		textField_KundeHausnummer.setText("");
+		textField_KundePLZ.setText("");
+		chckbx_Kunde_Inaktiv.setSelected(false);
+	}
 
 	// Getter/Setter	
 	
@@ -1608,6 +1661,65 @@ public class GUI {
 	public static ButtonGroup getButtongroupPositionSatz() {
 		return buttonGroup_Position_Satz;
 	}
+
+
+
+	
+	public static TabKunde getTk1() {
+		return tk1;
+	}
+
+
+
+	
+	public static void setTk1(TabKunde tk1) {
+		GUI.tk1 = tk1;
+	}
+
+
+	
+
+	public static TabRechnungsposition getRp1() {
+		return rp1;
+	}
+
+
+	
+
+	public static void setRp1(TabRechnungsposition rp1) {
+		GUI.rp1 = rp1;
+	}
+
+
+	
+
+	public static TabOptionen getOp1() {
+		return op1;
+	}
+
+
+	
+
+	public static void setOp1(TabOptionen op1) {
+		GUI.op1 = op1;
+	}
+
+
+	
+
+	public static boolean isNeuerKunde() {
+		return neuerKunde;
+	}
+
+
+	
+
+	public static void setNeuerKunde(boolean neuerKunde) {
+		GUI.neuerKunde = neuerKunde;
+	}
+
+
+
 
 
 

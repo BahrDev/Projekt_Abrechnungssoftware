@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Suchleiste {
 	
 	// Attribute
-	private static ArrayList<String> rechnungspositionen = new ArrayList<String>();
+	private static ArrayList<String> rechnungspositionen;
 
-	private static ArrayList<String> kunden = new ArrayList<String>();
+	private static ArrayList<String> kunden;
 	
-	private static ArrayList<String> tempListSuche = new ArrayList<String>();
+	private static ArrayList<String> tempListSuche;
 	
 	private static String tempSuchWort;
 	
@@ -25,6 +25,8 @@ public class Suchleiste {
 		String kundenSpalte = "kundeName";
 		String rechnungspositionenTabelle = "rechnungsposition";
 		String rechnungspositionenSpalte = "rechnungspositionName";
+		kunden = new ArrayList<String>();
+		rechnungspositionen = new ArrayList<String>();
 		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle);
 		kunden = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, kundenSpalte);
 		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", rechnungspositionenSpalte, rechnungspositionenTabelle);

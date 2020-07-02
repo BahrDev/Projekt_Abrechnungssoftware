@@ -78,13 +78,29 @@ public class SQLAnbindung {
 		}
 	}
 	
-	public ArrayList<String> holeArrayAusDatenbank(String sqlBefehl, String spaltenName) {
+	public ArrayList<String> holeStringArrayAusDatenbank(String sqlBefehl, String spaltenName) {
 		ArrayList<String> retArray = new ArrayList<String>();
 		datenbankAuftrag(sqlBefehl);
 		
 		try {
 			while(ausgabe.next()){
 				retArray.add(ausgabe.getString(spaltenName));
+			}
+			verbindung.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return retArray;
+	}
+	
+	public ArrayList<Integer> holeIntegerArrayAusDatenbank(String sqlBefehl, String spaltenName) {
+		ArrayList<Integer> retArray = new ArrayList<Integer>();
+		datenbankAuftrag(sqlBefehl);
+		
+		try {
+			while(ausgabe.next()){
+				retArray.add(ausgabe.getInt(spaltenName));
 			}
 			verbindung.close();
 		} catch (Exception e) {
@@ -143,64 +159,64 @@ public class SQLAnbindung {
 	}
 
 	
-	public void ändereDaten(String befehl) {
-
-	}
+//	public void ändereDaten(String befehl) {
+//
+//	}
+//	
+//	public String holeDaten(String befehl) {
+//		// Methode schreiben!
+//		return befehl;
+//	}
 	
-	public String holeDaten(String befehl) {
-		// Methode schreiben!
-		return befehl;
-	}
-	
-	
+	// Einzel-Methoden die als Methoden-Konstruktoren dienen und ihre Werte an die Ziel-Methode weiterreichen
 	public String erstelleBefehl(String selectALL, String auswahl, String tabelle1) {
-		return erstelleBefehl(selectALL, auswahl, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
+		return erstelleBefehl(selectALL, auswahl, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String selectWhere, String auswahl, String tabelle1, String suchSpalte1, String suchWert1) {
-		return erstelleBefehl(selectWhere, auswahl, tabelle1, null, suchSpalte1, null, null, null, null, null, null, null, null, null, null, null, suchWert1, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
+		return erstelleBefehl(selectWhere, auswahl, tabelle1, null, suchSpalte1, null, null, null, null, suchWert1, null, 0, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String selectStringString, String auswahl, String tabelle1, String suchSpalte1, String suchWert1, String suchSpalte2, String suchWert2) {
-		return erstelleBefehl(selectStringString, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, null, null, null, null, null, null, null, suchWert1, suchWert2, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
+		return erstelleBefehl(selectStringString, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, suchWert1, suchWert2, 0, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String selectStringInt, String auswahl, String tabelle1, String suchSpalte1, String suchWert1, String suchSpalte2, int suchWert2) {
-		return erstelleBefehl(selectStringInt, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, null, null, null, null, null, null, null, suchWert1, null, null, null, null, null, null, 0, suchWert2, 0, 0, false, false, null);
+		return erstelleBefehl(selectStringInt, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, suchWert1, null, 0, suchWert2, false, false);
 	}
 	
 	public String erstelleBefehl(String selectIntInt, String auswahl, String tabelle1, String suchSpalte1, int suchWert1, String suchSpalte2, int suchWert2) {
-		return erstelleBefehl(selectIntInt, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, suchWert1, suchWert2, 0, 0, false, false, null);
+		return erstelleBefehl(selectIntInt, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, null, null, suchWert1, suchWert2, false, false);
 	}
 	
 	public String erstelleBefehl(String selectIntString, String auswahl, String tabelle1, String suchSpalte1, int suchWert1, String suchSpalte2, String suchWert2) {
-		return erstelleBefehl(selectIntString, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, null, null, null, null, null, null, null, suchWert2, null, null, null, null, null, null, suchWert1, 0, 0, 0, false, false, null);
+		return erstelleBefehl(selectIntString, auswahl, tabelle1, null, suchSpalte1, suchSpalte2, null, null, null, null, suchWert2, suchWert1, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String selectInnerJoinString, boolean innerJoin, String auswahl, String tabelle1, String tabelle2, String keySpalte, String suchSpalte2, String suchWert2) {
-		return erstelleBefehl(selectInnerJoinString, auswahl, tabelle1, tabelle2, null, suchSpalte2, keySpalte, null, null, null, null, null, null, null, null, null, null, suchWert2, null, null, null, null, null, 0, 0, 0, 0, true, false, null);
+		return erstelleBefehl(selectInnerJoinString, auswahl, tabelle1, tabelle2, null, suchSpalte2, keySpalte, null, null, null, suchWert2, 0, 0, innerJoin, false);
 	}
 	
 	public String erstelleBefehl(String selectInnerJoinInt, boolean innerJoin, String auswahl, String tabelle1, String tabelle2, String keySpalte, String suchSpalte2, int suchWert2) {
-		return erstelleBefehl(selectInnerJoinInt, auswahl, tabelle1, tabelle2, null, suchSpalte2, keySpalte, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, suchWert2, 0, 0, true, false, null);
+		return erstelleBefehl(selectInnerJoinInt, auswahl, tabelle1, tabelle2, null, suchSpalte2, keySpalte, null, null, null, null, 0, suchWert2, innerJoin, false);
 	}
 	
-	public String erstelleBefehl(String updateString, boolean stringUpdate, String tabelle1, String auswahlSpalte, String neuerWert, String suchSpalte2, String suchWert2) {
-		return erstelleBefehl(updateString, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null, null, null, null, null, null, neuerWert, suchWert2, null, null, null, null, null, 0, 0, 0, 0, stringUpdate, false, null);
+	public String erstelleBefehl(String updateString, String tabelle1, String auswahlSpalte, String neuerWert, String suchSpalte2, int suchWert2) {
+		return erstelleBefehl(updateString, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, neuerWert, null, 0, suchWert2, false, false);
 	}
 	
-	public String erstelleBefehl(String updateInt, String tabelle1, String auswahlSpalte, int neuerWert, String suchSpalte2, String suchWert2) {
-		return erstelleBefehl(updateInt, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null, null, null, null, null, null, null, suchWert2, null, null, null, null, null, neuerWert, 0, 0, 0, false, false, null);
+	public String erstelleBefehl(String updateInt, String tabelle1, String auswahlSpalte, int neuerWert, String suchSpalte2, int suchWert2) {
+		return erstelleBefehl(updateInt, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null, neuerWert, suchWert2, false, false);
 	}
 	
-	public String erstelleBefehl(String updateBool, String tabelle1, String auswahlSpalte, boolean neuerWert, String suchSpalte2, String suchWert2) {
-		return erstelleBefehl(updateBool, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null, null, null, null, null, null, null, suchWert2, null, null, null, null, null, 0, 0, 0, 0, false, neuerWert, null);
+	public String erstelleBefehl(String updateBool, String tabelle1, String auswahlSpalte, boolean neuerWert, String suchSpalte2, int suchWert2) {
+		return erstelleBefehl(updateBool, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null, 0, suchWert2, true, true);
 	}
 	
 	public String erstelleBefehl(String insertKategorie, String tabelle1, String spalte1, String wert1String) {
 		insertMap = new HashMap<String, Object>();
 		insertMap.put(spalte1, wert1String);
-		return erstelleBefehl(insertKategorie, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
+		return erstelleBefehl(insertKategorie, null, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String insertRechnungsposition, String tabelle1, String spalte1, int wert1Int, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, double wert4Double) {
@@ -209,7 +225,7 @@ public class SQLAnbindung {
 		insertMap.put(spalte2, wert2String);
 		insertMap.put(spalte3, wert3String);
 		insertMap.put(spalte4, wert4Double);
-		return erstelleBefehl(insertRechnungsposition, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
+		return erstelleBefehl(insertRechnungsposition, null, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String insertRechnungsposten, String tabelle1, String spalte1, int wert1Int, String spalte2, int wert2Int, String spalte3, int wert3Int, String spalte4, int wert4Int, String spalte5, String wert5String, String spalte6, double wert6Double, String spalte7, double wert7Double) {
@@ -221,7 +237,7 @@ public class SQLAnbindung {
 		insertMap.put(spalte5, wert5String);
 		insertMap.put(spalte6, wert6Double);
 		insertMap.put(spalte7, wert7Double);
-		return erstelleBefehl(insertRechnungsposten, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
+		return erstelleBefehl(insertRechnungsposten, null, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String insertRechnung, String tabelle1, String spalte1, String wert1String, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, double wert4Double, String spalte5, double wert5Double, String spalte6, Date wert6datum, String spalte7, String wert7String, String spalte8, String wert8String, String spalte9, int wert9Int) {
@@ -235,18 +251,16 @@ public class SQLAnbindung {
 		insertMap.put(spalte7, wert7String);
 		insertMap.put(spalte8, wert8String);
 		insertMap.put(spalte9, wert9Int);
-		return erstelleBefehl(insertRechnung, null, tabelle1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, false, false, null);
+		return erstelleBefehl(insertRechnung, null, tabelle1, null, null, null, null, null, null, null, null, 0, 0, false, false);
 	}
 	
 	public String erstelleBefehl(String insertKunde, String tabelle1, String spalte1, String wert1String, String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, int wert4Int, String spalte5, String wert5String, String spalte6, String wert6String, String spalte7, String wert7String, String spalte8, String wert8String, String spalte9, boolean wert9String) {
 		return null;
 	}
 	
-	
+	// Ziel-Methode die eigentlich die Befehle zusammen stellt
 	public String erstelleBefehl(String befehl, String auswahl,	String tabelle1, String tabelle2, String suchSpalte1, String suchSpalte2, String keySpalte,	
-								String spalte1,	String spalte2,	String spalte3, String spalte4,	String spalte5,	String spalte6,	String spalte7,	String spalte8,	String spalte9,
-								String wert1String, String wert2String,	String wert3String,	String wert4String,	String wert5String,	String wert6String,	String wert7String,
-								int wert1Int, int wert2Int,	int wert3Int, int wert4Int,	boolean befehlMarker, boolean wert1Bool, Date datum) {
+								String spalte1,	String spalte2, String wert1String, String wert2String, int wert1Int, int wert2Int,	boolean befehlMarker, boolean wert1Bool) {
 		String sqlBefehl = "";
 		
 		if (befehl == "SELECT") {
@@ -288,6 +302,8 @@ public class SQLAnbindung {
 				sqlBefehl+= "'" + wert1String +"'";
 			}else if (wert1Int != 0) {
 				sqlBefehl+= wert1Int;
+			}else if (befehlMarker == true) {
+				sqlBefehl+= wert1Bool;
 			}
 			
 			sqlBefehl+= " WHERE " + spalte2 + " = ";
@@ -337,37 +353,6 @@ public class SQLAnbindung {
 		return sqlBefehl;
 	}
 	
-	
-//	public String erstelleBefehl(String select, String tabelle, String spalte) {
-//		return erstelleBefehl(select, tabelle, spalte, null, null, null);
-//	}
-//	
-//	public String erstelleBefehl(String selectWhere, String tabelle, String spalte, String suchSpalte, String zeile) {
-//		return erstelleBefehl(selectWhere, tabelle, spalte, null, null, null);
-//	}
-	
-//	public String erstelleBefehl(String anweisung, String tabelle, String spalte, String suchSpalte, String zeile, String platzhalter) {
-//		String befehl = "";
-//		if (anweisung == "SELECT") {
-//			befehl+= "SELECT";
-//			
-//			if (spalte != "ALL") {
-//				befehl+= " " + spalte;
-//			}else {
-//				befehl+= " *";
-//			}
-//			
-//			befehl+= " FROM " + tabelle;
-//				
-//			if(zeile != null) {
-//				befehl+= " WHERE " + suchSpalte + " = " + zeile;
-//			}
-//		}
-//		
-//
-//		
-//		return befehl;
-//	}
 	
 	// Getter/Setter
 }

@@ -18,6 +18,7 @@ public class TabKunde {
 	private String steuerNr;
 	private boolean inaktiv;
 	private ArrayList<String> rechnungen = new ArrayList<String>();
+	private GUIRechnung neueRechnung;
 	
 	// gegebenenfalls weitere Strings von Programmtext
 	
@@ -114,7 +115,7 @@ public class TabKunde {
 	}
 	
 	public void rechnungStellen(){
-		GUIRechnung neueRechnung = new GUIRechnung();
+		neueRechnung = new GUIRechnung();
 		neueRechnung.fensterRechnung();
 	}
 	
@@ -251,6 +252,14 @@ public class TabKunde {
 
 	public void setInaktiv(boolean inaktiv) {
 		this.inaktiv = inaktiv;
+	}
+
+	public GUIRechnung getNeueRechnung() {
+		return neueRechnung;
+	}
+
+	public void setNeueRechnung(GUIRechnung neueRechnung) {
+		this.neueRechnung = neueRechnung;
 	}
 	
 	

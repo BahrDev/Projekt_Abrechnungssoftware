@@ -343,7 +343,7 @@ public class SQLAnbindung {
 				}else if(eintrag.getValue() instanceof Double) {
 					werte+= (double)eintrag.getValue();
 				}else if (eintrag.getValue() instanceof Date) {
-					werte+= "";												// DATE recherchieren und hier einfügen
+					werte+= "'" + (Date)eintrag.getValue() + "'";
 				}else if (eintrag.getValue() instanceof Boolean) {
 					werte += (boolean)eintrag.getValue();
 				}else {

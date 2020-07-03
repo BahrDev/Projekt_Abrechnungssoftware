@@ -48,7 +48,8 @@ public class GUIRechnung {
 	private JScrollPane scrollPane_Rechnung_Posten_Innen;
 	private JPanel panel_Rechnung_Posten_Aussen;
 	private TabRechnung tr1;
-	
+	private double Rechnung_Summe_Netto_in_Euro;
+	private double Rechnung_Rechnung_Betrag_in_Euro;
 	// Konstruktor
 	
 	
@@ -63,7 +64,7 @@ public class GUIRechnung {
 		frame_Rechnung.setResizable(false);
 		frame_Rechnung.setAlwaysOnTop(true);
 		frame_Rechnung.setTitle("Rechnung");
-		frame_Rechnung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame_Rechnung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame_Rechnung.setBounds(100, 100, 1000, 1000);
 		
 //		contentPane = new JPanel();
@@ -455,7 +456,7 @@ public class GUIRechnung {
 	public void buttonActionListenerHinzuf¸gen() {
 		btn_Rechnung_Posten_Plus_ActionListener();
 		btn_Rechnung_Posten_Minus_ActionListener();
-		
+		btn_Rechnung_Rechnung_Speichern_ActionListener();
 		
 	}
 	
@@ -479,10 +480,12 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panel_Rechnung_Posten_Innen_Posten.remove(panel_Rechnung_Posten_Innen_Posten.getComponentCount()-1);
-				fensterAktualisieren();
-				posten.remove(posten.size()-1);
-				anzahlPosten--;
+				if(anzahlPosten > 0) {
+					panel_Rechnung_Posten_Innen_Posten.remove(panel_Rechnung_Posten_Innen_Posten.getComponentCount()-1);
+					fensterAktualisieren();
+					posten.remove(posten.size()-1);
+					anzahlPosten--;
+				}
 			}
 		});
 	}
@@ -492,8 +495,9 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				// Sicherheitsabfrage
+				tr1.speichern();
+				// Fenster schlieﬂen, Frame Disposen oder so
 			}
 		});
 	}
@@ -693,5 +697,35 @@ public class GUIRechnung {
 	}
 	public JPanel getPanel_Rechnung_Posten_Aussen() {
 		return panel_Rechnung_Posten_Aussen;
+	}
+
+
+	public double getRechnung_Summe_Netto_in_Euro() {
+		return Rechnung_Summe_Netto_in_Euro;
+	}
+
+
+	public void setRechnung_Summe_Netto_in_Euro(double rechnung_Summe_Netto_in_Euro) {
+		Rechnung_Summe_Netto_in_Euro = rechnung_Summe_Netto_in_Euro;
+	}
+
+
+	public double getRechnung_Rechnung_Betrag_in_Euro() {
+		return Rechnung_Rechnung_Betrag_in_Euro;
+	}
+
+
+	public void setRechnung_Rechnung_Betrag_in_Euro(double rechnung_Rechnung_Betrag_in_Euro) {
+		Rechnung_Rechnung_Betrag_in_Euro = rechnung_Rechnung_Betrag_in_Euro;
+	}
+
+
+	public ArrayList<ArrayList<Object>> getPosten() {
+		return posten;
+	}
+
+
+	public void setPosten(ArrayList<ArrayList<Object>> posten) {
+		this.posten = posten;
 	}
 }

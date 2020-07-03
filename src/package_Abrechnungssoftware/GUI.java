@@ -31,6 +31,7 @@ public class GUI {
 	private static TabRechnungsposition rp1;
 	private static TabOptionen op1;
 	private static boolean neuerKunde = false;
+	private static boolean neuePosition = false;
 	
 	private static JFrame frame;
 	private static JTextField textField_KundeStrasse;
@@ -78,7 +79,7 @@ public class GUI {
 	private static JPanel panel_Position_Daten;
 	private static JLabel lbl_Position_Name;
 	private static JLabel lbl_Position_Kategorie;
-	private static JComboBox comboBox_Position_Kategorie;
+	private static JComboBox<String> comboBox_Position_Kategorie;
 	private static JButton btn_Position_Kategorie_Neu;
 	private static JLabel lbl_Position_Satz_in_Euro;
 	private static JRadioButton rdbtn_Position_Stundensatz;
@@ -141,7 +142,7 @@ public class GUI {
 		gbl_panel_Kunde_Suchleiste.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_Kunde_Suchleiste.setLayout(gbl_panel_Kunde_Suchleiste);
 		
-		comboBox_Kunde_Kunden = new JComboBox();
+		comboBox_Kunde_Kunden = new JComboBox<String>();
 		comboBox_Kunde_Kunden.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_comboBox_Kunde_Kunden = new GridBagConstraints();
 		gbc_comboBox_Kunde_Kunden.fill = GridBagConstraints.HORIZONTAL;
@@ -154,6 +155,7 @@ public class GUI {
 		btn_Kunde_Anzeigen.setMinimumSize(new Dimension(130, 25));
 		btn_Kunde_Anzeigen.setPreferredSize(new Dimension(130, 25));
 		GridBagConstraints gbc_btn_Kunde_Anzeigen = new GridBagConstraints();
+		gbc_btn_Kunde_Anzeigen.anchor = GridBagConstraints.NORTH;
 		gbc_btn_Kunde_Anzeigen.insets = new Insets(0, 0, 5, 0);
 		gbc_btn_Kunde_Anzeigen.gridx = 2;
 		gbc_btn_Kunde_Anzeigen.gridy = 0;
@@ -512,6 +514,7 @@ public class GUI {
 		btn_Position_Anzeigen.setPreferredSize(new Dimension(130, 25));
 		btn_Position_Anzeigen.setMinimumSize(new Dimension(130, 25));
 		GridBagConstraints gbc_btn_Position_Anzeigen = new GridBagConstraints();
+		gbc_btn_Position_Anzeigen.anchor = GridBagConstraints.NORTH;
 		gbc_btn_Position_Anzeigen.insets = new Insets(0, 0, 5, 0);
 		gbc_btn_Position_Anzeigen.gridx = 2;
 		gbc_btn_Position_Anzeigen.gridy = 0;
@@ -878,8 +881,9 @@ public class GUI {
 		rp1 = new TabRechnungsposition();
 		op1 = new TabOptionen();
 		buttonActionListenerHinzufügen();
-		comboBox_kunde_kunden_aktualisieren();
-		comboBox_Position_Positionen_aktualisieren();
+		tk1.comboBox_kunde_kunden_aktualisieren();
+		rp1.comboBox_Position_Positionen_aktualisieren();
+		rp1.comboBox_Position_Kategorie_aktualisieren();
 		frame.setVisible(true);
 	}
 
@@ -929,7 +933,7 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				neuerKunde = true;
-				formularLeerenKunde();
+				tk1.eingabefelderLeeren();
 				tabAktualisieren();
 				
 			}
@@ -946,7 +950,7 @@ public class GUI {
 				}else {
 					tk1.kundeAnlegen();
 				}
-				comboBox_kunde_kunden_aktualisieren();
+				tk1.comboBox_kunde_kunden_aktualisieren();
 				
 			}
 		});
@@ -990,8 +994,10 @@ public class GUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				neuePosition = false;
+				rp1.setPositionsname(String.valueOf(comboBox_Position_Positionen.getSelectedItem()));
+				rp1.positionAnzeigen();
+				tabAktualisieren();
 			}
 		});
 	}
@@ -1001,7 +1007,9 @@ public class GUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				neuePosition = true;
+				rp1.eingabefelderLeeren();
+				tabAktualisieren();
 				
 			}
 		});
@@ -1023,7 +1031,12 @@ public class GUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				if(neuePosition == false) {
+					rp1.speichern();
+				}else {
+					rp1.positionAnlegen();
+				}
+				rp1.comboBox_Position_Positionen_aktualisieren();
 				
 			}
 		});
@@ -1052,48 +1065,12 @@ public class GUI {
 	}
 	
 	
-	
-	private void comboBox_kunde_kunden_aktualisieren() {
-		Suchleiste.generiereArrayLists();
-		comboBox_Kunde_Kunden.removeAllItems();
-		for (int i = 0; i < Suchleiste.getKunden().size(); i++) {
-			comboBox_Kunde_Kunden.addItem(Suchleiste.getKunden().get(i));
-		}
-		comboBox_Kunde_Kunden.setSelectedItem(tk1.getKundenName());
-		comboBox_Kunde_Kunden.revalidate();
-		comboBox_Kunde_Kunden.repaint();
-	}
-	
-	private void comboBox_Position_Positionen_aktualisieren() {
-		//Suchleiste.generiereArrayLists();
-		comboBox_Position_Positionen.removeAllItems();
-		for (int i = 0; i < Suchleiste.getRechnungspositionen().size(); i++) {
-			comboBox_Position_Positionen.addItem(Suchleiste.getRechnungspositionen().get(i));
-		}
-		comboBox_Position_Positionen.revalidate();
-		comboBox_Position_Positionen.repaint();
-	}
-	
-	
 	public void tabAktualisieren (){
 		frame.revalidate();
 		frame.repaint();
 	}
 
-
-	public void formularLeerenKunde() {
-		textField_KundeStrasse.setText("");
-		textField_KundeID.setText("");
-		textField_KundeName.setText("");
-		textField_KundeOrt.setText("");
-		textField_KundeTelefon.setText("");
-		textField_KundeEmail.setText("");
-		textField_KundeSteuerNummer.setText("");
-		textField_KundeHausnummer.setText("");
-		textField_KundePLZ.setText("");
-		chckbx_Kunde_Inaktiv.setSelected(false);
-	}
-
+	
 	// Getter/Setter	
 	
 	
@@ -1278,7 +1255,7 @@ public class GUI {
 	}
 
 
-	public static JComboBox getComboBox_Kunde_Kunden() {
+	public static JComboBox<String> getComboBox_Kunde_Kunden() {
 		return comboBox_Kunde_Kunden;
 	}
 
@@ -1488,7 +1465,7 @@ public class GUI {
 	}
 
 
-	public static JComboBox getComboBox_Position_Positionen() {
+	public static JComboBox<String> getComboBox_Position_Positionen() {
 		return comboBox_Position_Positionen;
 	}
 
@@ -1548,7 +1525,7 @@ public class GUI {
 	}
 
 
-	public static JComboBox getComboBox_Position_Kategorie() {
+	public static JComboBox<String> getComboBox_Position_Kategorie() {
 		return comboBox_Position_Kategorie;
 	}
 

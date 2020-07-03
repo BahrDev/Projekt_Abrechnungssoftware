@@ -67,7 +67,6 @@ public class TabKunde {
 		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeID", "kunde", "kundeName", kundenName);
 		kundeID = sql.holeIntAusDatenbank(sqlBefehl, "kundeID");
 		GUI.getTextField_KundeID().setText(Integer.toString(kundeID));
-		GUI.setNeuerKunde(false);
 	}
 	
 	public void speichern(){
@@ -125,8 +124,28 @@ public class TabKunde {
 		return rechnungen;	
 	}
 	
-	public void eingabefelderLeeren()
-	{
+	public void comboBox_kunde_kunden_aktualisieren() {
+		Suchleiste.generiereArrayLists();
+		GUI.getComboBox_Kunde_Kunden().removeAllItems();
+		for (int i = 0; i < Suchleiste.getKunden().size(); i++) {
+			GUI.getComboBox_Kunde_Kunden().addItem(Suchleiste.getKunden().get(i));
+		}
+		GUI.getComboBox_Kunde_Kunden().setSelectedItem(kundenName);
+		GUI.getComboBox_Kunde_Kunden().revalidate();
+		GUI.getComboBox_Kunde_Kunden().repaint();
+	}
+	
+	public void eingabefelderLeeren(){
+		GUI.getTextField_KundeStrasse().setText("");
+		GUI.getTextField_KundeID().setText("");
+		GUI.getTextField_KundeName().setText("");
+		GUI.getTextField_KundeOrt().setText("");
+		GUI.getTextField_KundeTelefon().setText("");
+		GUI.getTextField_KundeEmail().setText("");
+		GUI.getTextField_KundeSteuerNummer().setText("");
+		GUI.getTextField_KundeHausnummer().setText("");
+		GUI.getTextField_KundePLZ().setText("");
+		GUI.getChckbx_Kunde_Inaktiv().setSelected(false);
 		
 	}
 	//Abfrage boolean 

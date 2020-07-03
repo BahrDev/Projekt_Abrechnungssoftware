@@ -884,6 +884,7 @@ public class GUI {
 		tk1.comboBox_kunde_kunden_aktualisieren();
 		rp1.comboBox_Position_Positionen_aktualisieren();
 		rp1.comboBox_Position_Kategorie_aktualisieren();
+		panel_Position_Daten.setVisible(false);
 		frame.setVisible(true);
 	}
 
@@ -995,6 +996,7 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				neuePosition = false;
+				panel_Position_Daten.setVisible(true);
 				rp1.setPositionsname(String.valueOf(comboBox_Position_Positionen.getSelectedItem()));
 				rp1.positionAnzeigen();
 				tabAktualisieren();
@@ -1008,6 +1010,7 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				neuePosition = true;
+				panel_Position_Daten.setVisible(true);
 				rp1.eingabefelderLeeren();
 				tabAktualisieren();
 				

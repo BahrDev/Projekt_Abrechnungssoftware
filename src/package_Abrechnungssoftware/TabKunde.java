@@ -48,6 +48,7 @@ public class TabKunde {
 		inaktiv = sql.holeBoolAusDatenbank(sqlBefehl, "kundeInaktiv");
 		
 		//Rechnungen müssen hier noch abgerufen werden!!!
+		ladeRechnungen();
 	}
 	
 	public void kundeAnlegen(){
@@ -119,10 +120,21 @@ public class TabKunde {
 		neueRechnung.fensterRechnung();
 	}
 	
-	public ArrayList<String> ladeRechnungen()
-	{
-	// Methode schreiben 
-		return rechnungen;	
+	public void ladeRechnungen(){
+		ArrayList<String> tempArrayRechnungsNummern = new ArrayList<String>();
+		SQLAnbindung sql = new SQLAnbindung();
+		String sqlBefehl = "";
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungNummer", "rechnung", "kundeID", kundeID);
+		tempArrayRechnungsNummern = sql.holeStringArrayAusDatenbank(sqlBefehl, "rechnungNummer");
+		GUI.getListModel().clear();
+		//Sortieren hier
+		for (int i = 0; i < tempArrayRechnungsNummern.size(); i++) {
+			// Füge 20 Leerzeichen zur Formatierung hinzu:
+			GUI.getListModel().addElement(tempArrayRechnungsNummern.get(i));
+		}
+		
+		GUI.getList_Kunde_Rechnungen().revalidate();
+		GUI.getList_Kunde_Rechnungen().repaint();
 	}
 	
 	public void comboBox_kunde_kunden_aktualisieren() {

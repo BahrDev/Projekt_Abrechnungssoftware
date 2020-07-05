@@ -7,101 +7,50 @@ import javax.swing.JOptionPane;
 public class TabKunde {
 
 	// Attribute 
-	private String kundenName; 
-	private int kundeID; 
-	private String strasse;
-	private String hausnummer;
-	private String ort;
-	private int plz;
-	private String telefonNr;
-	private String email;
-	private String steuerNr;
-	private boolean inaktiv;
-	private ArrayList<String> rechnungen = new ArrayList<String>();
-	private GUIRechnung neueRechnung;
-	
-	// gegebenenfalls weitere Strings von Programmtext
+	private Kunde aktuellerKunde;
+	private GUIRechnung neueGUIRechnung;
+	private boolean neuerKunde;
 	
 	
 	//Methoden
-	public void kundeAnzeigen(){
-		SQLAnbindung sql = new SQLAnbindung();
-		String sqlBefehl = "";
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeID", "kunde", "kundeName", kundenName);
-		kundeID = sql.holeIntAusDatenbank(sqlBefehl, "kundeID");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeStrasse", "kunde", "kundeName", kundenName);
-		strasse = sql.holeStringAusDatenbank(sqlBefehl, "kundeStrasse");
+	public void kundeAnzeigen(boolean neuerKunde){
+		this.neuerKunde = neuerKunde;
+		aktuellerKunde = new Kunde(neuerKunde);
+		aktuellerKunde.ladeRechnungen();
 		
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeHausnummer", "kunde", "kundeName", kundenName);
-		hausnummer = sql.holeStringAusDatenbank(sqlBefehl, "kundeHausnummer");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeOrt", "kunde", "kundeName", kundenName);
-		ort = sql.holeStringAusDatenbank(sqlBefehl, "kundeOrt");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundePLZ", "kunde", "kundeName", kundenName);
-		plz = sql.holeIntAusDatenbank(sqlBefehl, "kundePLZ");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeTelefon", "kunde", "kundeName", kundenName);
-		telefonNr = sql.holeStringAusDatenbank(sqlBefehl, "kundeTelefon");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeEmail", "kunde", "kundeName", kundenName);
-		email = sql.holeStringAusDatenbank(sqlBefehl, "kundeEmail");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeSteuerNummer", "kunde", "kundeName", kundenName);
-		steuerNr = sql.holeStringAusDatenbank(sqlBefehl, "kundeSteuerNummer");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeInaktiv", "kunde", "kundeName", kundenName);
-		inaktiv = sql.holeBoolAusDatenbank(sqlBefehl, "kundeInaktiv");
-		
-		//Rechnungen müssen hier noch abgerufen werden!!!
 		ladeRechnungen();
 	}
 	
 	public void kundeAnlegen(){
-		kundenName = GUI.getTextField_KundeName().getText();
-		strasse = GUI.getTextField_KundeStrasse().getText();
-		hausnummer = GUI.getTextField_KundeHausnummer().getText();
-		ort = GUI.getTextField_KundeOrt().getText();
-		plz = Integer.valueOf(GUI.getTextField_KundePLZ().getText());
-		telefonNr = GUI.getTextField_KundeTelefon().getText();
-		email = GUI.getTextField_KundeEmail().getText();
-		steuerNr = GUI.getTextField_KundeSteuerNummer().getText();
-		inaktiv = GUI.getChckbx_Kunde_Inaktiv().isSelected();
-		
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl;
-		sqlBefehl = sql.erstelleBefehl("INSERT", "kunde", "kundeName", kundenName, "kundeStrasse", strasse, "kundeHausnummer", hausnummer, "kundePLZ", plz, "kundeOrt", ort, "kundeTelefon", telefonNr, "kundeEmail", email, "kundeSteuerNummer", steuerNr, "kundeInaktiv", inaktiv);
+		sqlBefehl = sql.erstelleBefehl("INSERT", "kunde", "kundeName", aktuellerKunde.getKundeName(), "kundeStrasse", aktuellerKunde.getKundeStrasse(), "kundeHausnummer", aktuellerKunde.getKundeHausnummer(), "kundePLZ", aktuellerKunde.getKundePLZ(), "kundeOrt", aktuellerKunde.getKundeOrt(), "kundeTelefon", aktuellerKunde.getKundeTelefon(), "kundeEmail", aktuellerKunde.getKundeEmail(), "kundeSteuerNummer", aktuellerKunde.getKundeSteuerNummer(), "kundeInaktiv", aktuellerKunde.isInaktiv());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeID", "kunde", "kundeName", kundenName);
-		kundeID = sql.holeIntAusDatenbank(sqlBefehl, "kundeID");
-		GUI.getTextField_KundeID().setText(Integer.toString(kundeID));
+		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeID", "kunde", "kundeName", aktuellerKunde.getKundeName());
+		int kundeID = sql.holeIntAusDatenbank(sqlBefehl, "kundeID");
+		GUI.getLbl_KundeID_ID().setText(Integer.toString(kundeID));
 	}
 	
 	public void speichern(){
-		kundeID = Integer.valueOf(GUI.getTextField_KundeID().getText());
-		kundenName = GUI.getTextField_KundeName().getText();
-		strasse = GUI.getTextField_KundeStrasse().getText();
-		hausnummer = GUI.getTextField_KundeHausnummer().getText();
-		ort = GUI.getTextField_KundeOrt().getText();
-		plz = Integer.valueOf(GUI.getTextField_KundePLZ().getText());
-		telefonNr = GUI.getTextField_KundeTelefon().getText();
-		email = GUI.getTextField_KundeEmail().getText();
-		steuerNr = GUI.getTextField_KundeSteuerNummer().getText();
-		inaktiv = GUI.getChckbx_Kunde_Inaktiv().isSelected();
-		
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl;
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeName", kundenName, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeName", aktuellerKunde.getKundeName(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeStrasse", strasse, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeStrasse", aktuellerKunde.getKundeStrasse(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeHausnummer", hausnummer, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeHausnummer", aktuellerKunde.getKundeHausnummer(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeOrt", ort, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeOrt", aktuellerKunde.getKundeOrt(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundePLZ", plz, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundePLZ", aktuellerKunde.getKundePLZ(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeTelefon", telefonNr, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeTelefon", aktuellerKunde.getKundeTelefon(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeEmail", email, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeEmail", aktuellerKunde.getKundeEmail(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeSteuerNummer", steuerNr, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeSteuerNummer", aktuellerKunde.getKundeSteuerNummer(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeInaktiv", inaktiv, "kundeID", kundeID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "kunde", "kundeInaktiv", aktuellerKunde.isInaktiv(), "kundeID", aktuellerKunde.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
 	}
 	
@@ -110,27 +59,33 @@ public class TabKunde {
 		
 	}
 	
-	public void rechnungKorrigieren()
-	{
+	public void rechnungKorrigieren(){
+		String ausgewählteRechnung = (String) GUI.getList_Kunde_Rechnungen().getSelectedValue();
+		int rechnungID = -1;
+		for (int i = 0; i < aktuellerKunde.getRechnungen().size(); i++) {
+			if (aktuellerKunde.getRechnungen().get(i).getRechnungNummer().equals(ausgewählteRechnung)) {
+				rechnungID = aktuellerKunde.getRechnungen().get(i).getRechnungID();
+			}
+		}
+		if(rechnungID != -1) {
+			neueGUIRechnung = new GUIRechnung(false, rechnungID);
+			neueGUIRechnung.fensterRechnung();
+			neueGUIRechnung.getTr1().zeigeBestehendeRechnungsdaten();
+		}
 		
 	}
 	
 	public void rechnungStellen(){
-		neueRechnung = new GUIRechnung();
-		neueRechnung.fensterRechnung();
+		neueGUIRechnung = new GUIRechnung(true, null);
+		neueGUIRechnung.fensterRechnung();
 	}
 	
 	public void ladeRechnungen(){
-		ArrayList<String> tempArrayRechnungsNummern = new ArrayList<String>();
-		SQLAnbindung sql = new SQLAnbindung();
-		String sqlBefehl = "";
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungNummer", "rechnung", "kundeID", kundeID);
-		tempArrayRechnungsNummern = sql.holeStringArrayAusDatenbank(sqlBefehl, "rechnungNummer");
 		GUI.getListModel().clear();
-		//Sortieren hier
-		for (int i = 0; i < tempArrayRechnungsNummern.size(); i++) {
-			// Füge 20 Leerzeichen zur Formatierung hinzu:
-			GUI.getListModel().addElement(tempArrayRechnungsNummern.get(i));
+		//Sortieren hier ggf
+		for (int i = 0; i < aktuellerKunde.getRechnungen().size(); i++) {
+			// Füge 20 Leerzeichen zur Formatierung hinzu???
+			GUI.getListModel().addElement(aktuellerKunde.getRechnungen().get(i).getRechnungNummer());
 		}
 		
 		GUI.getList_Kunde_Rechnungen().revalidate();
@@ -143,14 +98,18 @@ public class TabKunde {
 		for (int i = 0; i < Suchleiste.getKunden().size(); i++) {
 			GUI.getComboBox_Kunde_Kunden().addItem(Suchleiste.getKunden().get(i));
 		}
-		GUI.getComboBox_Kunde_Kunden().setSelectedItem(kundenName);
+		if (aktuellerKunde != null) {
+			GUI.getComboBox_Kunde_Kunden().setSelectedItem(aktuellerKunde.getKundeName());
+		}else {
+			GUI.getComboBox_Kunde_Kunden().setSelectedItem(-1);
+		}
 		GUI.getComboBox_Kunde_Kunden().revalidate();
 		GUI.getComboBox_Kunde_Kunden().repaint();
 	}
 	
 	public void eingabefelderLeeren(){
 		GUI.getTextField_KundeStrasse().setText("");
-		GUI.getTextField_KundeID().setText("");
+		GUI.getLbl_KundeID_ID().setText("");
 		GUI.getTextField_KundeName().setText("");
 		GUI.getTextField_KundeOrt().setText("");
 		GUI.getTextField_KundeTelefon().setText("");
@@ -178,101 +137,31 @@ public class TabKunde {
 	
 	// Getter/Setter
 	
-	public String getKundenName() {
-		return kundenName;
+
+	public Kunde getAktuellerKunde() {
+		return aktuellerKunde;
 	}
 
-	public void setKundenName(String kundenName) {
-		this.kundenName = kundenName;
+	public void setAktuellerKunde(Kunde aktuellerKunde) {
+		this.aktuellerKunde = aktuellerKunde;
 	}
 
-	public int getKundeID() {
-		return kundeID;
+	public GUIRechnung getNeueGUIRechnung() {
+		return neueGUIRechnung;
 	}
 
-	public void setKundeID(int kundeID) {
-		this.kundeID = kundeID;
+	public void setNeueGUIRechnung(GUIRechnung neueGUIRechnung) {
+		this.neueGUIRechnung = neueGUIRechnung;
 	}
 
-	public String getOrt() {
-		return ort;
+	public boolean isNeuerKunde() {
+		return neuerKunde;
 	}
 
-	public void setOrt(String ort) {
-		this.ort = ort;
+	public void setNeuerKunde(boolean neuerKunde) {
+		this.neuerKunde = neuerKunde;
 	}
-
-	public int getPlz() {
-		return plz;
-	}
-
-	public void setPlz(int plz) {
-		this.plz = plz;
-	}
-
-	public String getTelefonNr() {
-		return telefonNr;
-	}
-
-	public void setTelefonNr(String telefonNr) {
-		this.telefonNr = telefonNr;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSteuerNr() {
-		return steuerNr;
-	}
-
-	public void setSteuerNr(String steuerNr) {
-		this.steuerNr = steuerNr;
-	}
-
-	public ArrayList<String> getRechnungen() {
-		return rechnungen;
-	}
-
-	public void setRechnungen(ArrayList<String> rechnungen) {
-		this.rechnungen = rechnungen;
-	}
-
-	public String getStrasse() {
-		return strasse;
-	}
-
-	public void setStrasse(String strasse) {
-		this.strasse = strasse;
-	}
-
-	public String getHausnummer() {
-		return hausnummer;
-	}
-
-	public void setHausnummer(String hausnummer) {
-		this.hausnummer = hausnummer;
-	}
-
-	public boolean isInaktiv() {
-		return inaktiv;
-	}
-
-	public void setInaktiv(boolean inaktiv) {
-		this.inaktiv = inaktiv;
-	}
-
-	public GUIRechnung getNeueRechnung() {
-		return neueRechnung;
-	}
-
-	public void setNeueRechnung(GUIRechnung neueRechnung) {
-		this.neueRechnung = neueRechnung;
-	}
+	
 	
 	
 	

@@ -23,10 +23,10 @@ import javax.swing.ScrollPaneConstants;
 public class GUIRechnung {
 
 	//Attribute
-	private ArrayList<ArrayList<Object>> posten = new ArrayList<ArrayList<Object>>();
-	private int anzahlPosten = 0;
+//	private ArrayList<ArrayList<Object>> posten = new ArrayList<ArrayList<Object>>();
+//	private int anzahlPosten = 0;
 	// private JPanel contentPane;
-	private JTextField textField_Rechnung_Rechnung_Anrede;
+
 	private JTextField textField_Rechnung_Posten_Einheiten_1;
 	private JTextField textField_Rechnung_Posten_Satz_in_Euro_1;
 	private JTextField textField_Rechnung_Posten_Einheiten_2;
@@ -36,6 +36,7 @@ public class GUIRechnung {
 	private JLabel lbl_Rechnung_Kunden_Strasse;
 	private JLabel lbl_Rechnung_Rechnung_PLZ_Stadt;
 	private JTextArea textArea_Rechnung_Rechnung_Betreff;
+	private JTextField textField_Rechnung_Rechnung_Anrede;
 	private JTextArea textArea_Rechnung_Rechnung_Anschreiben;
 	private JButton btn_Rechnung_Rechnung_Speichern;
 	private JButton btn_Rechnung_Rechnung_Drucken;
@@ -51,6 +52,10 @@ public class GUIRechnung {
 	private double Rechnung_Summe_Netto_in_Euro;
 	private double Rechnung_Rechnung_Betrag_in_Euro;
 	// Konstruktor
+	
+	public GUIRechnung(boolean neueRechnung, Integer rechnungID) {
+		this.tr1 = new TabRechnung(neueRechnung, rechnungID);
+	}
 	
 	
 	// Methoden
@@ -447,8 +452,11 @@ public class GUIRechnung {
 		gbc_btn_Rechnung_Rechnung_Drucken.gridy = 0;
 		panel_Rechnung_Speichern_Buttons.add(btn_Rechnung_Rechnung_Drucken, gbc_btn_Rechnung_Rechnung_Drucken);
 	
+		
 		// Funktionen den Elementen hinzufügen
-		tr1 = new TabRechnung();
+		// Felder setzen falls bestehende Rechnung
+		
+		// ButtonListener hinzufügen
 		buttonActionListenerHinzufügen();
 	}
 
@@ -465,11 +473,7 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				anzahlPosten++;
-				posten.add(tr1.rechnungspostenHinzufügen(anzahlPosten));
-				for (int i = 0; i < posten.size(); i++) {
-					panel_Rechnung_Posten_Innen_Posten.add((JPanel)posten.get(i).get(0), posten.get(i).get(1));
-				}
+				tr1.rechnungspostenHinzufügen(false);
 				fensterAktualisieren();
 			}
 		});
@@ -480,12 +484,8 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(anzahlPosten > 0) {
-					panel_Rechnung_Posten_Innen_Posten.remove(panel_Rechnung_Posten_Innen_Posten.getComponentCount()-1);
-					fensterAktualisieren();
-					posten.remove(posten.size()-1);
-					anzahlPosten--;
-				}
+				tr1.rechnungspostenEntfernen();
+				fensterAktualisieren();
 			}
 		});
 	}
@@ -513,7 +513,7 @@ public class GUIRechnung {
 		});
 	}
 	
-	public void fensterAktualisieren (){
+	public void fensterAktualisieren (){		
 		panel_Rechnung_Posten_Innen_Posten.revalidate();
 		scrollPane_Rechnung_Posten_Innen.revalidate();
 		scrollPane_Rechnung_Posten_Innen.repaint();
@@ -720,12 +720,56 @@ public class GUIRechnung {
 	}
 
 
-	public ArrayList<ArrayList<Object>> getPosten() {
-		return posten;
+	public TabRechnung getTr1() {
+		return tr1;
+	}
+	
+
+
+	public void setTr1(TabRechnung tr1) {
+		this.tr1 = tr1;
 	}
 
 
-	public void setPosten(ArrayList<ArrayList<Object>> posten) {
-		this.posten = posten;
+
+	public JButton getBtn_Rechnung_Posten_Plus() {
+		return btn_Rechnung_Posten_Plus;
 	}
+
+
+	public void setBtn_Rechnung_Posten_Plus(JButton btn_Rechnung_Posten_Plus) {
+		this.btn_Rechnung_Posten_Plus = btn_Rechnung_Posten_Plus;
+	}
+
+
+	public JButton getBtn_Rechnung_Posten_Minus() {
+		return btn_Rechnung_Posten_Minus;
+	}
+
+
+	public void setBtn_Rechnung_Posten_Minus(JButton btn_Rechnung_Posten_Minus) {
+		this.btn_Rechnung_Posten_Minus = btn_Rechnung_Posten_Minus;
+	}
+
+
+	public void setPanel_Rechnung_Posten_Innen_Posten(JPanel panel_Rechnung_Posten_Innen_Posten) {
+		this.panel_Rechnung_Posten_Innen_Posten = panel_Rechnung_Posten_Innen_Posten;
+	}
+
+
+	public void setPanel_Rechnung_Posten_Innen_Gesamt(JPanel panel_Rechnung_Posten_Innen_Gesamt) {
+		this.panel_Rechnung_Posten_Innen_Gesamt = panel_Rechnung_Posten_Innen_Gesamt;
+	}
+
+
+	public void setScrollPane_Rechnung_Posten_Innen(JScrollPane scrollPane_Rechnung_Posten_Innen) {
+		this.scrollPane_Rechnung_Posten_Innen = scrollPane_Rechnung_Posten_Innen;
+	}
+
+
+	public void setPanel_Rechnung_Posten_Aussen(JPanel panel_Rechnung_Posten_Aussen) {
+		this.panel_Rechnung_Posten_Aussen = panel_Rechnung_Posten_Aussen;
+	}
+
+	
 }

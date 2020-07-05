@@ -24,6 +24,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.ListModel;
 
 public class GUI {
@@ -38,7 +40,7 @@ public class GUI {
 
 	private static JFrame frame;
 	private static JTextField textField_KundeStrasse;
-	private static JTextField textField_KundeID;
+	private static JLabel lbl_KundeID_ID;
 	private static JTextField textField_KundeName;
 	private static JTextField textField_KundeOrt;
 	private static JTextField textField_KundeTelefon;
@@ -224,16 +226,15 @@ public class GUI {
 		gbc_lbl_KundeID.gridy = 1;
 		panel_KundenDaten.add(lbl_KundeID, gbc_lbl_KundeID);
 
-		textField_KundeID = new JTextField();
-		textField_KundeID.setMinimumSize(new Dimension(70, 25));
-		textField_KundeID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_textField_KundeID = new GridBagConstraints();
-		gbc_textField_KundeID.anchor = GridBagConstraints.WEST;
-		gbc_textField_KundeID.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_KundeID.gridx = 1;
-		gbc_textField_KundeID.gridy = 1;
-		panel_KundenDaten.add(textField_KundeID, gbc_textField_KundeID);
-		textField_KundeID.setColumns(10);
+		lbl_KundeID_ID = new JLabel();
+		lbl_KundeID_ID.setMinimumSize(new Dimension(70, 25));
+		lbl_KundeID_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_lbl_KundeID_ID = new GridBagConstraints();
+		gbc_lbl_KundeID_ID.anchor = GridBagConstraints.WEST;
+		gbc_lbl_KundeID_ID.insets = new Insets(0, 0, 5, 5);
+		gbc_lbl_KundeID_ID.gridx = 1;
+		gbc_lbl_KundeID_ID.gridy = 1;
+		panel_KundenDaten.add(lbl_KundeID_ID, gbc_lbl_KundeID_ID);
 
 		lbl_KundeStrasse = new JLabel("Stra\u00DFe: ");
 		lbl_KundeStrasse.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -908,13 +909,14 @@ public class GUI {
 		op1 = new TabOptionen();
 		list_Kunde_Rechnungen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		buttonActionListenerHinzufügen();
+		textFieldListenerHinzugügen();
 		tk1.comboBox_kunde_kunden_aktualisieren();
 		rp1.comboBox_Position_Positionen_aktualisieren();
 		rp1.comboBox_Position_Kategorie_aktualisieren();
 		panel_Position_Daten.setVisible(false);
 		frame.setVisible(true);
 	}
-
+		// Button-Methoden
 	private void buttonActionListenerHinzufügen() {
 		btn_Kunde_Anzeigen_ActionListener();
 		btn_Kunde_Neu_ActionListener();
@@ -930,25 +932,14 @@ public class GUI {
 		btn_Optionen_Speichern_ActionListener();
 
 	}
-
+	
 	private void btn_Kunde_Anzeigen_ActionListener() {
 		btn_Kunde_Anzeigen.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				neuerKunde = false;
-				tk1.setKundenName(String.valueOf(comboBox_Kunde_Kunden.getSelectedItem()));
-				tk1.kundeAnzeigen();
-				textField_KundeName.setText(tk1.getKundenName());
-				textField_KundeID.setText(Integer.toString(tk1.getKundeID()));
-				textField_KundeStrasse.setText(tk1.getStrasse());
-				textField_KundeHausnummer.setText(tk1.getHausnummer());
-				textField_KundeOrt.setText(tk1.getOrt());
-				textField_KundePLZ.setText(Integer.toString(tk1.getPlz()));
-				textField_KundeTelefon.setText(tk1.getTelefonNr());
-				textField_KundeEmail.setText(tk1.getEmail());
-				textField_KundeSteuerNummer.setText(tk1.getSteuerNr());
-				chckbx_Kunde_Inaktiv.setSelected(tk1.isInaktiv());
+				tk1.kundeAnzeigen(false);
+
 				tabAktualisieren();
 			}
 		});
@@ -959,8 +950,9 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				neuerKunde = true;
-				tk1.eingabefelderLeeren();
+				tk1.kundeAnzeigen(true);
+//				neuerKunde = true;
+//				tk1.eingabefelderLeeren();
 				tabAktualisieren();
 
 			}
@@ -972,7 +964,8 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (neuerKunde == false) {
+				plzAktualisierer();
+				if (tk1.isNeuerKunde() == false) {
 					tk1.speichern();
 				} else {
 					tk1.kundeAnlegen();
@@ -999,7 +992,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 
 			}
 		});
@@ -1010,7 +1003,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				tk1.rechnungKorrigieren();
 
 			}
 		});
@@ -1093,11 +1086,239 @@ public class GUI {
 		});
 	}
 
+		// TextField-Methoden
+	
+	private void textFieldListenerHinzugügen() {
+		textField_KundeName_DokumentListener();
+		textField_KundeOrt_DokumentListener();
+		textField_KundeTelefon_DokumentListener();
+		textField_KundeEmail_DokumentListener();
+		textField_KundeSteuerNummer_DokumentListener();
+		textField_KundeHausnummer_DokumentListener();
+		textField_KundePLZ_DokumentListener();
+		textField_KundeStrasse_DokumentListener();
+	}
+	
+	private void textField_KundeName_DokumentListener() {
+		textField_KundeName.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeName(textField_KundeName.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeName(textField_KundeName.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				System.out.println("ChangeTrigger bei Listener für KundeName hat getriggert");
+			}
+		});
+	}
+	
+	public void textField_KundeOrt_DokumentListener() {
+		textField_KundeOrt.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeOrt(textField_KundeOrt.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeOrt(textField_KundeOrt.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textField_KundeTelefon_DokumentListener() {
+		textField_KundeTelefon.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeTelefon(textField_KundeTelefon.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeTelefon(textField_KundeTelefon.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textField_KundeEmail_DokumentListener() {
+		textField_KundeEmail.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeEmail(textField_KundeEmail.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeEmail(textField_KundeEmail.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textField_KundeSteuerNummer_DokumentListener() {
+		textField_KundeSteuerNummer.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeSteuerNummer(textField_KundeSteuerNummer.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeSteuerNummer(textField_KundeSteuerNummer.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textField_KundeHausnummer_DokumentListener() {
+		textField_KundeHausnummer.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeHausnummer(textField_KundeHausnummer.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeHausnummer(textField_KundeHausnummer.getText());
+				plzAktualisierer();				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textField_KundePLZ_DokumentListener() {
+		textField_KundePLZ.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				if(textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
+					tk1.getAktuellerKunde().setKundePLZ(Integer.parseInt(textField_KundePLZ.getText()));
+				}
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				if(textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
+					tk1.getAktuellerKunde().setKundePLZ(Integer.parseInt(textField_KundePLZ.getText()));
+				}
+				
+				//tk1.getAktuellerKunde().setKundePLZ(Integer.valueOf(textField_KundePLZ.getText()));
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+	}
+	
+	public void textField_KundeStrasse_DokumentListener() {
+		textField_KundeStrasse.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
+				plzAktualisierer();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void plzAktualisierer() {
+		String plz = textField_KundePLZ.getText().replaceAll("[^0-9]","");
+		while(plz.length() >5) {
+			plz = plz.substring(0, plz.length()-1);
+		}
+		textField_KundePLZ.setText(plz);
+		tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
+	}
+	
+	
+	
+		// Sonstige Methoden
 	public void tabAktualisieren() {
+		textField_KundeName.setText(tk1.getAktuellerKunde().getKundeName());
+		lbl_KundeID_ID.setText(Integer.toString(tk1.getAktuellerKunde().getKundeID()));
+		textField_KundeStrasse.setText(tk1.getAktuellerKunde().getKundeStrasse());
+		textField_KundeHausnummer.setText(tk1.getAktuellerKunde().getKundeHausnummer());
+		textField_KundeOrt.setText(tk1.getAktuellerKunde().getKundeOrt());
+		textField_KundePLZ.setText(Integer.toString(tk1.getAktuellerKunde().getKundePLZ()));
+		textField_KundeTelefon.setText(tk1.getAktuellerKunde().getKundeTelefon());
+		textField_KundeEmail.setText(tk1.getAktuellerKunde().getKundeEmail());
+		textField_KundeSteuerNummer.setText(tk1.getAktuellerKunde().getKundeSteuerNummer());
+		chckbx_Kunde_Inaktiv.setSelected(tk1.getAktuellerKunde().isInaktiv());
+		
 		frame.revalidate();
 		frame.repaint();
 	}
 
+	
+	
+	
 	// Getter/Setter
 
 	public static JFrame getFrame() {
@@ -1114,14 +1335,6 @@ public class GUI {
 
 	public static void setTextField_KundeStrasse(JTextField textField_KundeStrasse) {
 		GUI.textField_KundeStrasse = textField_KundeStrasse;
-	}
-
-	public static JTextField getTextField_KundeID() {
-		return textField_KundeID;
-	}
-
-	public static void setTextField_KundeID(JTextField textField_KundeID) {
-		GUI.textField_KundeID = textField_KundeID;
 	}
 
 	public static JTextField getTextField_KundeName() {
@@ -1593,4 +1806,16 @@ public class GUI {
 		GUI.listModel = listModel;
 	}
 
+	
+	public static JLabel getLbl_KundeID_ID() {
+		return lbl_KundeID_ID;
+	}
+	
+
+	public static void setLbl_KundeID_ID(JLabel lbl_KundeID_ID) {
+		GUI.lbl_KundeID_ID = lbl_KundeID_ID;
+	}
+
+	
+	
 }

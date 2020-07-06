@@ -8,6 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -37,6 +41,7 @@ public class GUI {
 	private static TabOptionen op1;
 	private static boolean neuerKunde = false;
 	private static boolean neuePosition = false;
+	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
 
 	private static JFrame frame;
 	private static JTextField textField_KundeStrasse;
@@ -908,14 +913,19 @@ public class GUI {
 		rp1 = new TabRechnungsposition();
 		op1 = new TabOptionen();
 		list_Kunde_Rechnungen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		buttonActionListenerHinzufügen();
-		textFieldListenerHinzugügen();
+		
+		
 		tk1.comboBox_kunde_kunden_aktualisieren();
 		rp1.comboBox_Position_Positionen_aktualisieren();
 		rp1.comboBox_Position_Kategorie_aktualisieren();
+		buttonActionListenerHinzufügen();
+		textFieldListenerHinzugügen();
+		andereActionListener();
 		panel_Position_Daten.setVisible(false);
 		frame.setVisible(true);
 	}
+	
+	
 		// Button-Methoden
 	private void buttonActionListenerHinzufügen() {
 		btn_Kunde_Anzeigen_ActionListener();
@@ -952,7 +962,7 @@ public class GUI {
 			public void actionPerformed(ActionEvent e) {
 				tk1.kundeAnzeigen(true);
 //				neuerKunde = true;
-//				tk1.eingabefelderLeeren();
+				tk1.eingabefelderLeeren();
 				tabAktualisieren();
 
 			}
@@ -1014,10 +1024,8 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				neuePosition = false;
-				panel_Position_Daten.setVisible(true);
-				rp1.setPositionsname(String.valueOf(comboBox_Position_Positionen.getSelectedItem()));
-				rp1.positionAnzeigen();
+				panel_Position_Daten.setVisible(true);;
+				rp1.positionAnzeigen(false);
 				tabAktualisieren();
 			}
 		});
@@ -1028,8 +1036,8 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				neuePosition = true;
 				panel_Position_Daten.setVisible(true);
+				rp1.positionAnzeigen(true);
 				rp1.eingabefelderLeeren();
 				tabAktualisieren();
 
@@ -1053,11 +1061,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (neuePosition == false) {
-					rp1.speichern();
-				} else {
-					rp1.positionAnlegen();
-				}
+				rp1.speichern();
 				rp1.comboBox_Position_Positionen_aktualisieren();
 
 			}
@@ -1097,6 +1101,8 @@ public class GUI {
 		textField_KundeHausnummer_DokumentListener();
 		textField_KundePLZ_DokumentListener();
 		textField_KundeStrasse_DokumentListener();
+		textField_Positionsname_DokumentListener();
+		textField_Position_Kategorie_Satz_in_Euro_DokumentListener();
 	}
 	
 	private void textField_KundeName_DokumentListener() {
@@ -1105,13 +1111,11 @@ public class GUI {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeName(textField_KundeName.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeName(textField_KundeName.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
@@ -1127,13 +1131,11 @@ public class GUI {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeOrt(textField_KundeOrt.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeOrt(textField_KundeOrt.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
@@ -1150,13 +1152,11 @@ public class GUI {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeTelefon(textField_KundeTelefon.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeTelefon(textField_KundeTelefon.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
@@ -1173,13 +1173,11 @@ public class GUI {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeEmail(textField_KundeEmail.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeEmail(textField_KundeEmail.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
@@ -1196,13 +1194,11 @@ public class GUI {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeSteuerNummer(textField_KundeSteuerNummer.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeSteuerNummer(textField_KundeSteuerNummer.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
@@ -1219,13 +1215,11 @@ public class GUI {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeHausnummer(textField_KundeHausnummer.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				tk1.getAktuellerKunde().setKundeHausnummer(textField_KundeHausnummer.getText());
-				plzAktualisierer();				
+				tk1.getAktuellerKunde().setKundeHausnummer(textField_KundeHausnummer.getText());		
 			}
 			
 			@Override
@@ -1251,9 +1245,6 @@ public class GUI {
 				if(textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
 					tk1.getAktuellerKunde().setKundePLZ(Integer.parseInt(textField_KundePLZ.getText()));
 				}
-				
-				//tk1.getAktuellerKunde().setKundePLZ(Integer.valueOf(textField_KundePLZ.getText()));
-				
 			}
 			
 			@Override
@@ -1271,13 +1262,34 @@ public class GUI {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
-				plzAktualisierer();
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
-				plzAktualisierer();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				System.out.println("test");
+				
+			}
+		});
+	}
+	
+	public void textField_Positionsname_DokumentListener() {
+		textField_Positionsname.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				rp1.getAktuelleRechnungsposition().setRechnungspositionName(textField_Positionsname.getText());
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				rp1.getAktuelleRechnungsposition().setRechnungspositionName(textField_Positionsname.getText());
+				
 			}
 			
 			@Override
@@ -1288,34 +1300,140 @@ public class GUI {
 		});
 	}
 	
-	public void plzAktualisierer() {
-		String plz = textField_KundePLZ.getText().replaceAll("[^0-9]","");
-		while(plz.length() >5) {
-			plz = plz.substring(0, plz.length()-1);
-		}
-		textField_KundePLZ.setText(plz);
-		tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
+	public void textField_Position_Kategorie_Satz_in_Euro_DokumentListener() {
+		textField_Position_Kategorie_Satz_in_Euro.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				String wert = textField_Position_Kategorie_Satz_in_Euro.getText();
+				wert = wert.replace(",", ".");
+				if (wert.equals("")) {
+					wert = "0.00";
+				}
+				rp1.getAktuelleRechnungsposition().setRechnungspositionBetrag(Double.parseDouble(wert));
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				String wert = textField_Position_Kategorie_Satz_in_Euro.getText();
+				wert = wert.replace(",", ".");
+				rp1.getAktuelleRechnungsposition().setRechnungspositionBetrag(Double.parseDouble(wert));
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				String wert = textField_Position_Kategorie_Satz_in_Euro.getText();
+				wert = wert.replace(",", ".");
+				rp1.getAktuelleRechnungsposition().setRechnungspositionBetrag(Double.parseDouble(wert));
+				
+			}
+		});
 	}
+
+	
+	public void andereActionListener() {
+		comboBox_Position_Kategorie_ActionListener();
+		rdbtn_Position_Stundensatz_ActionListener();
+		rdbtn_Position_Tagessatz_ActionListener();
+		rdbtn_Position_Honorarsatz_ActionListener();	
+	}
+	
+	public void comboBox_Position_Kategorie_ActionListener() {
+		comboBox_Position_Kategorie.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(rp1.getAktuelleRechnungsposition() != null) {
+					if(comboBox_Position_Kategorie.getSelectedIndex() != -1) {
+						rp1.getAktuelleRechnungsposition().setKategoriepositionName(comboBox_Position_Kategorie.getSelectedItem().toString());
+						SQLAnbindung sqlAuftrag = new SQLAnbindung();
+						String sqlBefehl;
+						sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", "kategoriepositionID", "kategorieposition", "kategoriepositionName", rp1.getAktuelleRechnungsposition().getKategoriepositionName());
+						int kategoriepositionID = sqlAuftrag.holeIntAusDatenbank(sqlBefehl, "kategoriepositionID");
+						rp1.getAktuelleRechnungsposition().setKategoriepositionID(kategoriepositionID);
+					}
+				}
+				
+			}
+		});
+	}
+
+	public void rdbtn_Position_Stundensatz_ActionListener() {
+		rdbtn_Position_Stundensatz.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtn_Position_Stundensatz.isSelected()) {
+					rp1.getAktuelleRechnungsposition().setRechnungspositionSatz("Stundensatz");
+				}
+				
+			}
+		});
+	}
+	
+	public void rdbtn_Position_Tagessatz_ActionListener() {
+		rdbtn_Position_Tagessatz.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtn_Position_Tagessatz.isSelected()) {
+					rp1.getAktuelleRechnungsposition().setRechnungspositionSatz("Tagessatz");
+				}
+				
+			}
+		});
+	}
+	
+	public void rdbtn_Position_Honorarsatz_ActionListener() {
+		rdbtn_Position_Honorarsatz.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtn_Position_Honorarsatz.isSelected()) {
+					rp1.getAktuelleRechnungsposition().setRechnungspositionSatz("Honorarbasis");
+				}
+				
+			}
+		});
+	}
+	
 	
 	
 	
 		// Sonstige Methoden
 	public void tabAktualisieren() {
-		textField_KundeName.setText(tk1.getAktuellerKunde().getKundeName());
-		lbl_KundeID_ID.setText(Integer.toString(tk1.getAktuellerKunde().getKundeID()));
-		textField_KundeStrasse.setText(tk1.getAktuellerKunde().getKundeStrasse());
-		textField_KundeHausnummer.setText(tk1.getAktuellerKunde().getKundeHausnummer());
-		textField_KundeOrt.setText(tk1.getAktuellerKunde().getKundeOrt());
-		textField_KundePLZ.setText(Integer.toString(tk1.getAktuellerKunde().getKundePLZ()));
-		textField_KundeTelefon.setText(tk1.getAktuellerKunde().getKundeTelefon());
-		textField_KundeEmail.setText(tk1.getAktuellerKunde().getKundeEmail());
-		textField_KundeSteuerNummer.setText(tk1.getAktuellerKunde().getKundeSteuerNummer());
-		chckbx_Kunde_Inaktiv.setSelected(tk1.getAktuellerKunde().isInaktiv());
+		if(tk1.getAktuellerKunde() != null) {
+			textField_KundeName.setText(tk1.getAktuellerKunde().getKundeName());
+			lbl_KundeID_ID.setText(Integer.toString(tk1.getAktuellerKunde().getKundeID()));
+			textField_KundeStrasse.setText(tk1.getAktuellerKunde().getKundeStrasse());
+			textField_KundeHausnummer.setText(tk1.getAktuellerKunde().getKundeHausnummer());
+			textField_KundeOrt.setText(tk1.getAktuellerKunde().getKundeOrt());
+			textField_KundePLZ.setText(Integer.toString(tk1.getAktuellerKunde().getKundePLZ()));
+			textField_KundeTelefon.setText(tk1.getAktuellerKunde().getKundeTelefon());
+			textField_KundeEmail.setText(tk1.getAktuellerKunde().getKundeEmail());
+			textField_KundeSteuerNummer.setText(tk1.getAktuellerKunde().getKundeSteuerNummer());
+			chckbx_Kunde_Inaktiv.setSelected(tk1.getAktuellerKunde().isInaktiv());
+		}
+		if (rp1.getAktuelleRechnungsposition() != null) {
+			textField_Positionsname.setText(rp1.getAktuelleRechnungsposition().getRechnungspositionName());
+			textField_Position_Kategorie_Satz_in_Euro.setText(geldformatierung.format(rp1.getAktuelleRechnungsposition().getRechnungspositionBetrag()));
+			comboBox_Position_Kategorie.setSelectedItem(rp1.getAktuelleRechnungsposition().getKategoriepositionName());		
+		}
 		
 		frame.revalidate();
 		frame.repaint();
 	}
 
+	public void plzAktualisierer() {
+		String plz = textField_KundePLZ.getText();
+		plz = plz.replaceAll("[^0-9]","");
+		while(plz.length() >5) {
+			plz = plz.substring(0, plz.length()-1);
+		}
+		textField_KundePLZ.setText(plz);
+	}
+	
 	
 	
 	

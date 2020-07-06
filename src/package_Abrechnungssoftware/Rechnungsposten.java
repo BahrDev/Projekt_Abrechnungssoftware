@@ -39,12 +39,12 @@ public class Rechnungsposten {
 		this.rechnungspositionName = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspositionName");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenSatz", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
 		this.rechnungspostenSatz = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspostenSatz");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenEinheiten", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
-		this.rechnungspostenEinheiten = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspostenEinheiten");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenSatzEuro", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
-		this.rechnungspostenSatzEuro = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspostenSatzEuro");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenGesamtEuro", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
-		this.rechnungspostenGesamtEuro = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspostenGesamtEuro");
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenEinheit", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		this.rechnungspostenEinheiten = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspostenEinheit");
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenBetrag", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		this.rechnungspostenSatzEuro = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspostenBetrag");
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenGesamt", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		this.rechnungspostenGesamtEuro = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspostenGesamt");
 	}
 
 	

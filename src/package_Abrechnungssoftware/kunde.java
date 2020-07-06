@@ -24,7 +24,6 @@ public class Kunde {
 	public Kunde(boolean neuerKunde) {	
 		if (neuerKunde == false) {
 			this.ladeKundenDaten();
-//			this.ladeRechnungen();
 		}
 	}
 	

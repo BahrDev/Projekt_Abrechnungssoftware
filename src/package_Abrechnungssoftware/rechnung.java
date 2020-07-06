@@ -28,11 +28,14 @@ public class Rechnung {
 	}
 	
 	public Rechnung() {
+		this.rechnungID = -1;
+		this.kundeID = GUI.getTk1().getAktuellerKunde().getKundeID();
 		this.rechnungBetreff = "";
 		this.rechnungAnrede = "";
 		this.rechnungAnschreiben = "";
 		this.rechnungSummeNetto = 0.00;
 		this.rechnungEndbetrag = 0.00;
+		this.rechnungDatum = new java.sql.Date(System.currentTimeMillis());
 	}
 	
 	// Methoden
@@ -73,6 +76,19 @@ public class Rechnung {
 	}
 	
 
+	public void generiereRechnungsnummer(int anzahlRechnungen) {
+		String nummer;
+		// Datum ggf anders Formatieren
+		nummer = "KD" + kundeID + "D" + rechnungDatum + "R" + (anzahlRechnungen+1);
+		this.rechnungNummer = nummer;
+	}
+	
+	public void generiereRechnungsDateiName() {
+		String dateiName;
+		dateiName = rechnungNummer + ".pdf";
+		this.rechnungDateiName = dateiName;
+	}
+	
 	// Getter/Setter
 	
 	

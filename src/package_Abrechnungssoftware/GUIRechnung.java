@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class GUIRechnung {
 
@@ -460,7 +462,7 @@ public class GUIRechnung {
 		buttonActionListenerHinzufügen();
 	}
 
-	
+		// Button-Methoden
 	public void buttonActionListenerHinzufügen() {
 		btn_Rechnung_Posten_Plus_ActionListener();
 		btn_Rechnung_Posten_Minus_ActionListener();
@@ -473,7 +475,7 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tr1.rechnungspostenHinzufügen(false);
+				tr1.rechnungspostenPanelHinzufügen(false);
 				fensterAktualisieren();
 			}
 		});
@@ -484,7 +486,7 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tr1.rechnungspostenEntfernen();
+				tr1.rechnungspostenPanelEntfernen();
 				fensterAktualisieren();
 			}
 		});
@@ -513,6 +515,84 @@ public class GUIRechnung {
 		});
 	}
 	
+		// TextListener-Me
+	
+	public void documentListenerHinzufügen() {
+		
+	}
+	
+	public void textArea_Rechnung_Rechnung_Betreff_DocumentListener() {
+		textArea_Rechnung_Rechnung_Betreff.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textField_Rechnung_Rechnung_Anrede_DocumentListener() {
+		textField_Rechnung_Rechnung_Anrede.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textArea_Rechnung_Rechnung_Anschreiben_DocumentListener() {
+		textArea_Rechnung_Rechnung_Anschreiben.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnschreiben(textArea_Rechnung_Rechnung_Anschreiben.getText());
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnschreiben(textArea_Rechnung_Rechnung_Anschreiben.getText());
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	
+	
+		// sonstige Methoden
 	public void fensterAktualisieren (){		
 		panel_Rechnung_Posten_Innen_Posten.revalidate();
 		scrollPane_Rechnung_Posten_Innen.revalidate();

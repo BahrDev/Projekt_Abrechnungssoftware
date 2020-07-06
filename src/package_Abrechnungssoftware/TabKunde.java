@@ -16,8 +16,8 @@ public class TabKunde {
 	public void kundeAnzeigen(boolean neuerKunde){
 		this.neuerKunde = neuerKunde;
 		aktuellerKunde = new Kunde(neuerKunde);
+		// die beiden vermutlich nur wenn neuerKunde True ist
 		aktuellerKunde.ladeRechnungen();
-		
 		ladeRechnungen();
 	}
 	
@@ -116,11 +116,12 @@ public class TabKunde {
 		GUI.getTextField_KundeEmail().setText("");
 		GUI.getTextField_KundeSteuerNummer().setText("");
 		GUI.getTextField_KundeHausnummer().setText("");
-		GUI.getTextField_KundePLZ().setText("");
+		GUI.getTextField_KundePLZ().setText("0");
 		GUI.getChckbx_Kunde_Inaktiv().setSelected(false);
 		
 	}
-	//Abfrage boolean 
+	
+	//Abfrage boolean TODO
 	public boolean checkAufUngesicherteDaten()
 	{
 	//Methode schreiben

@@ -5,9 +5,14 @@ import java.util.ArrayList;
 public class TabRechnungsposition {
 	
 	// Attribute
+	private ArrayList<String> kategorie;
+	private Rechnungsposition aktuelleRechnungsposition;
+	private boolean neueRechnungsposition;
+	
+	// ggf Veraltet
 	private String positionsname;
 	private int positionsID;
-	private ArrayList<String> kategorie;
+	
 	private String kategorieAuswahl;
 	private int kategorieID;
 	private double satzEuro;
@@ -17,53 +22,10 @@ public class TabRechnungsposition {
 	
 	// Methoden
 	
-	public void positionAnzeigen() {
-		SQLAnbindung sql = new SQLAnbindung();
-		String sqlBefehl = "";
-		sqlBefehl = sql.erstelleBefehl("SELECT", true, "kategoriepositionName", "rechnungsposition", "kategorieposition", "kategoriepositionID", "rechnungspositionName", positionsname);
-		kategorieAuswahl = sql.holeStringAusDatenbank(sqlBefehl, "kategoriepositionName");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionSatz", "rechnungsposition", "rechnungspositionName", positionsname);
-		satzArt = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspositionSatz");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionBetrag", "rechnungsposition", "rechnungspositionName", positionsname);
-		satzEuro = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspositionBetrag");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionID", "rechnungsposition", "rechnungspositionName", positionsname);
-		positionsID = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspositionID");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kategoriepositionID", "rechnungsposition", "rechnungspositionName", positionsname);
-		kategorieID = sql.holeIntAusDatenbank(sqlBefehl, "kategoriepositionID");
-		
-		GUI.getTextField_Positionsname().setText(positionsname);
-		GUI.getTextField_Position_Kategorie_Satz_in_Euro().setText(Double.toString(satzEuro));
-		GUI.getComboBox_Position_Kategorie().setSelectedItem(kategorieAuswahl);
-	
-		if(satzArt.equals("Honorarsatz")) {
-			GUI.getRdbtn_Position_Honorarsatz().setSelected(true);
-		}else if(satzArt.equals("Stundensatz")) {
-			GUI.getRdbtn_Position_Stundensatz().setSelected(true);
-		}else if(satzArt.equals("Tagessatz")) {
-			GUI.getRdbtn_Position_Tagessatz().setSelected(true);
-		}else {
-			System.out.println("Button auswahl gescheitert");
-		}
-	}
+	public void positionAnzeigen(boolean neuePosition) {
+		this.neueRechnungsposition = neuePosition;
+		aktuelleRechnungsposition = new Rechnungsposition(neuePosition);
 
-	public void positionAnlegen() {
-		positionsname = GUI.getTextField_Positionsname().getText();
-		kategorieAuswahl = GUI.getComboBox_Position_Kategorie().getSelectedItem().toString();
-		satzEuro = Double.valueOf(GUI.getTextField_Position_Kategorie_Satz_in_Euro().getText());
-		if(GUI.getRdbtn_Position_Honorarsatz().isSelected()) {
-			satzArt = "Honorarsatz";
-		}else if(GUI.getRdbtn_Position_Stundensatz().isSelected()) {
-			satzArt = "Stundensatz";
-		}else if(GUI.getRdbtn_Position_Tagessatz().isSelected()) {
-			satzArt = "Tagessatz";
-		}
-		
-		SQLAnbindung sql = new SQLAnbindung();
-		String sqlBefehl;
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kategoriepositionID", "kategorieposition", "kategoriepositionName", kategorieAuswahl);
-		kategorieID = sql.holeIntAusDatenbank(sqlBefehl, "kategoriepositionID");
-		sqlBefehl = sql.erstelleBefehl("INSERT", "rechnungsposition", "kategoriepositionID", kategorieID, "rechnungspositionName", positionsname, "rechnungspositionSatz", satzArt, "rechnungspositionBetrag", satzEuro);
-		sql.datenbankÄnderung(sqlBefehl);
 	}
 	
 	public void kategorieAnlegen() {
@@ -71,26 +33,30 @@ public class TabRechnungsposition {
 	}
 	
 	public void speichern() {
-		positionsname = GUI.getTextField_Positionsname().getText();
-		kategorieAuswahl = GUI.getComboBox_Position_Kategorie().getSelectedItem().toString();
-		satzEuro = Double.valueOf(GUI.getTextField_Position_Kategorie_Satz_in_Euro().getText());
-		if(GUI.getRdbtn_Position_Honorarsatz().isSelected()) {
-			satzArt = "Honorarsatz";
-		}else if(GUI.getRdbtn_Position_Stundensatz().isSelected()) {
-			satzArt = "Stundensatz";
-		}else if(GUI.getRdbtn_Position_Tagessatz().isSelected()) {
-			satzArt = "Tagessatz";
+		if(neueRechnungsposition) {
+			rechnungspositionAnlegen();
+		}else {
+			rechnungspositionSpeichern();
 		}
-		
+	}
+
+	public void rechnungspositionSpeichern() {
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl;
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "rechnungspositionName", positionsname, "rechnungspositionID", positionsID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "rechnungspositionName", aktuelleRechnungsposition.getRechnungspositionName(), "rechnungspositionID", aktuelleRechnungsposition.getRechnungspositionID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "rechnungspositionSatz", satzArt, "rechnungspositionID", positionsID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "rechnungspositionSatz", aktuelleRechnungsposition.getRechnungspositionSatz(), "rechnungspositionID", aktuelleRechnungsposition.getRechnungspositionID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "rechnungspositionBetrag", satzEuro, "rechnungspositionID", positionsID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "rechnungspositionBetrag", aktuelleRechnungsposition.getRechnungspositionBetrag(), "rechnungspositionID", aktuelleRechnungsposition.getRechnungspositionID());
 		sql.datenbankÄnderung(sqlBefehl);
-		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "kategoriepositionID", kategorieID, "rechnungspositionID", positionsID);
+		sqlBefehl = sql.erstelleBefehl("UPDATE", "rechnungsposition", "kategoriepositionID", aktuelleRechnungsposition.getKategoriepositionID(), "rechnungspositionID", aktuelleRechnungsposition.getRechnungspositionID());
+		sql.datenbankÄnderung(sqlBefehl);
+	}
+	
+	public void rechnungspositionAnlegen() {
+		SQLAnbindung sql = new SQLAnbindung();
+		String sqlBefehl;
+		sqlBefehl = sql.erstelleBefehl("INSERT", "rechnungsposition", "kategoriepositionID", aktuelleRechnungsposition.getKategoriepositionID(), "rechnungspositionName", aktuelleRechnungsposition.getRechnungspositionName(), "rechnungspositionSatz", aktuelleRechnungsposition.getRechnungspositionSatz(), "rechnungspositionBetrag", aktuelleRechnungsposition.getRechnungspositionBetrag());
 		sql.datenbankÄnderung(sqlBefehl);
 	}
 	
@@ -107,8 +73,12 @@ public class TabRechnungsposition {
 		GUI.getComboBox_Position_Positionen().removeAllItems();
 		for (int i = 0; i < Suchleiste.getRechnungspositionen().size(); i++) {
 			GUI.getComboBox_Position_Positionen().addItem(Suchleiste.getRechnungspositionen().get(i));
+		}	
+		if (aktuelleRechnungsposition != null) {
+			GUI.getComboBox_Position_Positionen().setSelectedItem(aktuelleRechnungsposition.getRechnungspositionName());
+		}else {
+			GUI.getComboBox_Position_Positionen().setSelectedItem(-1);
 		}
-		GUI.getComboBox_Position_Positionen().setSelectedItem(positionsname);
 		GUI.getComboBox_Position_Positionen().revalidate();
 		GUI.getComboBox_Position_Positionen().repaint();
 	}
@@ -182,8 +152,40 @@ public class TabRechnungsposition {
 	public void setSatzArt(String satzArt) {
 		this.satzArt = satzArt;
 	}
+
+	public Rechnungsposition getAktuelleRechnungsposition() {
+		return aktuelleRechnungsposition;
+	}
+
+	public void setAktuelleRechnungsposition(Rechnungsposition aktuelleRechnungsposition) {
+		this.aktuelleRechnungsposition = aktuelleRechnungsposition;
+	}
+
+	public boolean isNeueRechnungsposition() {
+		return neueRechnungsposition;
+	}
+
+	public void setNeueRechnungsposition(boolean neueRechnungsposition) {
+		this.neueRechnungsposition = neueRechnungsposition;
+	}
+
+	public int getPositionsID() {
+		return positionsID;
+	}
+
+	public void setPositionsID(int positionsID) {
+		this.positionsID = positionsID;
+	}
+
+	public int getKategorieID() {
+		return kategorieID;
+	}
+
+	public void setKategorieID(int kategorieID) {
+		this.kategorieID = kategorieID;
+	}
 	
-	// Getter/Setter
+
 	
 	
 }

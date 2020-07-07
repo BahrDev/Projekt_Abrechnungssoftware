@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Kunde {
 	
-	// Attribute -
+	// Attribute --
 	private int kundeID;
 	private String kundeName;
 	private String kundeStrasse;

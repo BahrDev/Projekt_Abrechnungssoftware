@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Rechnung {
 	
-	//Attribute -
+	//Attribute --
 	private int rechnungID;
 	private int kundeID;
 	private String rechnungBetreff;

@@ -3,5 +3,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="mysql-connector-java-8.0.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/paric/eclipse-workspace/Test_PDF/pdfbox-app-2.0.20.jar" sourcepath="D:/testordner"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

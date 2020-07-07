@@ -1,5 +1,7 @@
 package package_Abrechnungssoftware;
 
+import java.io.IOException;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -14,9 +16,16 @@ public class Main {
 		// --------- TESTBEREICH ---------
 		
 		
-		//Suchleiste.generiereArrayLists();
-		GUI unsereGui = new GUI();
-		unsereGui.hauptfenster();
+//		//Suchleiste.generiereArrayLists();
+//		GUI unsereGui = new GUI();
+//		unsereGui.hauptfenster();
+		DateiGenerierung dateiGenerierung = new DateiGenerierung();
+		try {
+			dateiGenerierung.generierePDFAusVorlage();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -13,19 +13,21 @@ public class Main {
 //		System.out.println(befehl);
 //		System.out.println(sqltest.holeStringAusDatenbank(befehl, "kategoriepositionName"));
 		
+//		DateiGenerierung dateiGenerierung = new DateiGenerierung();
+//		try {
+//			dateiGenerierung.generierePDFAusVorlage();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		// --------- TESTBEREICH ---------
 		
 		
 //		//Suchleiste.generiereArrayLists();
-//		GUI unsereGui = new GUI();
-//		unsereGui.hauptfenster();
-		DateiGenerierung dateiGenerierung = new DateiGenerierung();
-		try {
-			dateiGenerierung.generierePDFAusVorlage();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GUI unsereGui = new GUI();
+		unsereGui.hauptfenster();
+
 	}
 
 }

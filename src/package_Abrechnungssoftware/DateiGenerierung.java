@@ -44,7 +44,7 @@ public class DateiGenerierung {
 			
 			//PDF Dokumentvorlage in unsere neue PDF laden
 				
-			File file = new File("C:/Users/paric/Documents/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v2.pdf");
+			File file = new File("F:/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v3.pdf");
 			PDDocument pdf_Test = PDDocument.load(file);
 			
 			PDDocumentCatalog pdCatalog = pdf_Test.getDocumentCatalog();
@@ -94,7 +94,7 @@ public class DateiGenerierung {
 			summe_Gesamt_pdf.setValue(summe_Gesamt);
 			
 			
-			pdf_Test.save("C:/Users/paric/Documents/Java_Tutorials/neuTest.pdf");
+			pdf_Test.save("F:/neuTest.pdf");
 			
 		
 			

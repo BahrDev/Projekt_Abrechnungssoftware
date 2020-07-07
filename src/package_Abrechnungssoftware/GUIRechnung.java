@@ -498,7 +498,17 @@ public class GUIRechnung {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Sicherheitsabfrage
-				tr1.speichern();
+				DateiGenerierung dateiGenerierung = new DateiGenerierung();
+				
+				try {
+					dateiGenerierung.generierePDFAusVorlage();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+	
+				
+				// tr1.speichern();								// tempor‰r deaktiviert 
 				// Fenster schlieﬂen, Frame Disposen oder so
 			}
 		});

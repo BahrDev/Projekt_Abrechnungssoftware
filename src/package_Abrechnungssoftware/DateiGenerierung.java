@@ -1,5 +1,14 @@
 package package_Abrechnungssoftware;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
+import org.apache.pdfbox.pdmodel.interactive.form.PDField;
+
 public class DateiGenerierung {
 	
 	// Attribute
@@ -12,7 +21,87 @@ public class DateiGenerierung {
 		
 	}
 	
-	public void generierePDFAusVorlage() {
+
+	public void generierePDFAusVorlage() throws IOException {
+			
+			String kunde_Name = GUI.getTk1().getAktuellerKunde().getKundeName();
+			String kunde_Strasse = GUI.getTk1().getAktuellerKunde().getKundeStrasse();
+			String kunde_Hausnummer = GUI.getTk1().getAktuellerKunde().getKundeHausnummer();
+			String kunde_Ort = GUI.getTk1().getAktuellerKunde().getKundeOrt();
+//			String rechnung_Datum = GUI.
+			String rechnung_Nummer = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungNummer();
+			int kunde_ID = GUI.getTk1().getAktuellerKunde().getKundeID();
+			String kunde_ID_String = String.valueOf(kunde_ID);
+			String rechnung_Betreff = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungBetreff();
+			String rechnung_Anrede = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungAnrede();
+			String rechnung_Anschreiben = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungAnschreiben();
+//			String rechnung_Rechnungposten = GUI.
+			String summe_Netto = "Summe Netto: " + GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungSummeNetto();
+			String summe_Gesamt = "Summe Gesamt: " + GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungEndbetrag();
+			
+			
+			
+			
+			//PDF Dokumentvorlage in unsere neue PDF laden
+				
+			File file = new File("C:/Users/paric/Documents/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v2.pdf");
+			PDDocument pdf_Test = PDDocument.load(file);
+			
+			PDDocumentCatalog pdCatalog = pdf_Test.getDocumentCatalog();
+			PDAcroForm pdAcroForm = pdCatalog.getAcroForm();
+
+			System.out.println(pdAcroForm.toString());
+			
+			for(PDField pdField : pdAcroForm.getFields()) {
+			    System.out.println( pdField.getFullyQualifiedName() + " " + pdField.getPartialName() + " -- " + pdField.getValueAsString());
+			}
+			
+			PDField kunde_Name_pdf = pdAcroForm.getField("Kunde_Name");
+			kunde_Name_pdf.setValue(kunde_Name);
+			
+			PDField kunde_Strasse_pdf = pdAcroForm.getField("Kunde_Strasse");
+			kunde_Strasse_pdf.setValue(kunde_Strasse + " " + kunde_Hausnummer);
+			
+			PDField kunde_Ort_pdf = pdAcroForm.getField("Kunde_Ort");
+			kunde_Ort_pdf.setValue(kunde_Ort);
+			
+//			PDField rechnung_Datum_pdf = pdAcroForm.getField("Rechnung_Datum");
+//			rechnung_Datum_pdf
+			
+			PDField rechnung_Nummer_pdf = pdAcroForm.getField("Rechnung_Datum");
+			rechnung_Nummer_pdf.setValue(rechnung_Nummer);
+			
+			PDField kunde_ID_pdf = pdAcroForm.getField("Kunde_ID");
+			kunde_ID_pdf.setValue(kunde_ID_String);
+			
+			PDField rechnung_Betreff_pdf = pdAcroForm.getField("Rechnung_Betreff");
+			rechnung_Betreff_pdf.setValue(rechnung_Betreff);
+			
+			PDField rechnung_Anrede_pdf = pdAcroForm.getField("Rechnung_Anrede");
+			rechnung_Anrede_pdf.setValue(rechnung_Anrede);
+			
+			PDField rechnung_Anschreiben_pdf = pdAcroForm.getField("Rechnung_Anschreiben");
+			rechnung_Anschreiben_pdf.setValue(rechnung_Anschreiben);
+			
+			
+//			PDField Rechnung_Posten = pdAcroForm.getField("[Rechnung_Posten]");
+//			Rechnung_Posten.setValue();
+			
+			PDField summe_Netto_pdf = pdAcroForm.getField("Rechnung_Summe_Netto");
+			summe_Netto_pdf.setValue(summe_Netto);
+			
+			PDField summe_Gesamt_pdf = pdAcroForm.getField("Rechnung_Summe_Gesamt");
+			summe_Gesamt_pdf.setValue(summe_Gesamt);
+			
+			
+			pdf_Test.save("C:/Users/paric/Documents/Java_Tutorials/neuTest.pdf");
+			
+		
+			
+			pdf_Test.close();
+			
+		
+
 		
 	}
 	

@@ -23,18 +23,6 @@ public class TabRechnung {
 	private int anzahlPosten = 0;
 	private ArrayList<ArrayList<Object>> postenPanel = new ArrayList<ArrayList<Object>>();
 	
-	// ggf veraltet
-	private String betreff;
-	private String anrede;
-	private String anschreiben;
-	private ArrayList<ArrayList<Object>> rechnungsPosten = new ArrayList<ArrayList<Object>>();
-	private double summeNetto;
-	private double rechnungsbetrag;
-	private java.sql.Date rechnungsDatum;
-	private int kundeID;
-	private String rechnungNummer;
-	private String dateiName;
-	
 	// Konstruktoren
 	
 	public TabRechnung(boolean neueRechnung, Integer rechnungID) {
@@ -51,6 +39,10 @@ public class TabRechnung {
 	// Methoden
 	public ArrayList<Object> rechnungspostenPanelErstellen(Integer postenNummer, boolean ladeBestehendeDaten) {
 		ArrayList<Object> panel = new ArrayList<Object>();
+		if(ladeBestehendeDaten == false) {
+			Rechnungsposten neuerPosten = new Rechnungsposten();
+			aktuelleRechnung.getRechnungsposten().add(neuerPosten);
+		}
 		
 		JPanel panel_Rechnung_Posten_Posten = new JPanel();
 		GridBagConstraints gbc_panel_Rechnung_Posten_Posten = new GridBagConstraints();
@@ -58,7 +50,6 @@ public class TabRechnung {
 		gbc_panel_Rechnung_Posten_Posten.fill = GridBagConstraints.BOTH;
 		gbc_panel_Rechnung_Posten_Posten.gridx = 0;
 		gbc_panel_Rechnung_Posten_Posten.gridy = postenNummer;
-		//panel_Rechnung_Posten_sub.add(panel_Rechnung_Posten_Posten, gbc_panel_Rechnung_Posten_Posten);
 		GridBagLayout gbl_panel_Rechnung_Posten_Posten = new GridBagLayout();
 		gbl_panel_Rechnung_Posten_Posten.columnWidths = new int[]{0, 30, 15, 250, 25, 100, 25, 60, 25, 110, 25, 110, 20, 0};
 		gbl_panel_Rechnung_Posten_Posten.rowHeights = new int[]{0, 0};
@@ -129,13 +120,27 @@ public class TabRechnung {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
+				String einheitenString = textField_Rechnung_Posten_Einheiten.getText();
+				int einheitenInt = 0;
+				einheitenString = einheitenString.replaceAll("[^0-9]","");
+				if (einheitenString.equals("")) {
+					einheitenString = "0";
+				}
+				einheitenInt = Integer.parseInt(einheitenString);
+				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenEinheiten(einheitenInt);
 				
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
+				String einheitenString = textField_Rechnung_Posten_Einheiten.getText();
+				int einheitenInt = 0;
+				einheitenString = einheitenString.replaceAll("[^0-9]","");
+				if (einheitenString.equals("")) {
+					einheitenString = "0";
+				}
+				einheitenInt = Integer.parseInt(einheitenString);
+				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenEinheiten(einheitenInt);
 				
 			}
 			
@@ -150,13 +155,27 @@ public class TabRechnung {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
+				String satzEuroString = textField_Rechnung_Posten_Satz_in_Euro.getText();
+				double satzEuroDouble = 0.00;
+				satzEuroString = satzEuroString.replace(",", ".");
+				if (satzEuroString.equals("")) {
+					satzEuroString = "0.00";
+				}
+				satzEuroDouble = Double.parseDouble(satzEuroString);
+				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatzEuro(satzEuroDouble);
 				
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
+				String satzEuroString = textField_Rechnung_Posten_Satz_in_Euro.getText();
+				double satzEuroDouble = 0.00;
+				satzEuroString = satzEuroString.replace(",", ".");
+				if (satzEuroString.equals("")) {
+					satzEuroString = "0.00";
+				}
+				satzEuroDouble = Double.parseDouble(satzEuroString);
+				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatzEuro(satzEuroDouble);
 				
 			}
 			

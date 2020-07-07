@@ -36,6 +36,7 @@ public class Rechnung {
 		this.rechnungSummeNetto = 0.00;
 		this.rechnungEndbetrag = 0.00;
 		this.rechnungDatum = new java.sql.Date(System.currentTimeMillis());
+		rechnungsposten = new ArrayList<Rechnungsposten>();
 	}
 	
 	// Methoden

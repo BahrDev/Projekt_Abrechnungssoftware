@@ -25,6 +25,7 @@ public class Rechnung {
 	public Rechnung(Integer rechnungID) {
 		this.rechnungID = rechnungID;
 		ladeRechnungsdaten();
+		this.rechnungDatum = new java.sql.Date(System.currentTimeMillis());
 	}
 	
 	public Rechnung() {

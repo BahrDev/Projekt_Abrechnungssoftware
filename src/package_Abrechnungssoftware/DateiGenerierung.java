@@ -3,6 +3,11 @@ package package_Abrechnungssoftware;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
@@ -12,7 +17,7 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 public class DateiGenerierung {
 	
 	// Attribute
-	
+	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
 	// Konstruktoren
 	
 	// Methoden
@@ -30,7 +35,9 @@ public class DateiGenerierung {
 			String kunde_Ort = GUI.getTk1().getAktuellerKunde().getKundeOrt();
 			int kunde_PLZ = GUI.getTk1().getAktuellerKunde().getKundePLZ();
 			String kunde_PLZ_String = String.valueOf(kunde_PLZ);
-//			String rechnung_Datum = GUI.
+			Date date = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungDatum();
+			DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+			String Datum = df.format(date);
 			String rechnung_Nummer = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungNummer();
 			int kunde_ID = GUI.getTk1().getAktuellerKunde().getKundeID();
 			String kunde_ID_String = String.valueOf(kunde_ID);
@@ -38,8 +45,8 @@ public class DateiGenerierung {
 			String rechnung_Anrede = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungAnrede();
 			String rechnung_Anschreiben = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungAnschreiben();
 //			String rechnung_Rechnungposten = GUI.
-			String summe_Netto = "Summe Netto: " + GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungSummeNetto();
-			String summe_Gesamt = "Summe Gesamt: " + GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungEndbetrag();
+			String summe_Netto = "Summe Netto: " + geldformatierung.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungSummeNetto());
+			String summe_Gesamt = "Summe Gesamt: " + geldformatierung.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungEndbetrag());
 			
 			
 			
@@ -67,8 +74,8 @@ public class DateiGenerierung {
 			PDField kunde_Ort_pdf = pdAcroForm.getField("Kunde_Ort");
 			kunde_Ort_pdf.setValue(kunde_Ort +" " + kunde_PLZ_String);
 			
-//			PDField rechnung_Datum_pdf = pdAcroForm.getField("Rechnung_Datum");
-//			rechnung_Datum_pdf
+			PDField rechnung_Datum_pdf = pdAcroForm.getField("Rechnung_Datum");
+			rechnung_Datum_pdf.setValue(Datum);
 			
 			PDField rechnung_Nummer_pdf = pdAcroForm.getField("Rechnung_Datum");
 			rechnung_Nummer_pdf.setValue(rechnung_Nummer);

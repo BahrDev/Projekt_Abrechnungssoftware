@@ -124,12 +124,16 @@ public class TabRechnung {
 				String einheitenString = textField_Rechnung_Posten_Einheiten.getText();
 				int einheitenInt = 0;
 				einheitenString = einheitenString.replaceAll("[^0-9]","");
+				if (einheitenString.length() > 4) {
+					einheitenString = einheitenString.substring(0, 4);
+				}
 				if (einheitenString.equals("")) {
 					einheitenString = "0";
 				}
 				einheitenInt = Integer.parseInt(einheitenString);
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenEinheiten(einheitenInt);
-				
+				berechneSummen();
+				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
 			}
 			
 			@Override
@@ -137,12 +141,16 @@ public class TabRechnung {
 				String einheitenString = textField_Rechnung_Posten_Einheiten.getText();
 				int einheitenInt = 0;
 				einheitenString = einheitenString.replaceAll("[^0-9]","");
+				if (einheitenString.length() > 4) {
+					einheitenString = einheitenString.substring(0, 4);
+				}
 				if (einheitenString.equals("")) {
 					einheitenString = "0";
 				}
 				einheitenInt = Integer.parseInt(einheitenString);
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenEinheiten(einheitenInt);
-				
+				berechneSummen();
+				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
 			}
 			
 			@Override
@@ -158,26 +166,61 @@ public class TabRechnung {
 			public void removeUpdate(DocumentEvent e) {
 				String satzEuroString = textField_Rechnung_Posten_Satz_in_Euro.getText();
 				double satzEuroDouble = 0.00;
-				satzEuroString = satzEuroString.replace(",", ".");
+				if(satzEuroString.length() > 15) {
+					satzEuroString = satzEuroString.substring(0, 15);
+				}
+				if(satzEuroString.length() > 3) {
+					if(satzEuroString.contains(",") || satzEuroString.contains(".")) {
+						satzEuroString = satzEuroString.replaceAll("[^0-9,.]", "");
+						satzEuroString = satzEuroString.replace(",", ".");
+						int indexPunkt = satzEuroString.lastIndexOf(".");
+						String punktsuche = satzEuroString.substring(0, indexPunkt);
+						if (punktsuche.contains(".")) {
+							punktsuche = punktsuche.replace(".", "");
+						}
+						satzEuroString = punktsuche + satzEuroString.substring(indexPunkt);
+					}
+				}else {
+					satzEuroString = satzEuroString.replaceAll("[^0-9]", "");
+				}
 				if (satzEuroString.equals("")) {
 					satzEuroString = "0.00";
 				}
 				satzEuroDouble = Double.parseDouble(satzEuroString);
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatzEuro(satzEuroDouble);
-				
+				berechneSummen();
+				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				String satzEuroString = textField_Rechnung_Posten_Satz_in_Euro.getText();
 				double satzEuroDouble = 0.00;
-				satzEuroString = satzEuroString.replace(",", ".");
+				if(satzEuroString.length() > 15) {
+					satzEuroString = satzEuroString.substring(0, 15);
+				}
+				if(satzEuroString.length() > 3) {
+					if(satzEuroString.contains(",") || satzEuroString.contains(".")) {
+						satzEuroString = satzEuroString.replaceAll("[^0-9,.]", "");
+						satzEuroString = satzEuroString.replace(",", ".");
+						int indexPunkt = satzEuroString.lastIndexOf(".");
+						String punktsuche = satzEuroString.substring(0, indexPunkt);
+						if (punktsuche.contains(".")) {
+							punktsuche = punktsuche.replace(".", "");
+						}
+						satzEuroString = punktsuche + satzEuroString.substring(indexPunkt);
+					}
+				}else {
+					satzEuroString = satzEuroString.replaceAll("[^0-9]", "");
+				}
 				if (satzEuroString.equals("")) {
 					satzEuroString = "0.00";
 				}
+				System.out.println(satzEuroString);
 				satzEuroDouble = Double.parseDouble(satzEuroString);
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatzEuro(satzEuroDouble);
-				
+				berechneSummen();
+				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
 			}
 			
 			@Override
@@ -188,12 +231,21 @@ public class TabRechnung {
 		});
 		
 		// ComboBox befüllen und ActionListener Hinzufügen
+		
+		for (int i = 0; i < Suchleiste.getRechnungspositionen().size(); i++) {
+			comboBox_Rechnung_Posten_Bezeichnung.addItem(Suchleiste.getRechnungspositionen().get(i));
+		}
+		comboBox_Rechnung_Posten_Bezeichnung.setSelectedIndex(-1);
+		comboBox_Rechnung_Posten_Bezeichnung.revalidate();
+		comboBox_Rechnung_Posten_Bezeichnung.repaint();
+		
 		comboBox_Rechnung_Posten_Bezeichnung.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 	
 				if (comboBox_Rechnung_Posten_Bezeichnung.getSelectedIndex() != -1) {
+					aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspositionName(comboBox_Rechnung_Posten_Bezeichnung.getSelectedItem().toString());
 					SQLAnbindung sql = new SQLAnbindung();
 					String sqlBefehl = "";
 					String positionsName = comboBox_Rechnung_Posten_Bezeichnung.getSelectedItem().toString();
@@ -207,26 +259,19 @@ public class TabRechnung {
 				
 				}else {
 					lbl_Rechnung_Posten_Satz.setText(" ");
+					textField_Rechnung_Posten_Satz_in_Euro.setText("0.00");
 				}
 			}
 		});
-		
-		for (int i = 0; i < Suchleiste.getRechnungspositionen().size(); i++) {
-			comboBox_Rechnung_Posten_Bezeichnung.addItem(Suchleiste.getRechnungspositionen().get(i));
-		}
-		comboBox_Rechnung_Posten_Bezeichnung.setSelectedIndex(-1);
-		comboBox_Rechnung_Posten_Bezeichnung.revalidate();
-		comboBox_Rechnung_Posten_Bezeichnung.repaint();
-		
 		
 		//AutoFill falls es eine bestehende Rechnung ist
 		if (ladeBestehendeDaten == true) {
 			String comboBoxAuswahl = aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspositionName();
 			lbl_Rechnung_Posten_Satz.setText(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenSatz());
 			comboBox_Rechnung_Posten_Bezeichnung.setSelectedIndex(Suchleiste.getRechnungspositionen().indexOf(comboBoxAuswahl));
-			textField_Rechnung_Posten_Einheiten.setText(Double.toString(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenEinheiten()));
-			textField_Rechnung_Posten_Satz_in_Euro.setText(Double.toString(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenSatzEuro()));
-			lbl_Rechnung_Posten_Gesamt_in_Euro.setText(Double.toString(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
+			textField_Rechnung_Posten_Einheiten.setText(String.valueOf(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenEinheiten()));
+			textField_Rechnung_Posten_Satz_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenSatzEuro()));
+			lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
 			
 		}
 		panel.add(panel_Rechnung_Posten_Posten);
@@ -257,7 +302,6 @@ public class TabRechnung {
 		GUI.getTk1().getNeueGUIRechnung().getTextArea_Rechnung_Rechnung_Anschreiben().setText(aktuelleRechnung.getRechnungAnschreiben());
 		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Summe_Netto_in_Euro().setText(geldformatierung.format(aktuelleRechnung.getRechnungSummeNetto()));
 		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Rechnung_Betrag_in_Euro().setText(geldformatierung.format(aktuelleRechnung.getRechnungEndbetrag()));
-		System.out.println(aktuelleRechnung.getRechnungsposten().size());
 		for (int i = 0; i < aktuelleRechnung.getRechnungsposten().size(); i++) {
 			rechnungspostenPanelHinzufügen(true);
 		}
@@ -284,9 +328,7 @@ public class TabRechnung {
 		sqlBefehl = sql.erstelleBefehl("INSERT", "rechnung", "rechnungBetreff", aktuelleRechnung.getRechnungBetreff(), "rechnungAnrede", aktuelleRechnung.getRechnungAnrede(), "rechnungAnschreiben", aktuelleRechnung.getRechnungAnschreiben(), "rechnungSummeNetto", aktuelleRechnung.getRechnungSummeNetto(), "rechnungEndbetrag", aktuelleRechnung.getRechnungEndbetrag(), "rechnungDatum", aktuelleRechnung.getRechnungDatum(), "rechnungNummer", aktuelleRechnung.getRechnungNummer(), "rechnungDateiName", aktuelleRechnung.getRechnungDateiName(), "kundeID", aktuelleRechnung.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
 	}
-										
-	
-				
+													
 	public void speicherePosten() {
 		int rechnungspostenNummer;
 		int rechnungspostenEinheit;
@@ -299,10 +341,8 @@ public class TabRechnung {
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl = "";
 		
-		if(aktuelleRechnung.getRechnungID() == -1) {
-			sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungID", "rechnung", "rechnungNummer", aktuelleRechnung.getRechnungNummer());
-			aktuelleRechnung.setRechnungID(sql.holeIntAusDatenbank(sqlBefehl, "rechnungID"));
-		}
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungID", "rechnung", "rechnungNummer", aktuelleRechnung.getRechnungNummer());
+		aktuelleRechnung.setRechnungID(sql.holeIntAusDatenbank(sqlBefehl, "rechnungID"));
 		
 		for (int i = 0; i < aktuelleRechnung.getRechnungsposten().size(); i++) {
 			rechnungspostenNummer = aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenNummer();
@@ -316,12 +356,35 @@ public class TabRechnung {
 			rechnungspositionID = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspositionID");
 			
 			sqlBefehl = sql.erstelleBefehl("INSERT", "rechnungsposten", "rechnungID", aktuelleRechnung.getRechnungID(), "rechnungspositionID", rechnungspositionID, "rechnungspostenNummer", rechnungspostenNummer, "rechnungspostenEinheit", rechnungspostenEinheit, "rechnungspostenSatz", rechnungspostenSatz, "rechnungspostenBetrag", rechnungspostenBetrag, "rechnungspostenGesamt", rechnungspostenGesamt);
-			sql.datenbankÄnderung(sqlBefehl);
-			
+			sql.datenbankÄnderung(sqlBefehl);		
 		}
 	}
 	
 
+	public void berechneSummen() {
+		Berechnung br = new Berechnung();
+		br.berechneRechnungspositionsSumme();
+		br.berechneGesamtSumme();
+		aktualisiereEndbetrage();
+	}
+	
+	public void aktualisiereEndbetrage() {
+		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Summe_Netto_in_Euro().setText(geldformatierung.format(aktuelleRechnung.getRechnungSummeNetto()));
+		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Rechnung_Betrag_in_Euro().setText(geldformatierung.format(aktuelleRechnung.getRechnungEndbetrag()));
+	}
+	
+	public void aktualisierePostenFelder() {
+		for (int i = 0; i < postenPanel.size(); i++) {
+			ArrayList<Object> tempArray = postenPanel.get(i);
+			JPanel postenPanel = (JPanel) tempArray.get(0);
+			JTextField einheiten = (JTextField) postenPanel.getComponent(3);
+			JTextField satzEuro = (JTextField) postenPanel.getComponent(4);
+			einheiten.setText(String.valueOf(aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenEinheiten()));
+			satzEuro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenSatzEuro()));	
+		
+		}
+	}
+	
 	
 
 

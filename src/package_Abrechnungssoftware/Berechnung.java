@@ -16,14 +16,14 @@ public class Berechnung {
 		for (int i = 0; i < rechnungsposten.size() ; i++) {
 			
 			satz_Euro = rechnungsposten.get(i).getRechnungspostenSatzEuro();
-			einheiten = rechnungsposten.get(i).getRechnungspostenEinheiten(); // Wert wird noch in int geändert
+			einheiten = rechnungsposten.get(i).getRechnungspostenEinheiten();
 			summe = satz_Euro * einheiten;
 			rechnungsposten.get(i).setRechnungspostenGesamtEuro(summe);
 			
 		}
 		
 	}
-	public void berechneGesamtSumme(ArrayList<Rechnungsposten> rechnungspositionen) {
+	public void berechneGesamtSumme() {
 		//Methode schreiben
 		
 		ArrayList<Rechnungsposten> rechnungsposten = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungsposten();

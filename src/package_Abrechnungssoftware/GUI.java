@@ -918,9 +918,11 @@ public class GUI {
 		tk1.comboBox_kunde_kunden_aktualisieren();
 		rp1.comboBox_Position_Positionen_aktualisieren();
 		rp1.comboBox_Position_Kategorie_aktualisieren();
+		
 		buttonActionListenerHinzufügen();
 		textFieldListenerHinzugügen();
 		andereActionListener();
+		tk1.maskeSichtbar(false);
 		panel_Position_Daten.setVisible(false);
 		frame.setVisible(true);
 	}
@@ -948,8 +950,8 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tk1.maskeSichtbar(true);
 				tk1.kundeAnzeigen(false);
-
 				tabAktualisieren();
 			}
 		});
@@ -960,11 +962,10 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tk1.maskeSichtbar(true);
 				tk1.kundeAnzeigen(true);
-//				neuerKunde = true;
 				tk1.eingabefelderLeeren();
 				tabAktualisieren();
-
 			}
 		});
 	}

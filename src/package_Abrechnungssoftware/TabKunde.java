@@ -3,6 +3,7 @@ package package_Abrechnungssoftware;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class TabKunde {
 
@@ -119,6 +120,13 @@ public class TabKunde {
 		GUI.getTextField_KundePLZ().setText("0");
 		GUI.getChckbx_Kunde_Inaktiv().setSelected(false);
 		
+	}
+	
+	public void maskeSichtbar(boolean sichtbar) {
+		GUI.getPanel_KundenDaten().setVisible(sichtbar);
+		GUI.getPanel_Kunde_Speichern().setVisible(sichtbar);
+		GUI.getPanel_Kunde_Rechnungen().setVisible(sichtbar);
+		GUI.getPanel_Kunde_Rechnungen_Buttons().setVisible(sichtbar);
 	}
 	
 	//Abfrage boolean TODO

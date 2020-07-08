@@ -481,6 +481,7 @@ public class GUIRechnung {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tr1.rechnungspostenPanelHinzufügen(false);
+				tr1.aktualisierePostenFelder();
 				fensterAktualisieren();
 			}
 		});
@@ -492,6 +493,7 @@ public class GUIRechnung {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tr1.rechnungspostenPanelEntfernen();
+				tr1.aktualisierePostenFelder();
 				fensterAktualisieren();
 			}
 		});
@@ -545,13 +547,11 @@ public class GUIRechnung {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
-				System.out.println(tr1.getAktuelleRechnung().getRechnungBetreff());
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
-				System.out.println(tr1.getAktuelleRechnung().getRechnungBetreff());
 			}
 			
 			@Override
@@ -624,6 +624,7 @@ public class GUIRechnung {
 			lbl_Rechnung_Summe_Netto_in_Euro.setText(geldformatierung.format(tr1.getAktuelleRechnung().getRechnungSummeNetto()));
 			lbl_Rechnung_Rechnung_Betrag_in_Euro.setText(geldformatierung.format(tr1.getAktuelleRechnung().getRechnungEndbetrag()));
 		}
+		
 		panel_Rechnung_Posten_Innen_Posten.revalidate();
 		scrollPane_Rechnung_Posten_Innen.revalidate();
 		scrollPane_Rechnung_Posten_Innen.repaint();

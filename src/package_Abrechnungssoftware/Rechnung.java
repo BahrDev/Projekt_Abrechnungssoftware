@@ -1,6 +1,8 @@
 package package_Abrechnungssoftware;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Rechnung {
@@ -80,8 +82,10 @@ public class Rechnung {
 
 	public void generiereRechnungsnummer(int anzahlRechnungen) {
 		String nummer;
-		// Datum ggf anders Formatieren
-		nummer = "KD" + kundeID + "D" + rechnungDatum + "R" + (anzahlRechnungen+1);
+		DateFormat df = new SimpleDateFormat("ddMMyy");
+		java.util.Date datumUtil = rechnungDatum;
+		String datumFormatiert = df.format(datumUtil);
+		nummer = "KD" + kundeID + "D" + datumFormatiert + "R" + (anzahlRechnungen+1);
 		this.rechnungNummer = nummer;
 	}
 	

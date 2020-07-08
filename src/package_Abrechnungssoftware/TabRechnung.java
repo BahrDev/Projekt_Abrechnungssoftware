@@ -216,7 +216,6 @@ public class TabRechnung {
 				if (satzEuroString.equals("")) {
 					satzEuroString = "0.00";
 				}
-				System.out.println(satzEuroString);
 				satzEuroDouble = Double.parseDouble(satzEuroString);
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatzEuro(satzEuroDouble);
 				berechneSummen();
@@ -274,6 +273,7 @@ public class TabRechnung {
 			lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
 			
 		}
+		aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenNummer(Integer.valueOf(lbl_Rechnung_Posten_Nr.getText()));
 		panel.add(panel_Rechnung_Posten_Posten);
 		panel.add(gbc_panel_Rechnung_Posten_Posten);
 		return panel;
@@ -291,6 +291,7 @@ public class TabRechnung {
 		if(anzahlPosten > 0) {
 			GUI.getTk1().getNeueGUIRechnung().getPanel_Rechnung_Posten_Innen_Posten().remove(GUI.getTk1().getNeueGUIRechnung().getPanel_Rechnung_Posten_Innen_Posten().getComponentCount()-1);
 			postenPanel.remove(postenPanel.size()-1);
+			aktuelleRechnung.getRechnungsposten().remove(aktuelleRechnung.getRechnungsposten().size()-1);
 			anzahlPosten--;
 		}
 	}

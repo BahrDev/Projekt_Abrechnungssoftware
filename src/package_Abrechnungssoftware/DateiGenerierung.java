@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -18,6 +19,7 @@ public class DateiGenerierung {
 	
 	// Attribute
 	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
+	private ArrayList<Rechnungsposten> rechnungsposten;
 	// Konstruktoren
 	
 	// Methoden
@@ -48,12 +50,14 @@ public class DateiGenerierung {
 			String summe_Netto = "Summe Netto: " + geldformatierung.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungSummeNetto());
 			String summe_Gesamt = "Summe Gesamt: " + geldformatierung.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungEndbetrag());
 			
-			
+			// TEST
+			generiereRechnungsPostenStream();
+			// TEST
 			
 			
 			//PDF Dokumentvorlage in unsere neue PDF laden
 				
-			File file = new File("F:/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v3.pdf");
+			File file = new File("F:/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v4.pdf");
 			PDDocument pdf_Test = PDDocument.load(file);
 			
 			PDDocumentCatalog pdCatalog = pdf_Test.getDocumentCatalog();
@@ -61,9 +65,9 @@ public class DateiGenerierung {
 
 			System.out.println(pdAcroForm.toString());
 			
-			for(PDField pdField : pdAcroForm.getFields()) {
-			    System.out.println( pdField.getFullyQualifiedName() + " " + pdField.getPartialName() + " -- " + pdField.getValueAsString());
-			}
+//			for(PDField pdField : pdAcroForm.getFields()) {
+//			    System.out.println( pdField.getFullyQualifiedName() + " " + pdField.getPartialName() + " -- " + pdField.getValueAsString());
+//			}
 			
 			PDField kunde_Name_pdf = pdAcroForm.getField("Kunde_Name");
 			kunde_Name_pdf.setValue(kunde_Name);
@@ -77,7 +81,7 @@ public class DateiGenerierung {
 			PDField rechnung_Datum_pdf = pdAcroForm.getField("Rechnung_Datum");
 			rechnung_Datum_pdf.setValue(Datum);
 			
-			PDField rechnung_Nummer_pdf = pdAcroForm.getField("Rechnung_Datum");
+			PDField rechnung_Nummer_pdf = pdAcroForm.getField("Rechnung_Nummer");
 			rechnung_Nummer_pdf.setValue(rechnung_Nummer);
 			
 			PDField kunde_ID_pdf = pdAcroForm.getField("Kunde_ID");
@@ -93,7 +97,7 @@ public class DateiGenerierung {
 			rechnung_Anschreiben_pdf.setValue(rechnung_Anschreiben);
 			
 			
-//			PDField Rechnung_Posten = pdAcroForm.getField("[Rechnung_Posten]");
+//			PDField Rechnung_Posten = pdAcroForm.getField("Rechnung_Posten");
 //			Rechnung_Posten.setValue();
 			
 			PDField summe_Netto_pdf = pdAcroForm.getField("Rechnung_Summe_Netto");
@@ -112,6 +116,55 @@ public class DateiGenerierung {
 		
 
 		
+	}
+	
+	
+	public void generiereRechnungsPostenStream() {
+		int markerBezeichnung = 5;
+		int markerSatz = 41;
+		int markerEinheiten = 55;
+		int markerSatzEuro = 83;
+		int gesamtLänge = 105;
+		String ausgabe = "";
+		
+		rechnungsposten = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungsposten();
+		
+		for (int i = 0; i < rechnungsposten.size(); i++) {
+			String ausgabeZeile = "";
+			ausgabeZeile+= String.format("%03d", rechnungsposten.get(i).getRechnungspostenNummer());
+			ausgabeZeile = auffüller(ausgabeZeile, markerBezeichnung);
+			ausgabeZeile+= rechnungsposten.get(i).getRechnungspositionName();
+			ausgabeZeile = auffüller(ausgabeZeile, markerSatz);
+			ausgabeZeile+= rechnungsposten.get(i).getRechnungspostenSatz();
+			ausgabeZeile = auffüller(ausgabeZeile, markerEinheiten);
+			ausgabeZeile+= rechnungsposten.get(i).getRechnungspostenEinheiten();
+			
+			String testLänge = ausgabeZeile + geldformatierung.format(rechnungsposten.get(i).getRechnungspostenSatzEuro()) +  "€";
+			while (testLänge.length() < markerSatzEuro) {
+				ausgabeZeile+= " ";
+				testLänge = ausgabeZeile + geldformatierung.format(rechnungsposten.get(i).getRechnungspostenSatzEuro()) +  "€";
+			}
+			ausgabeZeile+= geldformatierung.format(rechnungsposten.get(i).getRechnungspostenSatzEuro()) +  "€";
+					
+			String gesamtTestLänge = ausgabeZeile + geldformatierung.format(rechnungsposten.get(i).getRechnungspostenGesamtEuro()) +  " €";
+			while (gesamtTestLänge.length() < gesamtLänge) {
+				ausgabeZeile+= " ";
+				gesamtTestLänge = ausgabeZeile + geldformatierung.format(rechnungsposten.get(i).getRechnungspostenGesamtEuro()) +  " €";
+			}
+			ausgabe += ausgabeZeile + geldformatierung.format(rechnungsposten.get(i).getRechnungspostenGesamtEuro()) +  "€" + "\n";
+		}
+		
+		System.out.println(ausgabe);
+		
+	}
+	
+	public String auffüller(String eingabe, int marker) {
+		String ausgabe;
+		ausgabe = eingabe;
+		while (ausgabe.length() <= marker-1) {
+			ausgabe+= " ";
+		}
+		return ausgabe;
 	}
 	
 	// Getter/Setter

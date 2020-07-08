@@ -28,6 +28,8 @@ public class DateiGenerierung {
 			String kunde_Strasse = GUI.getTk1().getAktuellerKunde().getKundeStrasse();
 			String kunde_Hausnummer = GUI.getTk1().getAktuellerKunde().getKundeHausnummer();
 			String kunde_Ort = GUI.getTk1().getAktuellerKunde().getKundeOrt();
+			int kunde_PLZ = GUI.getTk1().getAktuellerKunde().getKundePLZ();
+			String kunde_PLZ_String = String.valueOf(kunde_PLZ);
 //			String rechnung_Datum = GUI.
 			String rechnung_Nummer = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungNummer();
 			int kunde_ID = GUI.getTk1().getAktuellerKunde().getKundeID();
@@ -63,7 +65,7 @@ public class DateiGenerierung {
 			kunde_Strasse_pdf.setValue(kunde_Strasse + " " + kunde_Hausnummer);
 			
 			PDField kunde_Ort_pdf = pdAcroForm.getField("Kunde_Ort");
-			kunde_Ort_pdf.setValue(kunde_Ort);
+			kunde_Ort_pdf.setValue(kunde_Ort +" " + kunde_PLZ_String);
 			
 //			PDField rechnung_Datum_pdf = pdAcroForm.getField("Rechnung_Datum");
 //			rechnung_Datum_pdf

@@ -9,7 +9,7 @@ public class Rechnungsposten {
 	private int rechnungspostenNummer;
 	private String rechnungspositionName;
 	private String rechnungspostenSatz;
-	private double rechnungspostenEinheiten;
+	private int rechnungspostenEinheiten;
 	private double rechnungspostenSatzEuro;
 	private double rechnungspostenGesamtEuro;
 	
@@ -98,14 +98,6 @@ public class Rechnungsposten {
 		this.rechnungspostenSatz = rechnungspostenSatz;
 	}
 
-	public double getRechnungspostenEinheiten() {
-		return rechnungspostenEinheiten;
-	}
-
-	public void setRechnungspostenEinheiten(double rechnungspostenEinheiten) {
-		this.rechnungspostenEinheiten = rechnungspostenEinheiten;
-	}
-
 	public double getRechnungspostenSatzEuro() {
 		return rechnungspostenSatzEuro;
 	}
@@ -120,6 +112,14 @@ public class Rechnungsposten {
 
 	public void setRechnungspostenGesamtEuro(double rechnungspostenGesamtEuro) {
 		this.rechnungspostenGesamtEuro = rechnungspostenGesamtEuro;
+	}
+
+	public int getRechnungspostenEinheiten() {
+		return rechnungspostenEinheiten;
+	}
+
+	public void setRechnungspostenEinheiten(int rechnungspostenEinheiten) {
+		this.rechnungspostenEinheiten = rechnungspostenEinheiten;
 	}
 
 	

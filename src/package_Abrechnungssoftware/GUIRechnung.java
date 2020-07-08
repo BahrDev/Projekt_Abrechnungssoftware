@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -25,6 +27,8 @@ import javax.swing.event.DocumentListener;
 public class GUIRechnung {
 
 	//Attribute
+	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
+	
 //	private ArrayList<ArrayList<Object>> posten = new ArrayList<ArrayList<Object>>();
 //	private int anzahlPosten = 0;
 	// private JPanel contentPane;
@@ -460,6 +464,7 @@ public class GUIRechnung {
 		
 		// ButtonListener hinzufügen
 		buttonActionListenerHinzufügen();
+		documentListenerHinzufügen();
 	}
 
 		// Button-Methoden
@@ -497,6 +502,7 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				fensterAktualisieren();
 				// Sicherheitsabfrage
 				DateiGenerierung dateiGenerierung = new DateiGenerierung();
 				
@@ -508,7 +514,7 @@ public class GUIRechnung {
 				
 	
 				
-				// tr1.speichern();								// temporär deaktiviert 
+				tr1.speichern();								// temporär deaktiviert 
 				// Fenster schließen, Frame Disposen oder so
 			}
 		});
@@ -528,7 +534,9 @@ public class GUIRechnung {
 		// TextListener-Me
 	
 	public void documentListenerHinzufügen() {
-		
+		textArea_Rechnung_Rechnung_Betreff_DocumentListener();
+		textField_Rechnung_Rechnung_Anrede_DocumentListener();
+		textArea_Rechnung_Rechnung_Anschreiben_DocumentListener();
 	}
 	
 	public void textArea_Rechnung_Rechnung_Betreff_DocumentListener() {
@@ -537,13 +545,13 @@ public class GUIRechnung {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
-				
+				System.out.println(tr1.getAktuelleRechnung().getRechnungBetreff());
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
-				
+				System.out.println(tr1.getAktuelleRechnung().getRechnungBetreff());
 			}
 			
 			@Override
@@ -603,7 +611,19 @@ public class GUIRechnung {
 	
 	
 		// sonstige Methoden
-	public void fensterAktualisieren (){		
+	public void fensterAktualisieren (){
+		if(tr1.getAktuelleRechnung() != null) {
+			lbl_Rechnung_Kunden_Name.setText(GUI.getTk1().getAktuellerKunde().getKundeName());
+			lbl_Rechnung_Kunden_Strasse.setText(GUI.getTk1().getAktuellerKunde().getKundeStrasse() + " " + GUI.getTk1().getAktuellerKunde().getKundeHausnummer());
+			lbl_Rechnung_Rechnung_PLZ_Stadt.setText(GUI.getTk1().getAktuellerKunde().getKundePLZ() + " " + GUI.getTk1().getAktuellerKunde().getKundeOrt());
+			
+			textArea_Rechnung_Rechnung_Betreff.setText(tr1.getAktuelleRechnung().getRechnungBetreff());
+			textField_Rechnung_Rechnung_Anrede.setText(tr1.getAktuelleRechnung().getRechnungAnrede());
+			textArea_Rechnung_Rechnung_Anschreiben.setText(tr1.getAktuelleRechnung().getRechnungAnschreiben());
+			
+			lbl_Rechnung_Summe_Netto_in_Euro.setText(geldformatierung.format(tr1.getAktuelleRechnung().getRechnungSummeNetto()));
+			lbl_Rechnung_Rechnung_Betrag_in_Euro.setText(geldformatierung.format(tr1.getAktuelleRechnung().getRechnungEndbetrag()));
+		}
 		panel_Rechnung_Posten_Innen_Posten.revalidate();
 		scrollPane_Rechnung_Posten_Innen.revalidate();
 		scrollPane_Rechnung_Posten_Innen.repaint();

@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
@@ -22,7 +24,7 @@ public class TabRechnung {
 	private boolean neueRechnung;
 	private int anzahlPosten = 0;
 	private ArrayList<ArrayList<Object>> postenPanel = new ArrayList<ArrayList<Object>>();
-	
+	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
 	// Konstruktoren
 	
 	public TabRechnung(boolean neueRechnung, Integer rechnungID) {
@@ -33,7 +35,6 @@ public class TabRechnung {
 		}else {
 			aktuelleRechnung = new Rechnung();
 		}
-		
 	}
 	
 	// Methoden
@@ -197,8 +198,13 @@ public class TabRechnung {
 					String sqlBefehl = "";
 					String positionsName = comboBox_Rechnung_Posten_Bezeichnung.getSelectedItem().toString();
 					sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionSatz", "rechnungsposition", "rechnungspositionName", positionsName);
-					String kategorieAuswahl = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspositionSatz");
-					lbl_Rechnung_Posten_Satz.setText(kategorieAuswahl);
+					String satzAuswahl = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspositionSatz");
+					lbl_Rechnung_Posten_Satz.setText(satzAuswahl);
+					aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatz(satzAuswahl);
+					sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionBetrag", "rechnungsposition", "rechnungspositionName", positionsName);
+					double betrag = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspositionBetrag");
+					textField_Rechnung_Posten_Satz_in_Euro.setText(geldformatierung.format(betrag));
+				
 				}else {
 					lbl_Rechnung_Posten_Satz.setText(" ");
 				}
@@ -249,8 +255,8 @@ public class TabRechnung {
 		GUI.getTk1().getNeueGUIRechnung().getTextArea_Rechnung_Rechnung_Betreff().setText(aktuelleRechnung.getRechnungBetreff());
 		GUI.getTk1().getNeueGUIRechnung().getTextField_Rechnung_Rechnung_Anrede().setText(aktuelleRechnung.getRechnungAnrede());
 		GUI.getTk1().getNeueGUIRechnung().getTextArea_Rechnung_Rechnung_Anschreiben().setText(aktuelleRechnung.getRechnungAnschreiben());
-		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Summe_Netto_in_Euro().setText(Double.toString(aktuelleRechnung.getRechnungSummeNetto()));
-		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Rechnung_Betrag_in_Euro().setText(Double.toString(aktuelleRechnung.getRechnungEndbetrag()));
+		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Summe_Netto_in_Euro().setText(geldformatierung.format(aktuelleRechnung.getRechnungSummeNetto()));
+		GUI.getTk1().getNeueGUIRechnung().getLbl_Rechnung_Rechnung_Betrag_in_Euro().setText(geldformatierung.format(aktuelleRechnung.getRechnungEndbetrag()));
 		System.out.println(aktuelleRechnung.getRechnungsposten().size());
 		for (int i = 0; i < aktuelleRechnung.getRechnungsposten().size(); i++) {
 			rechnungspostenPanelHinzufügen(true);
@@ -278,7 +284,9 @@ public class TabRechnung {
 		sqlBefehl = sql.erstelleBefehl("INSERT", "rechnung", "rechnungBetreff", aktuelleRechnung.getRechnungBetreff(), "rechnungAnrede", aktuelleRechnung.getRechnungAnrede(), "rechnungAnschreiben", aktuelleRechnung.getRechnungAnschreiben(), "rechnungSummeNetto", aktuelleRechnung.getRechnungSummeNetto(), "rechnungEndbetrag", aktuelleRechnung.getRechnungEndbetrag(), "rechnungDatum", aktuelleRechnung.getRechnungDatum(), "rechnungNummer", aktuelleRechnung.getRechnungNummer(), "rechnungDateiName", aktuelleRechnung.getRechnungDateiName(), "kundeID", aktuelleRechnung.getKundeID());
 		sql.datenbankÄnderung(sqlBefehl);
 	}
+										
 	
+				
 	public void speicherePosten() {
 		int rechnungspostenNummer;
 		int rechnungspostenEinheit;
@@ -296,27 +304,20 @@ public class TabRechnung {
 			aktuelleRechnung.setRechnungID(sql.holeIntAusDatenbank(sqlBefehl, "rechnungID"));
 		}
 		
-		for (int i = 0; i < postenPanel.size(); i++) {
-			ArrayList<Object> tempArray = postenPanel.get(i);
-			JPanel rechnungsPostenPanel = (JPanel) tempArray.get(0);
-			JLabel lbl_Posten_Nummer = (JLabel) rechnungsPostenPanel.getComponent(0);
-			rechnungspostenNummer = Integer.valueOf(lbl_Posten_Nummer.getText());
-			JComboBox comboBox_PostenBezeichnung = (JComboBox) rechnungsPostenPanel.getComponent(1);
-			rechnungspostenBezeichnung = comboBox_PostenBezeichnung.getSelectedItem().toString();
-			JLabel lbl_Posten_Satz = (JLabel) rechnungsPostenPanel.getComponent(2);
-			rechnungspostenSatz = lbl_Posten_Satz.getText();
-			JTextField lbl_Posten_Einheit = (JTextField) rechnungsPostenPanel.getComponent(3);
-			rechnungspostenEinheit = Integer.valueOf(lbl_Posten_Einheit.getText());
-			JTextField lbl_Posten_Betrag = (JTextField) rechnungsPostenPanel.getComponent(4);
-			rechnungspostenBetrag = Double.valueOf(lbl_Posten_Betrag.getText());
-			JLabel lbl_Posten_Gesamt = (JLabel) rechnungsPostenPanel.getComponent(5);
-			rechnungspostenGesamt = Double.valueOf(lbl_Posten_Gesamt.getText());
-
+		for (int i = 0; i < aktuelleRechnung.getRechnungsposten().size(); i++) {
+			rechnungspostenNummer = aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenNummer();
+			rechnungspostenEinheit = aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenEinheiten();
+			rechnungspostenBezeichnung = aktuelleRechnung.getRechnungsposten().get(i).getRechnungspositionName();
+			rechnungspostenSatz = aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenSatz();
+			rechnungspostenBetrag = aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenSatzEuro();
+			rechnungspostenGesamt = aktuelleRechnung.getRechnungsposten().get(i).getRechnungspostenGesamtEuro();
+			
 			sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionID", "rechnungsposition", "rechnungspositionName", rechnungspostenBezeichnung);
 			rechnungspositionID = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspositionID");
 			
 			sqlBefehl = sql.erstelleBefehl("INSERT", "rechnungsposten", "rechnungID", aktuelleRechnung.getRechnungID(), "rechnungspositionID", rechnungspositionID, "rechnungspostenNummer", rechnungspostenNummer, "rechnungspostenEinheit", rechnungspostenEinheit, "rechnungspostenSatz", rechnungspostenSatz, "rechnungspostenBetrag", rechnungspostenBetrag, "rechnungspostenGesamt", rechnungspostenGesamt);
 			sql.datenbankÄnderung(sqlBefehl);
+			
 		}
 	}
 	

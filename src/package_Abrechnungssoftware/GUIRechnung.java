@@ -73,7 +73,7 @@ public class GUIRechnung {
 		frame_Rechnung = new JFrame();
 		frame_Rechnung.setVisible(true);
 		frame_Rechnung.setResizable(false);
-		frame_Rechnung.setAlwaysOnTop(true);
+		frame_Rechnung.toFront();
 		frame_Rechnung.setTitle("Rechnung");
 		frame_Rechnung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame_Rechnung.setBounds(100, 100, 1000, 1000);
@@ -472,6 +472,7 @@ public class GUIRechnung {
 		btn_Rechnung_Posten_Plus_ActionListener();
 		btn_Rechnung_Posten_Minus_ActionListener();
 		btn_Rechnung_Rechnung_Speichern_ActionListener();
+		btn_Rechnung_Rechnung_Drucken_ActionListener();
 		
 	}
 	
@@ -483,6 +484,7 @@ public class GUIRechnung {
 				tr1.rechnungspostenPanelHinzufügen(false);
 				tr1.aktualisierePostenFelder();
 				fensterAktualisieren();
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 		});
 	}
@@ -495,6 +497,7 @@ public class GUIRechnung {
 				tr1.rechnungspostenPanelEntfernen();
 				tr1.aktualisierePostenFelder();
 				fensterAktualisieren();
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 		});
 	}
@@ -504,36 +507,47 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fensterAktualisieren();
-				// Sicherheitsabfrage
-				DateiGenerierung dateiGenerierung = new DateiGenerierung();
-				
-				try {
-					dateiGenerierung.generierePDFAusVorlage();
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				if(tr1.sicherheitsabfrage()) {
+					fensterAktualisieren();
+					
+					DateiGenerierung dateiGenerierung = new DateiGenerierung();
+					try {
+						dateiGenerierung.generierePDFAusVorlage(false);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					
+					tr1.speichern();							
+					frame_Rechnung.dispose();
 				}
-				
-	
-				
-				tr1.speichern();								// temporär deaktiviert 
-				// Fenster schließen, Frame Disposen oder so
 			}
 		});
 	}
 	
-	public void btn_Rechnung_Rechnung_Drucken_ActionListener() {
+	public void btn_Rechnung_Rechnung_Drucken_ActionListener() {					// Druckfunktion fehlt
 		btn_Rechnung_Rechnung_Drucken.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				if(tr1.sicherheitsabfrage()) {
+					fensterAktualisieren();
+					
+					DateiGenerierung dateiGenerierung = new DateiGenerierung();
+					try {
+						dateiGenerierung.generierePDFAusVorlage(true);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					
+					tr1.speichern();							
+					frame_Rechnung.dispose();
+				}
 				
 			}
 		});
 	}
 	
-		// TextListener-Me
+		// TextListener-Methoden
 	
 	public void documentListenerHinzufügen() {
 		textArea_Rechnung_Rechnung_Betreff_DocumentListener();
@@ -547,11 +561,13 @@ public class GUIRechnung {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 			
 			@Override
@@ -568,13 +584,13 @@ public class GUIRechnung {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
-				
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
-				
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 			
 			@Override
@@ -591,13 +607,13 @@ public class GUIRechnung {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungAnschreiben(textArea_Rechnung_Rechnung_Anschreiben.getText());
-				
+			//	tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 			
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungAnschreiben(textArea_Rechnung_Rechnung_Anschreiben.getText());
-				
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 			
 			@Override

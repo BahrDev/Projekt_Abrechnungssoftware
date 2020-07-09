@@ -1006,10 +1006,6 @@ public class GUI {
 					tk1.comboBox_kunde_kunden_aktualisieren();
 					tk1.getAktuellerKunde().setWurdeVerändert(false);
 				}
-				
-				
-				
-
 			}
 		});
 	}
@@ -1019,9 +1015,12 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tk1.rechnungStellen();
-				tk1.getAktuellerKunde().ladeRechnungen();
-				tk1.ladeRechnungen();
+				if(tk1.checkAufUngesicherteDaten()) {
+					tk1.rechnungStellen();
+					tk1.getAktuellerKunde().ladeRechnungen();
+					tk1.ladeRechnungen();
+				}
+				
 			}
 		});
 
@@ -1043,9 +1042,11 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tk1.rechnungKorrigieren();
-				tk1.getAktuellerKunde().ladeRechnungen();
-				tk1.ladeRechnungen();
+				if(tk1.checkAufUngesicherteDaten()) {
+					tk1.rechnungKorrigieren();
+					tk1.getAktuellerKunde().ladeRechnungen();
+					tk1.ladeRechnungen();
+				}
 			}
 		});
 	}
@@ -1055,9 +1056,18 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panel_Position_Daten.setVisible(true);;
-				rp1.positionAnzeigen(false);
-				tabAktualisieren();
+				if (rp1.getAktuelleRechnungsposition() != null) {
+					if(rp1.checkAufUngesicherteDaten()) {
+						rp1.positionAnzeigen(false);
+						tabAktualisieren();
+						rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+					}
+				}else {
+					panel_Position_Daten.setVisible(true);;
+					rp1.positionAnzeigen(false);
+					tabAktualisieren();
+					rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+				}
 			}
 		});
 	}
@@ -1067,16 +1077,25 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panel_Position_Daten.setVisible(true);
-				rp1.positionAnzeigen(true);
-				rp1.eingabefelderLeeren();
-				tabAktualisieren();
-
+				if (rp1.getAktuelleRechnungsposition() != null) {
+					if(rp1.checkAufUngesicherteDaten()) {
+						rp1.positionAnzeigen(true);
+						rp1.eingabefelderLeeren();
+						tabAktualisieren();
+						rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+					}
+				}else {
+					panel_Position_Daten.setVisible(true);
+					rp1.positionAnzeigen(true);
+					rp1.eingabefelderLeeren();
+					tabAktualisieren();
+					rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+				}
 			}
 		});
 	}
 
-	private void btn_Position_Kategorie_Neu_ActionListener() {
+	private void btn_Position_Kategorie_Neu_ActionListener() {							// TODO
 		btn_Position_Kategorie_Neu.addActionListener(new ActionListener() {
 
 			@Override
@@ -1092,9 +1111,11 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				rp1.speichern();
-				rp1.comboBox_Position_Positionen_aktualisieren();
-
+				if(rp1.checkAufUngesicherteDaten()) {
+					rp1.speichern();
+					rp1.comboBox_Position_Positionen_aktualisieren();
+					rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+				}
 			}
 		});
 	}
@@ -1273,7 +1294,7 @@ public class GUI {
 		});
 	}
 	
-	public void textField_KundePLZ_DokumentListener() {										// Sicherheitscheck für eingabe machen
+	public void textField_KundePLZ_DokumentListener() {	
 		textField_KundePLZ.getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
@@ -1289,6 +1310,10 @@ public class GUI {
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 				if(textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
 					tk1.getAktuellerKunde().setKundePLZ(Integer.parseInt(textField_KundePLZ.getText()));
+				}else if(textField_KundePLZ.getText().length() >= 6) {
+					tk1.plzWarnung();
+				}else if(!textField_KundePLZ.getText().matches("[0-9]+")) {
+					tk1.plzWarnung();
 				}
 			}
 			

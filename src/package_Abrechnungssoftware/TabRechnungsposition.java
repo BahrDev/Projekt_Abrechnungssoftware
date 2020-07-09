@@ -2,6 +2,8 @@ package package_Abrechnungssoftware;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class TabRechnungsposition {
 	
 	// Attribute
@@ -102,8 +104,21 @@ public class TabRechnungsposition {
 	}
 	
 	public boolean checkAufUngesicherteDaten() {
-		// Methode schreiben!
-		return false;
+	//Methode schreiben
+		boolean ausgabe;
+		if(aktuelleRechnungsposition.isWurdeVerändert()) {
+			int bestätigung = JOptionPane.showConfirmDialog(null, "Achtung, Sie haben Daten verändert. Wollen Sie dies wirklich tun?", "Achtung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+			if (bestätigung == 0) {
+				ausgabe = true;
+			}else {
+				ausgabe = false;
+			}
+		}else {
+			ausgabe = true;
+		}
+		
+		
+		return ausgabe;
 	}
 	
 	public void frageZurAbsicherung() {

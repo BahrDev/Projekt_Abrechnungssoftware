@@ -19,7 +19,7 @@ public class Rechnung {
 	private String rechnungNummer;
 	private String rechnungDateiName;
 	private ArrayList<Rechnungsposten> rechnungsposten;
-	private boolean wurdeVerändert;
+	//private boolean wurdeVerändert;
 
 	
 	// Konstruktoren
@@ -187,13 +187,13 @@ public class Rechnung {
 		this.rechnungsposten = rechnungsposten;
 	}
 
-	public boolean isWurdeVerändert() {
-		return wurdeVerändert;
-	}
-
-	public void setWurdeVerändert(boolean wurdeVerändert) {
-		this.wurdeVerändert = wurdeVerändert;
-	}
+//	public boolean isWurdeVerändert() {
+//		return wurdeVerändert;
+//	}
+//
+//	public void setWurdeVerändert(boolean wurdeVerändert) {
+//		this.wurdeVerändert = wurdeVerändert;
+//	}
 	
 	
 }

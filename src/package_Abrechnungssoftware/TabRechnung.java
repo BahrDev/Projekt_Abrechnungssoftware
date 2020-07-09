@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -32,10 +33,10 @@ public class TabRechnung {
 		if (neueRechnung == false) {
 			aktuelleRechnung = new Rechnung(rechnungID);
 			aktuelleRechnung.ladeRechnungsposten();
-			aktuelleRechnung.setWurdeVerändert(false);
+			//aktuelleRechnung.setWurdeVerändert(false);
 		}else {
 			aktuelleRechnung = new Rechnung();
-			aktuelleRechnung.setWurdeVerändert(false);
+			//aktuelleRechnung.setWurdeVerändert(false);
 		}
 	}
 	
@@ -136,6 +137,7 @@ public class TabRechnung {
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenEinheiten(einheitenInt);
 				berechneSummen();
 				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
+				//aktuelleRechnung.setWurdeVerändert(true);
 			}
 			
 			@Override
@@ -153,6 +155,7 @@ public class TabRechnung {
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenEinheiten(einheitenInt);
 				berechneSummen();
 				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
+				//aktuelleRechnung.setWurdeVerändert(true);
 			}
 			
 			@Override
@@ -192,6 +195,7 @@ public class TabRechnung {
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatzEuro(satzEuroDouble);
 				berechneSummen();
 				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
+				//aktuelleRechnung.setWurdeVerändert(true);
 			}
 			
 			@Override
@@ -222,6 +226,7 @@ public class TabRechnung {
 				aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenSatzEuro(satzEuroDouble);
 				berechneSummen();
 				lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
+				//aktuelleRechnung.setWurdeVerändert(true);
 			}
 			
 			@Override
@@ -262,6 +267,7 @@ public class TabRechnung {
 					lbl_Rechnung_Posten_Satz.setText(" ");
 					textField_Rechnung_Posten_Satz_in_Euro.setText("0.00");
 				}
+				//aktuelleRechnung.setWurdeVerändert(true);
 			}
 		});
 		
@@ -273,7 +279,7 @@ public class TabRechnung {
 			textField_Rechnung_Posten_Einheiten.setText(String.valueOf(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenEinheiten()));
 			textField_Rechnung_Posten_Satz_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenSatzEuro()));
 			lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(aktuelleRechnung.getRechnungsposten().get(postenNummer-1).getRechnungspostenGesamtEuro()));
-			
+			//aktuelleRechnung.setWurdeVerändert(false);
 		}
 		aktuelleRechnung.getRechnungsposten().get(postenNummer-1).setRechnungspostenNummer(Integer.valueOf(lbl_Rechnung_Posten_Nr.getText()));
 		panel.add(panel_Rechnung_Posten_Posten);
@@ -389,7 +395,18 @@ public class TabRechnung {
 	}
 	
 	
-
+	public boolean sicherheitsabfrage() {
+		boolean ausgabe;
+		// <html><center>"Das Speichern einer Rechnung ist ein amtliches Dokument.<br>Haben Sie ihre Eingaben überprüft und sind sich sicher, dass sie dieses Dokument erstellen möchten?"</center></html>
+		// "Das Speichern einer Rechnung ist ein amtliches Dokument. \nHaben Sie ihre Eingaben überprüft und sind sich sicher, dass sie dieses Dokument erstellen möchten?"
+		int bestätigung = JOptionPane.showConfirmDialog(null, "<html><center>Das Speichern einer Rechnung ist ein amtliches Dokument.<br>Haben Sie ihre Eingaben überprüft und sind sich sicher, dass sie dieses Dokument erstellen möchten?</center></html>", "Achtung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+		if (bestätigung == 0) {
+			ausgabe = true;
+		}else {
+			ausgabe = false;
+		}
+		return ausgabe;
+	}
 
 
 	public boolean isNeueRechnung() {

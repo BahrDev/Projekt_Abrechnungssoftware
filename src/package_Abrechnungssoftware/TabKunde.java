@@ -131,7 +131,6 @@ public class TabKunde {
 	
 	//Abfrage boolean TODO
 	public boolean checkAufUngesicherteDaten() {
-	//Methode schreiben
 		boolean ausgabe;
 		if(aktuellerKunde.isWurdeVerändert()) {
 			int bestätigung = JOptionPane.showConfirmDialog(null, "Achtung, Sie haben Daten verändert. Wollen Sie dies wirklich tun?", "Achtung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -143,15 +142,11 @@ public class TabKunde {
 		}else {
 			ausgabe = true;
 		}
-		
-		
 		return ausgabe;
 	}
 	
-	public void frageZurAbsicherung()					// leer
-	{
-	//Methode schreiben
-	JOptionPane sind_sie_sicher = new JOptionPane();	
+	public void plzWarnung() {
+		JOptionPane.showMessageDialog(null, "Fehler: Bitte geben Sie eine gültige deutsche Postleitzahl ein!", "Ungültige Postleitzahl", JOptionPane.WARNING_MESSAGE);
 	}
 
 	

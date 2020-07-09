@@ -57,7 +57,7 @@ public class DateiGenerierung {
 			
 			//PDF Dokumentvorlage in unsere neue PDF laden
 				
-			File file = new File("F:/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v4.pdf");
+			File file = new File("C:/Users/paric/Documents/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v4.pdf");
 			PDDocument pdf_Test = PDDocument.load(file);
 			
 			PDDocumentCatalog pdCatalog = pdf_Test.getDocumentCatalog();
@@ -97,8 +97,8 @@ public class DateiGenerierung {
 			rechnung_Anschreiben_pdf.setValue(rechnung_Anschreiben);
 			
 			
-//			PDField Rechnung_Posten = pdAcroForm.getField("Rechnung_Posten");
-//			Rechnung_Posten.setValue();
+			PDField Rechnung_Posten = pdAcroForm.getField("Rechnung_Posten");
+			Rechnung_Posten.setValue(generiereRechnungsPostenStream());
 			
 			PDField summe_Netto_pdf = pdAcroForm.getField("Rechnung_Summe_Netto");
 			summe_Netto_pdf.setValue(summe_Netto);
@@ -106,8 +106,9 @@ public class DateiGenerierung {
 			PDField summe_Gesamt_pdf = pdAcroForm.getField("Rechnung_Summe_Gesamt");
 			summe_Gesamt_pdf.setValue(summe_Gesamt);
 			
+			file.setReadOnly();
 			
-			pdf_Test.save("F:/neuTest.pdf");
+			pdf_Test.save("C:/Users/paric/Documents/Java_Tutorials/filled.pdf");
 			
 		
 			
@@ -119,7 +120,7 @@ public class DateiGenerierung {
 	}
 	
 	
-	public void generiereRechnungsPostenStream() {
+	public String generiereRechnungsPostenStream() {
 		int markerBezeichnung = 5;
 		int markerSatz = 41;
 		int markerEinheiten = 55;
@@ -155,6 +156,8 @@ public class DateiGenerierung {
 		}
 		
 		System.out.println(ausgabe);
+		return ausgabe;
+
 		
 	}
 	
@@ -165,7 +168,9 @@ public class DateiGenerierung {
 			ausgabe+= " ";
 		}
 		return ausgabe;
+		
 	}
+	
 	
 	// Getter/Setter
 	

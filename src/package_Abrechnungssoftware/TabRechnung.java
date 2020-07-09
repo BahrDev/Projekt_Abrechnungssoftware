@@ -32,8 +32,10 @@ public class TabRechnung {
 		if (neueRechnung == false) {
 			aktuelleRechnung = new Rechnung(rechnungID);
 			aktuelleRechnung.ladeRechnungsposten();
+			aktuelleRechnung.setWurdeVerändert(false);
 		}else {
 			aktuelleRechnung = new Rechnung();
+			aktuelleRechnung.setWurdeVerändert(false);
 		}
 	}
 	

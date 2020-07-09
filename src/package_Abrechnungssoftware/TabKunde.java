@@ -55,7 +55,7 @@ public class TabKunde {
 		sql.datenbankÄnderung(sqlBefehl);
 	}
 	
-	public void rechnungAnzeigen() 
+	public void rechnungAnzeigen() 					// leer
 	{
 		
 	}
@@ -130,13 +130,25 @@ public class TabKunde {
 	}
 	
 	//Abfrage boolean TODO
-	public boolean checkAufUngesicherteDaten()
-	{
+	public boolean checkAufUngesicherteDaten() {
 	//Methode schreiben
-		return false;
+		boolean ausgabe;
+		if(aktuellerKunde.isWurdeVerändert()) {
+			int bestätigung = JOptionPane.showConfirmDialog(null, "Achtung, Sie haben Daten verändert. Wollen Sie dies wirklich tun?", "Achtung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+			if (bestätigung == 0) {
+				ausgabe = true;
+			}else {
+				ausgabe = false;
+			}
+		}else {
+			ausgabe = true;
+		}
+		
+		
+		return ausgabe;
 	}
 	
-	public void frageZurAbsicherung()
+	public void frageZurAbsicherung()					// leer
 	{
 	//Methode schreiben
 	JOptionPane sind_sie_sicher = new JOptionPane();	

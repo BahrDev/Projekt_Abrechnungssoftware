@@ -9,7 +9,7 @@ public class Rechnungsposition {
 	private String rechnungspositionName;
 	private String rechnungspositionSatz;
 	private Double rechnungspositionBetrag = 0.00;
-	
+	private boolean wurdeVerändert = false;
 	
 	// Konstruktoren
 	
@@ -101,6 +101,14 @@ public class Rechnungsposition {
 
 	public void setRechnungspositionBetrag(Double rechnungspositionBetrag) {
 		this.rechnungspositionBetrag = rechnungspositionBetrag;
+	}
+
+	public boolean isWurdeVerändert() {
+		return wurdeVerändert;
+	}
+
+	public void setWurdeVerändert(boolean wurdeVerändert) {
+		this.wurdeVerändert = wurdeVerändert;
 	}
 	
 	

@@ -3,6 +3,7 @@ package package_Abrechnungssoftware;
 import java.awt.Desktop;
 import java.awt.print.PrinterException;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
 import java.text.DateFormat;
@@ -11,6 +12,8 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
@@ -27,7 +30,31 @@ public class DateiGenerierung {
 	
 	// Methoden
 	
-	public void generiereConfigDatei(String speicherpfad, String dbAdresse, String dbBenutzername, String dbPasswort) {
+	public void generiereConfigDatei(String speicherpfad, String dbAdresse, String dbBenutzername, String dbPasswort, boolean inaktiveKundenAusblenden) {
+		try {
+			File createFile = new File("config.ini");
+			if (!createFile.exists()) {
+				createFile.createNewFile();
+			}
+			
+			FileWriter writeinfile = null;
+			writeinfile = new FileWriter("config.ini", false);
+			writeinfile.write(speicherpfad + "\n");
+			writeinfile.write(dbAdresse + "\n");
+			writeinfile.write(dbBenutzername + "\n");
+			writeinfile.write(dbPasswort + "\n");
+			String inaktivCheckbox;
+			if(inaktiveKundenAusblenden) {
+				inaktivCheckbox = "true";
+			}else {
+				inaktivCheckbox = "false";
+			}
+			writeinfile.write(inaktivCheckbox);
+			writeinfile.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -52,6 +79,7 @@ public class DateiGenerierung {
 //			String rechnung_Rechnungposten = GUI.
 			String summe_Netto = "Summe Netto: " + geldformatierung.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungSummeNetto());
 			String summe_Gesamt = "Summe Gesamt: " + geldformatierung.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungEndbetrag());
+			String rechnung_Dateiname = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungDateiName();
 			
 			// TEST
 			//generiereRechnungsPostenStream();
@@ -122,10 +150,10 @@ public class DateiGenerierung {
 			
 			file.setReadOnly();
 			
-			pdf_Test.save("F:/filled.pdf");
+			pdf_Test.save(TabOptionen.getSpeicherpfad() + rechnung_Dateiname);
 			
 			if(mitDruckauftrag) {
-				File pdf_print = new File("F:/filled.pdf");
+				File pdf_print = new File(TabOptionen.getSpeicherpfad() + rechnung_Dateiname);
 				try {
 					if(Desktop.isDesktopSupported()) {
 						Desktop dt = Desktop.getDesktop();

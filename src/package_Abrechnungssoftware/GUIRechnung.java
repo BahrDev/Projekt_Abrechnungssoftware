@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -19,14 +21,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class GUIRechnung {
 
 	//Attribute
-	private ArrayList<ArrayList<Object>> posten = new ArrayList<ArrayList<Object>>();
-	private int anzahlPosten = 0;
+	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
+	
+//	private ArrayList<ArrayList<Object>> posten = new ArrayList<ArrayList<Object>>();
+//	private int anzahlPosten = 0;
 	// private JPanel contentPane;
-	private JTextField textField_Rechnung_Rechnung_Anrede;
+
 	private JTextField textField_Rechnung_Posten_Einheiten_1;
 	private JTextField textField_Rechnung_Posten_Satz_in_Euro_1;
 	private JTextField textField_Rechnung_Posten_Einheiten_2;
@@ -36,6 +42,7 @@ public class GUIRechnung {
 	private JLabel lbl_Rechnung_Kunden_Strasse;
 	private JLabel lbl_Rechnung_Rechnung_PLZ_Stadt;
 	private JTextArea textArea_Rechnung_Rechnung_Betreff;
+	private JTextField textField_Rechnung_Rechnung_Anrede;
 	private JTextArea textArea_Rechnung_Rechnung_Anschreiben;
 	private JButton btn_Rechnung_Rechnung_Speichern;
 	private JButton btn_Rechnung_Rechnung_Drucken;
@@ -48,8 +55,13 @@ public class GUIRechnung {
 	private JScrollPane scrollPane_Rechnung_Posten_Innen;
 	private JPanel panel_Rechnung_Posten_Aussen;
 	private TabRechnung tr1;
-	
+	private double Rechnung_Summe_Netto_in_Euro;
+	private double Rechnung_Rechnung_Betrag_in_Euro;
 	// Konstruktor
+	
+	public GUIRechnung(boolean neueRechnung, Integer rechnungID) {
+		this.tr1 = new TabRechnung(neueRechnung, rechnungID);
+	}
 	
 	
 	// Methoden
@@ -61,9 +73,9 @@ public class GUIRechnung {
 		frame_Rechnung = new JFrame();
 		frame_Rechnung.setVisible(true);
 		frame_Rechnung.setResizable(false);
-		frame_Rechnung.setAlwaysOnTop(true);
+		frame_Rechnung.toFront();
 		frame_Rechnung.setTitle("Rechnung");
-		frame_Rechnung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame_Rechnung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame_Rechnung.setBounds(100, 100, 1000, 1000);
 		
 //		contentPane = new JPanel();
@@ -446,16 +458,21 @@ public class GUIRechnung {
 		gbc_btn_Rechnung_Rechnung_Drucken.gridy = 0;
 		panel_Rechnung_Speichern_Buttons.add(btn_Rechnung_Rechnung_Drucken, gbc_btn_Rechnung_Rechnung_Drucken);
 	
+		
 		// Funktionen den Elementen hinzufügen
-		tr1 = new TabRechnung();
+		// Felder setzen falls bestehende Rechnung
+		
+		// ButtonListener hinzufügen
 		buttonActionListenerHinzufügen();
+		documentListenerHinzufügen();
 	}
 
-	
+		// Button-Methoden
 	public void buttonActionListenerHinzufügen() {
 		btn_Rechnung_Posten_Plus_ActionListener();
 		btn_Rechnung_Posten_Minus_ActionListener();
-		
+		btn_Rechnung_Rechnung_Speichern_ActionListener();
+		btn_Rechnung_Rechnung_Drucken_ActionListener();
 		
 	}
 	
@@ -464,12 +481,10 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				anzahlPosten++;
-				posten.add(tr1.rechnungspostenHinzufügen(anzahlPosten));
-				for (int i = 0; i < posten.size(); i++) {
-					panel_Rechnung_Posten_Innen_Posten.add((JPanel)posten.get(i).get(0), posten.get(i).get(1));
-				}
+				tr1.rechnungspostenPanelHinzufügen(false);
+				tr1.aktualisierePostenFelder();
 				fensterAktualisieren();
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 		});
 	}
@@ -479,10 +494,10 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panel_Rechnung_Posten_Innen_Posten.remove(panel_Rechnung_Posten_Innen_Posten.getComponentCount()-1);
+				tr1.rechnungspostenPanelEntfernen();
+				tr1.aktualisierePostenFelder();
 				fensterAktualisieren();
-				posten.remove(posten.size()-1);
-				anzahlPosten--;
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 		});
 	}
@@ -492,24 +507,142 @@ public class GUIRechnung {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				if(tr1.sicherheitsabfrage()) {
+					fensterAktualisieren();
+					
+					tr1.speichern();
+					
+					DateiGenerierung dateiGenerierung = new DateiGenerierung();
+					try {
+						dateiGenerierung.generierePDFAusVorlage(false);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					
+					GUI.getTk1().ladeRechnungen();							
+					frame_Rechnung.dispose();
+				}
 			}
 		});
 	}
 	
-	public void btn_Rechnung_Rechnung_Drucken_ActionListener() {
+	public void btn_Rechnung_Rechnung_Drucken_ActionListener() {					// Druckfunktion fehlt
 		btn_Rechnung_Rechnung_Drucken.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(tr1.sicherheitsabfrage()) {
+					fensterAktualisieren();
+					
+					DateiGenerierung dateiGenerierung = new DateiGenerierung();
+					try {
+						dateiGenerierung.generierePDFAusVorlage(true);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					
+					tr1.speichern();							
+					frame_Rechnung.dispose();
+				}
+				
+			}
+		});
+	}
+	
+		// TextListener-Methoden
+	
+	public void documentListenerHinzufügen() {
+		textArea_Rechnung_Rechnung_Betreff_DocumentListener();
+		textField_Rechnung_Rechnung_Anrede_DocumentListener();
+		textArea_Rechnung_Rechnung_Anschreiben_DocumentListener();
+	}
+	
+	public void textArea_Rechnung_Rechnung_Betreff_DocumentListener() {
+		textArea_Rechnung_Rechnung_Betreff.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungBetreff(textArea_Rechnung_Rechnung_Betreff.getText());
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
 		});
 	}
 	
+	public void textField_Rechnung_Rechnung_Anrede_DocumentListener() {
+		textField_Rechnung_Rechnung_Anrede.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	public void textArea_Rechnung_Rechnung_Anschreiben_DocumentListener() {
+		textArea_Rechnung_Rechnung_Anschreiben.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnschreiben(textArea_Rechnung_Rechnung_Anschreiben.getText());
+			//	tr1.getAktuelleRechnung().setWurdeVerändert(true);
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				tr1.getAktuelleRechnung().setRechnungAnschreiben(textArea_Rechnung_Rechnung_Anschreiben.getText());
+				//tr1.getAktuelleRechnung().setWurdeVerändert(true);
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	
+	
+		// sonstige Methoden
 	public void fensterAktualisieren (){
+		if(tr1.getAktuelleRechnung() != null) {
+			lbl_Rechnung_Kunden_Name.setText(GUI.getTk1().getAktuellerKunde().getKundeName());
+			lbl_Rechnung_Kunden_Strasse.setText(GUI.getTk1().getAktuellerKunde().getKundeStrasse() + " " + GUI.getTk1().getAktuellerKunde().getKundeHausnummer());
+			lbl_Rechnung_Rechnung_PLZ_Stadt.setText(GUI.getTk1().getAktuellerKunde().getKundePLZ() + " " + GUI.getTk1().getAktuellerKunde().getKundeOrt());
+			
+			textArea_Rechnung_Rechnung_Betreff.setText(tr1.getAktuelleRechnung().getRechnungBetreff());
+			textField_Rechnung_Rechnung_Anrede.setText(tr1.getAktuelleRechnung().getRechnungAnrede());
+			textArea_Rechnung_Rechnung_Anschreiben.setText(tr1.getAktuelleRechnung().getRechnungAnschreiben());
+			
+			lbl_Rechnung_Summe_Netto_in_Euro.setText(geldformatierung.format(tr1.getAktuelleRechnung().getRechnungSummeNetto()));
+			lbl_Rechnung_Rechnung_Betrag_in_Euro.setText(geldformatierung.format(tr1.getAktuelleRechnung().getRechnungEndbetrag()));
+		}
+		
 		panel_Rechnung_Posten_Innen_Posten.revalidate();
 		scrollPane_Rechnung_Posten_Innen.revalidate();
 		scrollPane_Rechnung_Posten_Innen.repaint();
@@ -694,4 +827,78 @@ public class GUIRechnung {
 	public JPanel getPanel_Rechnung_Posten_Aussen() {
 		return panel_Rechnung_Posten_Aussen;
 	}
+
+
+	public double getRechnung_Summe_Netto_in_Euro() {
+		return Rechnung_Summe_Netto_in_Euro;
+	}
+
+
+	public void setRechnung_Summe_Netto_in_Euro(double rechnung_Summe_Netto_in_Euro) {
+		Rechnung_Summe_Netto_in_Euro = rechnung_Summe_Netto_in_Euro;
+	}
+
+
+	public double getRechnung_Rechnung_Betrag_in_Euro() {
+		return Rechnung_Rechnung_Betrag_in_Euro;
+	}
+
+
+	public void setRechnung_Rechnung_Betrag_in_Euro(double rechnung_Rechnung_Betrag_in_Euro) {
+		Rechnung_Rechnung_Betrag_in_Euro = rechnung_Rechnung_Betrag_in_Euro;
+	}
+
+
+	public TabRechnung getTr1() {
+		return tr1;
+	}
+	
+
+
+	public void setTr1(TabRechnung tr1) {
+		this.tr1 = tr1;
+	}
+
+
+
+	public JButton getBtn_Rechnung_Posten_Plus() {
+		return btn_Rechnung_Posten_Plus;
+	}
+
+
+	public void setBtn_Rechnung_Posten_Plus(JButton btn_Rechnung_Posten_Plus) {
+		this.btn_Rechnung_Posten_Plus = btn_Rechnung_Posten_Plus;
+	}
+
+
+	public JButton getBtn_Rechnung_Posten_Minus() {
+		return btn_Rechnung_Posten_Minus;
+	}
+
+
+	public void setBtn_Rechnung_Posten_Minus(JButton btn_Rechnung_Posten_Minus) {
+		this.btn_Rechnung_Posten_Minus = btn_Rechnung_Posten_Minus;
+	}
+
+
+	public void setPanel_Rechnung_Posten_Innen_Posten(JPanel panel_Rechnung_Posten_Innen_Posten) {
+		this.panel_Rechnung_Posten_Innen_Posten = panel_Rechnung_Posten_Innen_Posten;
+	}
+
+
+	public void setPanel_Rechnung_Posten_Innen_Gesamt(JPanel panel_Rechnung_Posten_Innen_Gesamt) {
+		this.panel_Rechnung_Posten_Innen_Gesamt = panel_Rechnung_Posten_Innen_Gesamt;
+	}
+
+
+	public void setScrollPane_Rechnung_Posten_Innen(JScrollPane scrollPane_Rechnung_Posten_Innen) {
+		this.scrollPane_Rechnung_Posten_Innen = scrollPane_Rechnung_Posten_Innen;
+	}
+
+
+	public void setPanel_Rechnung_Posten_Aussen(JPanel panel_Rechnung_Posten_Aussen) {
+		this.panel_Rechnung_Posten_Aussen = panel_Rechnung_Posten_Aussen;
+	}
+
+	
 }

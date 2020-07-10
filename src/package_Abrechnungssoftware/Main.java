@@ -25,10 +25,10 @@ public class Main {
 		
 		
 //		//Suchleiste.generiereArrayLists();
-		TabOptionen.ladeConfigs();
+		TabProgrammOptionen.ladeConfigs();
 		GUI unsereGui = new GUI();
 		unsereGui.hauptfenster();
-		TabOptionen.fülleConfigFelder();
+		TabProgrammOptionen.fülleConfigFelder();
 
 	}
 

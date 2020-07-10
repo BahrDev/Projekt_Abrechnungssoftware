@@ -31,7 +31,15 @@ public class TabRechnungsposition {
 	}
 	
 	public void kategorieAnlegen() {
-		
+		String neueKategorie;
+		neueKategorie = JOptionPane.showInputDialog(null, "Geben sie den Namen der neuen Kategorie ein", "Neue Kategorie:", JOptionPane.PLAIN_MESSAGE);
+		if(neueKategorie != null) {
+			SQLAnbindung sqlAuftrag = new SQLAnbindung();
+			String sqlBefehl;
+			sqlBefehl = sqlAuftrag.erstelleBefehl("INSERT", "kategorieposition", "kategoriepositionName", neueKategorie);
+			sqlAuftrag.datenbankÄnderung(sqlBefehl);
+			comboBox_Position_Kategorie_aktualisieren();
+		}
 	}
 	
 	public void speichern() {

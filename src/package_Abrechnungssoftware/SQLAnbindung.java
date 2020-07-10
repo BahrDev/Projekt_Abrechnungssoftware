@@ -25,12 +25,11 @@ public class SQLAnbindung {
 		try 
 		{			
 			Class.forName("com.mysql.cj.jdbc.Driver");		
-			verbindung = DriverManager.getConnection("jdbc:mysql://localhost:3306/abrechnungssoftwareherzogbahr?useSSL=false&serverTimezone=UTC", "root", "");			
+			verbindung = DriverManager.getConnection("jdbc:" + TabProgrammOptionen.getDbAdresse(), TabProgrammOptionen.getDbBenutzername(), TabProgrammOptionen.getDbPasswort());			
 			return verbindung;
 		} 
 		catch (Exception e) 
 		{
-			// TODO: handle exception
 			e.printStackTrace();
 		}		
 		return null;
@@ -56,6 +55,23 @@ public class SQLAnbindung {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean datenbankTest() {
+		boolean verbindungErfolgreich;
+		try 
+		{			
+			Class.forName("com.mysql.cj.jdbc.Driver");		
+			verbindung = DriverManager.getConnection("jdbc:" + TabProgrammOptionen.getDbAdresse(), TabProgrammOptionen.getDbBenutzername(), TabProgrammOptionen.getDbPasswort());			
+			verbindungErfolgreich = verbindung.isValid(0);
+			verbindung.close();
+			return verbindungErfolgreich;
+		} 
+		catch (Exception e) 
+		{
+			verbindungErfolgreich = false;
+		}		
+		return false;
 	}
 	
 	public ArrayList<String> holeStringArrayAusDatenbank(String sqlBefehl, String spaltenName) {

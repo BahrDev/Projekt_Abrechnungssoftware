@@ -150,10 +150,10 @@ public class DateiGenerierung {
 			
 			file.setReadOnly();
 			
-			pdf_Test.save(TabOptionen.getSpeicherpfad() + rechnung_Dateiname);
+			pdf_Test.save(TabProgrammOptionen.getSpeicherpfad() + rechnung_Dateiname);
 			
 			if(mitDruckauftrag) {
-				File pdf_print = new File(TabOptionen.getSpeicherpfad() + rechnung_Dateiname);
+				File pdf_print = new File(TabProgrammOptionen.getSpeicherpfad() + rechnung_Dateiname);
 				try {
 					if(Desktop.isDesktopSupported()) {
 						Desktop dt = Desktop.getDesktop();

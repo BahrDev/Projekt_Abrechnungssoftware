@@ -38,7 +38,7 @@ public class GUI {
 
 	private static TabKunde tk1;
 	private static TabRechnungsposition rp1;
-	private static TabOptionen op1;
+	private static TabProgrammOptionen op1;
 	private static boolean neuerKunde = false;
 	private static boolean neuePosition = false;
 	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
@@ -911,13 +911,15 @@ public class GUI {
 
 		tk1 = new TabKunde();
 		rp1 = new TabRechnungsposition();
-		op1 = new TabOptionen();
+		//op1 = new TabOptionen();
 		list_Kunde_Rechnungen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
+		if(TabProgrammOptionen.isDatenbankAnbindung()) {
+			tk1.comboBox_kunde_kunden_aktualisieren();
+			rp1.comboBox_Position_Positionen_aktualisieren();
+			rp1.comboBox_Position_Kategorie_aktualisieren();
+		}
 		
-		tk1.comboBox_kunde_kunden_aktualisieren();
-		rp1.comboBox_Position_Positionen_aktualisieren();
-		rp1.comboBox_Position_Kategorie_aktualisieren();
 		
 		buttonActionListenerHinzufügen();
 		textFieldListenerHinzugügen();
@@ -950,20 +952,20 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (tk1.getAktuellerKunde() != null) {
-					if(tk1.checkAufUngesicherteDaten()) {
+				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+					if (tk1.getAktuellerKunde() != null) {
+						if(tk1.checkAufUngesicherteDaten()) {
+							tk1.kundeAnzeigen(false);
+							tabAktualisieren();
+							tk1.getAktuellerKunde().setWurdeVerändert(false);
+						}
+					}else {
+						tk1.maskeSichtbar(true);
 						tk1.kundeAnzeigen(false);
 						tabAktualisieren();
 						tk1.getAktuellerKunde().setWurdeVerändert(false);
 					}
-				}else {
-					tk1.maskeSichtbar(true);
-					tk1.kundeAnzeigen(false);
-					tabAktualisieren();
-					tk1.getAktuellerKunde().setWurdeVerändert(false);
 				}
-				
-				
 			}
 		});
 	}
@@ -973,19 +975,21 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (tk1.getAktuellerKunde() != null) {
-					if(tk1.checkAufUngesicherteDaten()) {
+				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+					if (tk1.getAktuellerKunde() != null) {
+						if(tk1.checkAufUngesicherteDaten()) {
+							tk1.kundeAnzeigen(true);
+							tk1.eingabefelderLeeren();
+							tabAktualisieren();
+							tk1.getAktuellerKunde().setWurdeVerändert(false);
+						}
+					}else {
+						tk1.maskeSichtbar(true);
 						tk1.kundeAnzeigen(true);
 						tk1.eingabefelderLeeren();
 						tabAktualisieren();
 						tk1.getAktuellerKunde().setWurdeVerändert(false);
 					}
-				}else {
-					tk1.maskeSichtbar(true);
-					tk1.kundeAnzeigen(true);
-					tk1.eingabefelderLeeren();
-					tabAktualisieren();
-					tk1.getAktuellerKunde().setWurdeVerändert(false);
 				}
 			}
 		});
@@ -1056,17 +1060,19 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (rp1.getAktuelleRechnungsposition() != null) {
-					if(rp1.checkAufUngesicherteDaten()) {
+				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+					if (rp1.getAktuelleRechnungsposition() != null) {
+						if(rp1.checkAufUngesicherteDaten()) {
+							rp1.positionAnzeigen(false);
+							tabAktualisieren();
+							rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+						}
+					}else {
+						panel_Position_Daten.setVisible(true);;
 						rp1.positionAnzeigen(false);
 						tabAktualisieren();
 						rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
 					}
-				}else {
-					panel_Position_Daten.setVisible(true);;
-					rp1.positionAnzeigen(false);
-					tabAktualisieren();
-					rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
 				}
 			}
 		});
@@ -1077,19 +1083,21 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (rp1.getAktuelleRechnungsposition() != null) {
-					if(rp1.checkAufUngesicherteDaten()) {
+				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+					if (rp1.getAktuelleRechnungsposition() != null) {
+						if(rp1.checkAufUngesicherteDaten()) {
+							rp1.positionAnzeigen(true);
+							rp1.eingabefelderLeeren();
+							tabAktualisieren();
+							rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+						}
+					}else {
+						panel_Position_Daten.setVisible(true);
 						rp1.positionAnzeigen(true);
 						rp1.eingabefelderLeeren();
 						tabAktualisieren();
 						rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
 					}
-				}else {
-					panel_Position_Daten.setVisible(true);
-					rp1.positionAnzeigen(true);
-					rp1.eingabefelderLeeren();
-					tabAktualisieren();
-					rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
 				}
 			}
 		});
@@ -1100,7 +1108,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				rp1.kategorieAnlegen();
 
 			}
 		});
@@ -1125,7 +1133,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TabOptionen.setzeSpeicherpfad();
+				TabProgrammOptionen.setzeSpeicherpfad();
 
 			}
 		});
@@ -1136,7 +1144,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TabOptionen.speichereConfigs();
+				TabProgrammOptionen.speichereConfigs();
 
 			}
 		});
@@ -1979,11 +1987,11 @@ public class GUI {
 		GUI.rp1 = rp1;
 	}
 
-	public static TabOptionen getOp1() {
+	public static TabProgrammOptionen getOp1() {
 		return op1;
 	}
 
-	public static void setOp1(TabOptionen op1) {
+	public static void setOp1(TabProgrammOptionen op1) {
 		GUI.op1 = op1;
 	}
 

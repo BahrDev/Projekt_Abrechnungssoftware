@@ -6,7 +6,7 @@ import java.io.FileReader;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class TabOptionen {
+public class TabProgrammOptionen {
 	
 	// Attribute
 	
@@ -15,6 +15,7 @@ public class TabOptionen {
 	private static String dbBenutzername;
 	private static String dbPasswort;
 	private static boolean inaktiveKundenAusblenden;
+	private static boolean datenbankAnbindung;
 	
 	// Konstruktoren
 	
@@ -54,6 +55,7 @@ public class TabOptionen {
 				}
 			}
 			einlesenVonDaten.close();
+			datenbankCheck();
 		} catch (Exception abbruch) {
 			// TODO: handle exception
 			abbruch.printStackTrace();
@@ -83,6 +85,12 @@ public class TabOptionen {
 		
 		DateiGenerierung dg1 = new DateiGenerierung();
 		dg1.generiereConfigDatei(speicherpfad, dbAdresse, dbBenutzername, dbPasswort, inaktiveKundenAusblenden);
+		datenbankCheck();
+		if(datenbankAnbindung) {
+			GUI.getTk1().comboBox_kunde_kunden_aktualisieren();
+			GUI.getRp1().comboBox_Position_Positionen_aktualisieren();
+			GUI.getRp1().comboBox_Position_Kategorie_aktualisieren();
+		}
 	}
 	
 	public static void fülleConfigFelder() {
@@ -93,12 +101,13 @@ public class TabOptionen {
 		GUI.getChckbx_Optionen_KundenAusblenden().setSelected(inaktiveKundenAusblenden);
 	}
 	
-	public boolean checkAufUngesicherteDaten() {
+	public boolean checkAufUngesicherteDaten() {			//unbenutzt bisher
 		return false;
 	}
 	
-	public void frageZurAbsicherung() {
-		//JOptionPane hier
+	public static void datenbankCheck() {
+		SQLAnbindung check = new SQLAnbindung();
+		datenbankAnbindung = check.datenbankTest();
 	}
 
 	// Getter/Setter
@@ -108,7 +117,7 @@ public class TabOptionen {
 	}
 
 	public static void setSpeicherpfad(String speicherpfad) {
-		TabOptionen.speicherpfad = speicherpfad;
+		TabProgrammOptionen.speicherpfad = speicherpfad;
 	}
 
 	public static String getDbAdresse() {
@@ -116,7 +125,7 @@ public class TabOptionen {
 	}
 
 	public static void setDbAdresse(String dbAdresse) {
-		TabOptionen.dbAdresse = dbAdresse;
+		TabProgrammOptionen.dbAdresse = dbAdresse;
 	}
 
 	public static String getDbBenutzername() {
@@ -124,7 +133,7 @@ public class TabOptionen {
 	}
 
 	public static void setDbBenutzername(String dbBenutzername) {
-		TabOptionen.dbBenutzername = dbBenutzername;
+		TabProgrammOptionen.dbBenutzername = dbBenutzername;
 	}
 
 	public static String getDbPasswort() {
@@ -132,7 +141,7 @@ public class TabOptionen {
 	}
 
 	public static void setDbPasswort(String dbPasswort) {
-		TabOptionen.dbPasswort = dbPasswort;
+		TabProgrammOptionen.dbPasswort = dbPasswort;
 	}
 
 	public static boolean isInaktiveKundenAusblenden() {
@@ -140,7 +149,15 @@ public class TabOptionen {
 	}
 
 	public static void setInaktiveKundenAusblenden(boolean inaktiveKundenAusblenden) {
-		TabOptionen.inaktiveKundenAusblenden = inaktiveKundenAusblenden;
+		TabProgrammOptionen.inaktiveKundenAusblenden = inaktiveKundenAusblenden;
+	}
+
+	public static boolean isDatenbankAnbindung() {
+		return datenbankAnbindung;
+	}
+
+	public static void setDatenbankAnbindung(boolean datenbankAnbindung) {
+		TabProgrammOptionen.datenbankAnbindung = datenbankAnbindung;
 	}
 	
 	

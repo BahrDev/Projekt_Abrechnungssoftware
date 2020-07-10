@@ -397,8 +397,6 @@ public class TabRechnung {
 	
 	public boolean sicherheitsabfrage() {
 		boolean ausgabe;
-		// <html><center>"Das Speichern einer Rechnung ist ein amtliches Dokument.<br>Haben Sie ihre Eingaben überprüft und sind sich sicher, dass sie dieses Dokument erstellen möchten?"</center></html>
-		// "Das Speichern einer Rechnung ist ein amtliches Dokument. \nHaben Sie ihre Eingaben überprüft und sind sich sicher, dass sie dieses Dokument erstellen möchten?"
 		int bestätigung = JOptionPane.showConfirmDialog(null, "<html><center>Das Speichern einer Rechnung ist ein amtliches Dokument.<br>Haben Sie ihre Eingaben überprüft und sind sich sicher, dass sie dieses Dokument erstellen möchten?</center></html>", "Achtung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 		if (bestätigung == 0) {
 			ausgabe = true;

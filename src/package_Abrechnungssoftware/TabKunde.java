@@ -64,9 +64,7 @@ public class TabKunde {
 		String rechnungNummer = ausgewählteRechnung.substring(indexBindestrich+1);
 		String rechnungDateiName = rechnungNummer + ".pdf";
 		
-		System.out.println(TabProgrammOptionen.getSpeicherpfad() + rechnungDateiName);
 		File file = new File(TabProgrammOptionen.getSpeicherpfad() + rechnungDateiName);
-		System.out.println(file.getAbsolutePath());
 		Desktop desktop = Desktop.getDesktop();
 		if (file.exists()) {
 			desktop.open(file);

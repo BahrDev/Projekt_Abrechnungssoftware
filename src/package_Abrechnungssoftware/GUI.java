@@ -1149,8 +1149,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TabProgrammOptionen.speichereConfigs();
-
+				TabProgrammOptionen.speichern();
 			}
 		});
 	}

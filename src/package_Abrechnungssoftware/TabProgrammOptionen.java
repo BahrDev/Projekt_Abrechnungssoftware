@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class TabProgrammOptionen {
@@ -101,8 +102,43 @@ public class TabProgrammOptionen {
 		GUI.getChckbx_Optionen_KundenAusblenden().setSelected(inaktiveKundenAusblenden);
 	}
 	
-	public boolean checkAufUngesicherteDaten() {			//unbenutzt bisher
-		return false;
+	public static void speichern() {
+		if (checkAufUngesicherteDaten()) {
+			if(sicherheitsabfrage()) {
+				speichereConfigs();
+			}else {
+				fülleConfigFelder();
+			}
+		}else {
+			speichereConfigs();
+		}
+	}
+	
+	public static boolean checkAufUngesicherteDaten() {
+		boolean check = false;
+		if(!speicherpfad.equals(GUI.getTextField_Optionen_Speicherpfad().getText())) {
+			check = true;
+		}else if (!dbAdresse.equals(GUI.getTextField_Optionen_dbAdresse().getText())) {
+			check = true;
+		}else if (!dbBenutzername.equals(GUI.getTextField_Optionen_dbBenutzername().getText())) {
+			check = true;
+		}else if (!dbPasswort.equals(String.valueOf(GUI.getPasswordField_Optionen_dbPasswort().getPassword()))) {
+			check = true;
+		}else if (inaktiveKundenAusblenden != GUI.getChckbx_Optionen_KundenAusblenden().isSelected()) {
+			check = true;
+		}
+		return check;
+	}
+	
+	public static boolean sicherheitsabfrage() {
+		boolean ausgabe;
+		int bestätigung = JOptionPane.showConfirmDialog(null, "<html><center>Sie haben Einstellungen verändert. <br>War dies so beabsichtigt?</center></html>", "Achtung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+		if (bestätigung == 0) {
+			ausgabe = true;
+		}else {
+			ausgabe = false;
+		}
+		return ausgabe;
 	}
 	
 	public static void datenbankCheck() {

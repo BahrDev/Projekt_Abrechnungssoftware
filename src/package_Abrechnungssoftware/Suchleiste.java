@@ -20,14 +20,19 @@ public class Suchleiste {
 	
 	public static void generiereArrayLists() {
 		SQLAnbindung sqlAuftrag = new SQLAnbindung();
-		String sqlBefehl;
+		String sqlBefehl = "";
 		String kundenTabelle = "kunde";
 		String kundenSpalte = "kundeName";
 		String rechnungspositionenTabelle = "rechnungsposition";
 		String rechnungspositionenSpalte = "rechnungspositionName";
 		kunden = new ArrayList<String>();
 		rechnungspositionen = new ArrayList<String>();
-		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle);
+		if(TabProgrammOptionen.isInaktiveKundenAusblenden()) {
+			sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle, "kundeInaktiv", 0);
+		}else {
+			sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle);
+		}
+		
 		kunden = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, kundenSpalte);
 		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", rechnungspositionenSpalte, rechnungspositionenTabelle);
 		rechnungspositionen = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, rechnungspositionenSpalte);

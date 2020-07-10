@@ -1419,7 +1419,8 @@ public class GUI {
 		comboBox_Position_Kategorie_ActionListener();
 		rdbtn_Position_Stundensatz_ActionListener();
 		rdbtn_Position_Tagessatz_ActionListener();
-		rdbtn_Position_Honorarsatz_ActionListener();	
+		rdbtn_Position_Honorarsatz_ActionListener();
+		chckbx_Kunde_Inaktiv_ActionListener();
 	}
 	
 	public void comboBox_Position_Kategorie_ActionListener() {
@@ -1485,6 +1486,20 @@ public class GUI {
 		});
 	}
 	
+	public void chckbx_Kunde_Inaktiv_ActionListener() {
+		chckbx_Kunde_Inaktiv.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(chckbx_Kunde_Inaktiv.isSelected()) {
+					tk1.getAktuellerKunde().setInaktiv(true);
+				}else {
+					tk1.getAktuellerKunde().setInaktiv(false);
+				}
+				
+			}
+		});
+	}
 	
 	
 	

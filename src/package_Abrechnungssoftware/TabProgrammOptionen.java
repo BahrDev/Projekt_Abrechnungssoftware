@@ -72,7 +72,7 @@ public class TabProgrammOptionen {
         chooser.addChoosableFileFilter(standardFilter);
         int answer = chooser.showOpenDialog(null);
         if (answer == JFileChooser.APPROVE_OPTION) {
-            GUI.getTextField_Optionen_Speicherpfad().setText(chooser.getSelectedFile().getAbsolutePath());
+            GUI.getTextField_Optionen_Speicherpfad().setText(chooser.getSelectedFile().getAbsolutePath() + "\\");
         }
 	}
 	

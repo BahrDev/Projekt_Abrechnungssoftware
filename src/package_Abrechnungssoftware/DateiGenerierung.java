@@ -208,7 +208,6 @@ public class DateiGenerierung {
 			ausgabe += ausgabeZeile + geldformatierung.format(rechnungsposten.get(i).getRechnungspostenGesamtEuro()) +  "€" + "\n";
 		}
 		
-		System.out.println(ausgabe);
 		return ausgabe;
 	}
 	

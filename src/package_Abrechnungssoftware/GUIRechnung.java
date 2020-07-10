@@ -510,6 +510,8 @@ public class GUIRechnung {
 				if(tr1.sicherheitsabfrage()) {
 					fensterAktualisieren();
 					
+					tr1.speichern();
+					
 					DateiGenerierung dateiGenerierung = new DateiGenerierung();
 					try {
 						dateiGenerierung.generierePDFAusVorlage(false);
@@ -517,7 +519,7 @@ public class GUIRechnung {
 						e1.printStackTrace();
 					}
 					
-					tr1.speichern();							
+					GUI.getTk1().ladeRechnungen();							
 					frame_Rechnung.dispose();
 				}
 			}

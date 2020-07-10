@@ -1,5 +1,8 @@
 package package_Abrechnungssoftware;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -55,16 +58,30 @@ public class TabKunde {
 		sql.datenbankÄnderung(sqlBefehl);
 	}
 	
-	public void rechnungAnzeigen() 					// leer
-	{
+	public void rechnungAnzeigen() throws IOException{
+		String ausgewählteRechnung = (String) GUI.getList_Kunde_Rechnungen().getSelectedValue();
+		int indexBindestrich = ausgewählteRechnung.indexOf("-");
+		String rechnungNummer = ausgewählteRechnung.substring(indexBindestrich+1);
+		String rechnungDateiName = rechnungNummer + ".pdf";
 		
+		System.out.println(TabProgrammOptionen.getSpeicherpfad() + rechnungDateiName);
+		File file = new File(TabProgrammOptionen.getSpeicherpfad() + rechnungDateiName);
+		System.out.println(file.getAbsolutePath());
+		Desktop desktop = Desktop.getDesktop();
+		if (file.exists()) {
+			desktop.open(file);
+		}
 	}
 	
 	public void rechnungKorrigieren(){
 		String ausgewählteRechnung = (String) GUI.getList_Kunde_Rechnungen().getSelectedValue();
+		int indexBindestrich = ausgewählteRechnung.indexOf("-");
+		String rechnungNummer = ausgewählteRechnung.substring(indexBindestrich+1);
+		
+		
 		int rechnungID = -1;
 		for (int i = 0; i < aktuellerKunde.getRechnungen().size(); i++) {
-			if (aktuellerKunde.getRechnungen().get(i).getRechnungNummer().equals(ausgewählteRechnung)) {
+			if (aktuellerKunde.getRechnungen().get(i).getRechnungNummer().equals(rechnungNummer)) {
 				rechnungID = aktuellerKunde.getRechnungen().get(i).getRechnungID();
 			}
 		}
@@ -83,10 +100,15 @@ public class TabKunde {
 	
 	public void ladeRechnungen(){
 		GUI.getListModel().clear();
-		//Sortieren hier ggf
 		for (int i = 0; i < aktuellerKunde.getRechnungen().size(); i++) {
-			// Füge 20 Leerzeichen zur Formatierung hinzu???
-			GUI.getListModel().addElement(aktuellerKunde.getRechnungen().get(i).getRechnungNummer());
+			String anzeige;
+			String rechnungsNummer = aktuellerKunde.getRechnungen().get(i).getRechnungNummer();
+			String rechnungsNummerTeil = rechnungsNummer.substring(2);
+			int indexDatum = rechnungsNummerTeil.indexOf("D");
+			String rechnungsDatumRaw = rechnungsNummerTeil.substring(indexDatum+1, indexDatum+7);
+			String rechnungsDatum = rechnungsDatumRaw.substring(0, 2) + "." + rechnungsDatumRaw.substring(2, 4) + ".20" + rechnungsDatumRaw.substring(4);
+			anzeige = rechnungsDatum + "-" + rechnungsNummer;
+			GUI.getListModel().addElement(anzeige);
 		}
 		
 		GUI.getList_Kunde_Rechnungen().revalidate();

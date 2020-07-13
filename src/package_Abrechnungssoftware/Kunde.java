@@ -3,8 +3,9 @@ package package_Abrechnungssoftware;
 import java.util.ArrayList;
 
 public class Kunde {
+
+	// Attribute
 	
-	// Attribute --
 	private int kundeID;
 	private String kundeName;
 	private String kundeStrasse;
@@ -17,22 +18,19 @@ public class Kunde {
 	private boolean inaktiv;
 	private ArrayList<Rechnung> rechnungen;
 	private boolean wurdeVerändert = false;
-	
+
 	// Konstruktoren
 	
-
-	public Kunde(boolean neuerKunde) {	
+	public Kunde(boolean neuerKunde) {
 		if (neuerKunde == false) {
 			this.ladeKundenDaten();
 		}
 	}
-	
+
 	public Kunde() {
-		
+
 	}
-	
-	
-	
+
 	// Methoden
 	
 	public void ladeKundenDaten() {
@@ -72,152 +70,102 @@ public class Kunde {
 		}
 	}
 
-	
 	// Getter/Setter
 
 	public int getKundeID() {
 		return kundeID;
 	}
 
-
-
 	public void setKundeID(int kundeID) {
 		this.kundeID = kundeID;
 	}
-
-
 
 	public String getKundeName() {
 		return kundeName;
 	}
 
-
-
 	public void setKundeName(String kundeName) {
 		this.kundeName = kundeName;
 	}
-
-
 
 	public String getKundeStrasse() {
 		return kundeStrasse;
 	}
 
-
-
 	public void setKundeStrasse(String kundeStrasse) {
 		this.kundeStrasse = kundeStrasse;
 	}
-
-
 
 	public String getKundeHausnummer() {
 		return kundeHausnummer;
 	}
 
-
-
 	public void setKundeHausnummer(String kundeHausnummer) {
 		this.kundeHausnummer = kundeHausnummer;
 	}
-
-
 
 	public int getKundePLZ() {
 		return kundePLZ;
 	}
 
-
-
 	public void setKundePLZ(int kundePLZ) {
 		this.kundePLZ = kundePLZ;
 	}
-
-
 
 	public String getKundeOrt() {
 		return kundeOrt;
 	}
 
-
-
 	public void setKundeOrt(String kundeOrt) {
 		this.kundeOrt = kundeOrt;
 	}
-
-
 
 	public String getKundeTelefon() {
 		return kundeTelefon;
 	}
 
-
-
 	public void setKundeTelefon(String kundeTelefon) {
 		this.kundeTelefon = kundeTelefon;
 	}
-
-
 
 	public String getKundeEmail() {
 		return kundeEmail;
 	}
 
-
-
 	public void setKundeEmail(String kundeEmail) {
 		this.kundeEmail = kundeEmail;
 	}
-
-
 
 	public String getKundeSteuerNummer() {
 		return kundeSteuerNummer;
 	}
 
-
-
 	public void setKundeSteuerNummer(String kundeSteuerNummer) {
 		this.kundeSteuerNummer = kundeSteuerNummer;
 	}
-
-
 
 	public boolean isInaktiv() {
 		return inaktiv;
 	}
 
-
-
 	public void setInaktiv(boolean inaktiv) {
 		this.inaktiv = inaktiv;
 	}
-
-
 
 	public ArrayList<Rechnung> getRechnungen() {
 		return rechnungen;
 	}
 
-
-
 	public void setRechnungen(ArrayList<Rechnung> rechnungen) {
 		this.rechnungen = rechnungen;
 	}
-
-
 
 	public boolean isWurdeVerändert() {
 		return wurdeVerändert;
 	}
 
-
-
 	public void setWurdeVerändert(boolean wurdeVerändert) {
 		this.wurdeVerändert = wurdeVerändert;
 	}
 
-
-	
-	
 }

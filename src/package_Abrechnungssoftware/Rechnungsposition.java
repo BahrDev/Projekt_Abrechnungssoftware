@@ -1,8 +1,8 @@
 package package_Abrechnungssoftware;
 
 public class Rechnungsposition {
-	
-	//Attribute
+
+	// Attribute
 	private int rechnungspositionID;
 	private int kategoriepositionID;
 	private String kategoriepositionName;
@@ -10,51 +10,55 @@ public class Rechnungsposition {
 	private String rechnungspositionSatz;
 	private Double rechnungspositionBetrag = 0.00;
 	private boolean wurdeVerändert = false;
-	
+
 	// Konstruktoren
-	
+
 	public Rechnungsposition(boolean neuePosition) {
-		if(neuePosition == false) {
+		if (neuePosition == false) {
 			this.rechnungspositionName = GUI.getComboBox_Position_Positionen().getSelectedItem().toString();
 			ladePositionsDaten();
 		}
 	}
-	
+
 	public Rechnungsposition() {
 		
 	}
-	
+
 	// Methoden
-	
+
 	public void ladePositionsDaten() {
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl = "";
-		sqlBefehl = sql.erstelleBefehl("SELECT", true, "kategoriepositionName", "rechnungsposition", "kategorieposition", "kategoriepositionID", "rechnungspositionName", rechnungspositionName);
+		sqlBefehl = sql.erstelleBefehl("SELECT", true, "kategoriepositionName", "rechnungsposition",
+				"kategorieposition", "kategoriepositionID", "rechnungspositionName", rechnungspositionName);
 		this.kategoriepositionName = sql.holeStringAusDatenbank(sqlBefehl, "kategoriepositionName");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionSatz", "rechnungsposition", "rechnungspositionName", rechnungspositionName);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionSatz", "rechnungsposition", "rechnungspositionName",
+				rechnungspositionName);
 		this.rechnungspositionSatz = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspositionSatz");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionBetrag", "rechnungsposition", "rechnungspositionName", rechnungspositionName);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionBetrag", "rechnungsposition",
+				"rechnungspositionName", rechnungspositionName);
 		this.rechnungspositionBetrag = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspositionBetrag");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionID", "rechnungsposition", "rechnungspositionName", rechnungspositionName);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionID", "rechnungsposition", "rechnungspositionName",
+				rechnungspositionName);
 		this.rechnungspositionID = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspositionID");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "kategoriepositionID", "rechnungsposition", "rechnungspositionName", rechnungspositionName);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "kategoriepositionID", "rechnungsposition", "rechnungspositionName",
+				rechnungspositionName);
 		this.kategoriepositionID = sql.holeIntAusDatenbank(sqlBefehl, "kategoriepositionID");
-		
-		if(rechnungspositionSatz.equals("Honorarbasis")) {
+
+		if (rechnungspositionSatz.equals("Honorarbasis")) {
 			GUI.getRdbtn_Position_Honorarsatz().setSelected(true);
-		}else if(rechnungspositionSatz.equals("Stundensatz")) {
+		} else if (rechnungspositionSatz.equals("Stundensatz")) {
 			GUI.getRdbtn_Position_Stundensatz().setSelected(true);
-		}else if(rechnungspositionSatz.equals("Tagessatz")) {
+		} else if (rechnungspositionSatz.equals("Tagessatz")) {
 			GUI.getRdbtn_Position_Tagessatz().setSelected(true);
-		}else {
+		} else {
 			System.out.println("Button auswahl gescheitert");
 			GUI.getButtongroupPositionSatz().clearSelection();
 		}
 	}
 
-
 	// Getter/Setter
-	
+
 	public int getRechnungspositionID() {
 		return rechnungspositionID;
 	}
@@ -110,7 +114,5 @@ public class Rechnungsposition {
 	public void setWurdeVerändert(boolean wurdeVerändert) {
 		this.wurdeVerändert = wurdeVerändert;
 	}
-	
-	
-	
+
 }

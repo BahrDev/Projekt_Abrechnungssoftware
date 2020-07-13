@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Berechnung {
 
-	
+	// Berechnung aller Summen der einzelnen Posten einer Rechnung
 	public void berechneRechnungspositionsSumme() {
 		
 		//Methode schreiben
@@ -23,6 +23,8 @@ public class Berechnung {
 		}
 		
 	}
+	
+	// Berechnung der Gesamtsumme (Netto wie Brutto obwohl identisch) einer Rechnung
 	public void berechneGesamtSumme() {
 		//Methode schreiben
 		

@@ -506,6 +506,11 @@ public class SQLAnbindung {
 		logBefehl = befehlBau;
 		geloggt = false;
 		
+			// verhindert unnötige Logeinträge von Werten die nicht geändert wurden
+		if (neuerWert.equals(alterWert)) {
+			geloggt = true;
+		}
+		
 //		logBefehl = 
 //				
 //				INSERT INTO `log`(`logDatum`, `logArt`, `tabelle`, `spalte`, `zeile` `neuerWert`, `alterWert`) 

@@ -1047,9 +1047,12 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (tk1.checkAufUngesicherteDaten()) {
-					tk1.rechnungKorrigieren();
-					tk1.getAktuellerKunde().ladeRechnungen();
-					tk1.ladeRechnungen();
+					if(list_Kunde_Rechnungen.getSelectedIndex() != -1) {
+						tk1.rechnungKorrigieren();
+						tk1.getAktuellerKunde().ladeRechnungen();
+						tk1.ladeRechnungen();
+					}
+
 				}
 			}
 		});

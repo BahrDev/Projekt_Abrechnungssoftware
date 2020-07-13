@@ -507,7 +507,7 @@ public class GUIRechnung {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-
+					GUI.getTk1().getAktuellerKunde().ladeRechnungen();
 					GUI.getTk1().ladeRechnungen();
 					frame_Rechnung.dispose();
 				}
@@ -523,6 +523,8 @@ public class GUIRechnung {
 				if (tr1.sicherheitsabfrage()) {
 					fensterAktualisieren();
 
+					tr1.speichern();
+					
 					DateiGenerierung dateiGenerierung = new DateiGenerierung();
 					try {
 						dateiGenerierung.generierePDFAusVorlage(true);
@@ -530,7 +532,8 @@ public class GUIRechnung {
 						e1.printStackTrace();
 					}
 
-					tr1.speichern();
+					GUI.getTk1().getAktuellerKunde().ladeRechnungen();
+					GUI.getTk1().ladeRechnungen();
 					frame_Rechnung.dispose();
 				}
 

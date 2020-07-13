@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,6 +17,8 @@ public class SQLAnbindung {
 	Statement befehl = null;
 	ResultSet ausgabe = null;
 	HashMap<String, Object> insertMap;
+	String logBefehl;
+	boolean geloggt = false;
 
 	// Methoden
 
@@ -44,7 +47,14 @@ public class SQLAnbindung {
 	public void datenbankÄnderung(String sqlBefehl) {
 		try {
 			verbindung = datenbankAnwahl();
-			PreparedStatement neuerDatensatz = verbindung.prepareStatement(sqlBefehl);
+			PreparedStatement neuerDatensatz;
+			if(geloggt == false) {
+				neuerDatensatz = verbindung.prepareStatement(logBefehl);
+				geloggt = true;
+				datenbankÄnderung(sqlBefehl);
+			}else {
+				neuerDatensatz = verbindung.prepareStatement(sqlBefehl);
+			}
 			neuerDatensatz.executeUpdate();
 			verbindung.close();
 		} catch (Exception e) {
@@ -225,29 +235,34 @@ public class SQLAnbindung {
 
 	public String erstelleBefehl(String updateString, String tabelle1, String auswahlSpalte, String neuerWert,
 			String suchSpalte2, int suchWert2) {
+		logGenerierung("UPDATE", tabelle1, auswahlSpalte, neuerWert, 0, 0.0, false, suchSpalte2, suchWert2);
 		return erstelleBefehl(updateString, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2,
 				neuerWert, null, 0, suchWert2, 0.0, false, false);
 	}
 
 	public String erstelleBefehl(String updateInt, String tabelle1, String auswahlSpalte, int neuerWert,
 			String suchSpalte2, int suchWert2) {
+		logGenerierung("UPDATE", tabelle1, auswahlSpalte, null, neuerWert, 0.0, false, suchSpalte2, suchWert2);
 		return erstelleBefehl(updateInt, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null,
 				neuerWert, suchWert2, 0.0, false, false);
 	}
 
 	public String erstelleBefehl(String updateInt, String tabelle1, String auswahlSpalte, double neuerWert,
 			String suchSpalte2, int suchWert2) {
+		logGenerierung("UPDATE", tabelle1, auswahlSpalte, null, 0, neuerWert, false, suchSpalte2, suchWert2);
 		return erstelleBefehl(updateInt, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null, null,
 				0, suchWert2, neuerWert, false, false);
 	}
 
 	public String erstelleBefehl(String updateBool, String tabelle1, String auswahlSpalte, boolean neuerWert,
 			String suchSpalte2, int suchWert2) {
+		logGenerierung("UPDATE", tabelle1, auswahlSpalte, null, 0, 0.0, neuerWert, suchSpalte2, suchWert2);
 		return erstelleBefehl(updateBool, null, tabelle1, null, null, null, null, auswahlSpalte, suchSpalte2, null,
 				null, 0, suchWert2, 0.0, true, neuerWert);
 	}
 
 	public String erstelleBefehl(String insertKategorie, String tabelle1, String spalte1, String wert1String) {
+		logGenerierung("INSERT", tabelle1, null, wert1String, 0, 0.0, false, null, 0);
 		insertMap = new HashMap<String, Object>();
 		insertMap.put(spalte1, wert1String);
 		return erstelleBefehl(insertKategorie, null, tabelle1, null, null, null, null, null, null, null, null, 0, 0,
@@ -257,6 +272,7 @@ public class SQLAnbindung {
 	public String erstelleBefehl(String insertRechnungsposition, String tabelle1, String spalte1, int wert1Int,
 			String spalte2, String wert2String, String spalte3, String wert3String, String spalte4,
 			double wert4Double) {
+		logGenerierung("INSERT", tabelle1, null, wert2String, 0, 0.0, false, null, 0);
 		insertMap = new HashMap<String, Object>();
 		insertMap.put(spalte1, wert1Int);
 		insertMap.put(spalte2, wert2String);
@@ -269,6 +285,7 @@ public class SQLAnbindung {
 	public String erstelleBefehl(String insertRechnungsposten, String tabelle1, String spalte1, int wert1Int,
 			String spalte2, int wert2Int, String spalte3, int wert3Int, String spalte4, int wert4Int, String spalte5,
 			String wert5String, String spalte6, double wert6Double, String spalte7, double wert7Double) {
+		logGenerierung("INSERT", tabelle1, null, null, wert1Int, 0.0, false, null, 0);
 		insertMap = new HashMap<String, Object>();
 		insertMap.put(spalte1, wert1Int);
 		insertMap.put(spalte2, wert2Int);
@@ -285,6 +302,7 @@ public class SQLAnbindung {
 			String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, double wert4Double,
 			String spalte5, double wert5Double, String spalte6, Date wert6datum, String spalte7, String wert7String,
 			String spalte8, String wert8String, String spalte9, int wert9Int) {
+		logGenerierung("INSERT", tabelle1, null, wert7String, 0, 0.0, false, null, 0);
 		insertMap = new HashMap<String, Object>();
 		insertMap.put(spalte1, wert1String);
 		insertMap.put(spalte2, wert2String);
@@ -303,6 +321,7 @@ public class SQLAnbindung {
 			String spalte2, String wert2String, String spalte3, String wert3String, String spalte4, int wert4Int,
 			String spalte5, String wert5String, String spalte6, String wert6String, String spalte7, String wert7String,
 			String spalte8, String wert8String, String spalte9, boolean wert9Bool) {
+		logGenerierung("INSERT", tabelle1, null, wert1String, 0, 0.0, false, null, 0);
 		insertMap = new HashMap<String, Object>();
 		insertMap.put(spalte1, wert1String);
 		insertMap.put(spalte2, wert2String);
@@ -418,4 +437,79 @@ public class SQLAnbindung {
 		return sqlBefehl;
 	}
 
+	
+	// Log-Methode
+	public void logGenerierung(String artDerÄnderung, String tabelle, String auswahlSpalte, String neuerString, int neuerInt, double neuerDouble, boolean neuerBool, String suchSpalte2, int suchWert2) {
+		Timestamp logDatum = new Timestamp(System.currentTimeMillis());
+		String befehlBau = "INSERT INTO log ";
+		String tabellenTeil = "";
+		String werteTeil = "";
+		String neuerWert = "";
+		String alterWert = "";
+		
+		// neuerWert festlegen
+		if(neuerString != null) {
+			neuerWert = neuerString;
+		}else if (neuerInt != 0) {
+			neuerWert = String.valueOf(neuerInt);
+		}else if (neuerDouble != 0.0) {
+			neuerWert = String.valueOf(neuerDouble);
+		}else if (neuerString == null && neuerInt == 0 && neuerDouble == 0.0) {
+			if (neuerBool == true) {
+				neuerWert = "true";
+			}else {
+				neuerWert = "false";
+			}
+		}else {
+			System.out.println("LOG-Befehl: Fehler beim festlegen des neuen Wertes.");
+		}
+		
+		// Alten Wert abgreifen
+		if (artDerÄnderung.equals("UPDATE")){
+			String selectBefehl = erstelleBefehl("SELECT", auswahlSpalte, tabelle, suchSpalte2, suchWert2);
+			if(neuerString != null) {
+				alterWert = holeStringAusDatenbank(selectBefehl, auswahlSpalte);
+			}else if (neuerInt != 0) {
+				alterWert = String.valueOf(holeIntAusDatenbank(selectBefehl, auswahlSpalte));
+			}else if (neuerDouble != 0.0) {
+				alterWert = String.valueOf(holeDoubleAusDatenbank(selectBefehl, auswahlSpalte));
+			}else if (neuerString == null && neuerInt == 0 && neuerDouble == 0.0) {
+				alterWert = String.valueOf(holeBoolAusDatenbank(selectBefehl, auswahlSpalte));
+			}else {
+				System.out.println("LOG-Befehl: Fehler beim Abgreifen des alten Wertes.");
+			}
+		}
+		
+		// logBefehl zusammenstellung
+		if (artDerÄnderung.equals("UPDATE")) {
+			tabellenTeil+= "(logDatum, logArt, tabellenName, spaltenName, zeile, neuerWert, alterWert)";
+			werteTeil+= "(";
+			werteTeil+= "'" + logDatum + "'" + ", ";
+			werteTeil+= "'" + "Änderung" + "'" + ", ";
+			werteTeil+= "'" + tabelle + "'" + ", ";
+			werteTeil+= "'" + auswahlSpalte + "'" + ", ";
+			werteTeil+= "'" + suchWert2 + "'" + ", ";
+			werteTeil+= "'" + neuerWert + "'" + ", ";
+			werteTeil+= "'" + alterWert + "'" + ")";
+		}else if(artDerÄnderung.equals("INSERT")){
+			tabellenTeil+= "(logDatum, logArt, tabellenName, neuerWert)";
+			werteTeil+= "(";
+			werteTeil+= "'" + logDatum + "'" + ", ";
+			werteTeil+= "'" + "Neuer Eintrag" + "'" + ", ";
+			werteTeil+= "'" + tabelle + "'" + ", ";
+			werteTeil+= "'" + neuerWert + "'" + ")";
+		}else {
+			System.out.println("Fehler beim erstellen eines Log-Befehls.");
+		}
+		befehlBau += tabellenTeil + " VALUES " + werteTeil;
+		
+		logBefehl = befehlBau;
+		geloggt = false;
+		
+//		logBefehl = 
+//				
+//				INSERT INTO `log`(`logDatum`, `logArt`, `tabelle`, `spalte`, `zeile` `neuerWert`, `alterWert`) 
+//				VALUES (1, "XXX", "Stundensatz", "0.00");
+				
+	}
 }

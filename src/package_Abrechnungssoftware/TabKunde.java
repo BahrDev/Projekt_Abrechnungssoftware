@@ -141,7 +141,7 @@ public class TabKunde {
 
 	public void eingabefelderLeeren() {
 		GUI.getTextField_KundeStrasse().setText("");
-		GUI.getLbl_KundeID_ID().setText("");
+		GUI.getLbl_KundeID_ID().setText("wird automatisch generiert");
 		GUI.getTextField_KundeName().setText("");
 		GUI.getTextField_KundeOrt().setText("");
 		GUI.getTextField_KundeTelefon().setText("");

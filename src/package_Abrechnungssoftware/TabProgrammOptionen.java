@@ -1,6 +1,7 @@
 package package_Abrechnungssoftware;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 
 import javax.swing.JFileChooser;
@@ -22,6 +23,7 @@ public class TabProgrammOptionen {
 
 	public static void ladeConfigs() {
 		try {
+			checkConfigIni();
 			BufferedReader einlesenVonDaten = new BufferedReader(new FileReader("config.ini"));
 			String eintrag;
 			int zeile = 0;
@@ -70,7 +72,11 @@ public class TabProgrammOptionen {
 		chooser.addChoosableFileFilter(standardFilter);
 		int answer = chooser.showOpenDialog(null);
 		if (answer == JFileChooser.APPROVE_OPTION) {
-			GUI.getTextField_Optionen_Speicherpfad().setText(chooser.getSelectedFile().getAbsolutePath() + "\\");
+			String speicherpfad = chooser.getSelectedFile().getAbsolutePath();
+			if(!speicherpfad.endsWith("\\")) {
+				speicherpfad += "\\";
+			}
+			GUI.getTextField_Optionen_Speicherpfad().setText(speicherpfad);
 		}
 	}
 
@@ -145,6 +151,13 @@ public class TabProgrammOptionen {
 		datenbankAnbindung = check.datenbankTest();
 	}
 
+	public static void checkConfigIni() {
+		File configTest = new File("config.ini");
+		if (!configTest.exists()) {
+			DateiGenerierung dg1 = new DateiGenerierung();
+			dg1.generiereConfigDatei("", "", "", "", false);
+		}
+	}
 	// Getter/Setter
 
 	public static String getSpeicherpfad() {

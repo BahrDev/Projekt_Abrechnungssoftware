@@ -230,7 +230,7 @@ public class GUI {
 		panel_KundenDaten.add(lbl_KundeID, gbc_lbl_KundeID);
 
 		lbl_KundeID_ID = new JLabel();
-		lbl_KundeID_ID.setMinimumSize(new Dimension(70, 25));
+		lbl_KundeID_ID.setMinimumSize(new Dimension(270, 25));
 		lbl_KundeID_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lbl_KundeID_ID = new GridBagConstraints();
 		gbc_lbl_KundeID_ID.anchor = GridBagConstraints.WEST;
@@ -978,6 +978,7 @@ public class GUI {
 							tk1.eingabefelderLeeren();
 							tabAktualisieren();
 							tk1.getAktuellerKunde().setWurdeVerändert(false);
+							comboBox_Kunde_Kunden.setSelectedIndex(-1);
 						}
 					} else {
 						tk1.maskeSichtbar(true);
@@ -985,6 +986,7 @@ public class GUI {
 						tk1.eingabefelderLeeren();
 						tabAktualisieren();
 						tk1.getAktuellerKunde().setWurdeVerändert(false);
+						comboBox_Kunde_Kunden.setSelectedIndex(-1);
 					}
 				}
 			}
@@ -1094,6 +1096,7 @@ public class GUI {
 							rp1.eingabefelderLeeren();
 							tabAktualisieren();
 							rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+							comboBox_Position_Positionen.setSelectedIndex(-1);
 						}
 					} else {
 						panel_Position_Daten.setVisible(true);
@@ -1101,6 +1104,7 @@ public class GUI {
 						rp1.eingabefelderLeeren();
 						tabAktualisieren();
 						rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+						comboBox_Position_Positionen.setSelectedIndex(-1);
 					}
 				}
 			}
@@ -1511,7 +1515,6 @@ public class GUI {
 	public void tabAktualisieren() {
 		if (tk1.getAktuellerKunde() != null) {
 			textField_KundeName.setText(tk1.getAktuellerKunde().getKundeName());
-			lbl_KundeID_ID.setText(Integer.toString(tk1.getAktuellerKunde().getKundeID()));
 			textField_KundeStrasse.setText(tk1.getAktuellerKunde().getKundeStrasse());
 			textField_KundeHausnummer.setText(tk1.getAktuellerKunde().getKundeHausnummer());
 			textField_KundeOrt.setText(tk1.getAktuellerKunde().getKundeOrt());
@@ -1520,6 +1523,9 @@ public class GUI {
 			textField_KundeEmail.setText(tk1.getAktuellerKunde().getKundeEmail());
 			textField_KundeSteuerNummer.setText(tk1.getAktuellerKunde().getKundeSteuerNummer());
 			chckbx_Kunde_Inaktiv.setSelected(tk1.getAktuellerKunde().isInaktiv());
+			if(tk1.getAktuellerKunde().getKundeID() != 0) {
+				lbl_KundeID_ID.setText(Integer.toString(tk1.getAktuellerKunde().getKundeID()));
+			}
 		}
 		if (rp1.getAktuelleRechnungsposition() != null) {
 			textField_Positionsname.setText(rp1.getAktuelleRechnungsposition().getRechnungspositionName());

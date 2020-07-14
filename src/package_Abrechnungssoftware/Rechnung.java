@@ -6,8 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Rechnung {
-	
-	//Attribute --
+
+	// Attribute
 	private int rechnungID;
 	private int kundeID;
 	private String rechnungBetreff;
@@ -19,17 +19,15 @@ public class Rechnung {
 	private String rechnungNummer;
 	private String rechnungDateiName;
 	private ArrayList<Rechnungsposten> rechnungsposten;
-	//private boolean wurdeVerändert;
 
-	
 	// Konstruktoren
-	
+
 	public Rechnung(Integer rechnungID) {
 		this.rechnungID = rechnungID;
 		ladeRechnungsdaten();
 		this.rechnungDatum = new java.sql.Date(System.currentTimeMillis());
 	}
-	
+
 	public Rechnung() {
 		this.rechnungID = -1;
 		this.kundeID = GUI.getTk1().getAktuellerKunde().getKundeID();
@@ -41,9 +39,9 @@ public class Rechnung {
 		this.rechnungDatum = new java.sql.Date(System.currentTimeMillis());
 		rechnungsposten = new ArrayList<Rechnungsposten>();
 	}
-	
+
 	// Methoden
-	
+
 	public void ladeRechnungsdaten() {
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl = "";
@@ -58,15 +56,14 @@ public class Rechnung {
 		this.rechnungSummeNetto = sql.holeIntAusDatenbank(sqlBefehl, "rechnungSummeNetto");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungEndbetrag", "rechnung", "rechnungID", rechnungID);
 		this.rechnungEndbetrag = sql.holeIntAusDatenbank(sqlBefehl, "rechnungEndbetrag");
-		// Date wird nicht aus der Datenbank abgerufen (Vermutlich)		
+		// Date wird nicht aus der Datenbank abgerufen (Vermutlich)
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungNummer", "rechnung", "rechnungID", rechnungID);
 		this.rechnungNummer = sql.holeStringAusDatenbank(sqlBefehl, "rechnungNummer");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungDateiName", "rechnung", "rechnungID", rechnungID);
 		this.rechnungDateiName = sql.holeStringAusDatenbank(sqlBefehl, "rechnungDateiName");
 		rechnungsposten = new ArrayList<Rechnungsposten>();
 	}
-	
-	
+
 	public void ladeRechnungsposten() {
 		ArrayList<Integer> rechnungspostenIDs = new ArrayList<Integer>();
 		SQLAnbindung sql = new SQLAnbindung();
@@ -78,26 +75,23 @@ public class Rechnung {
 			rechnungsposten.add(weitererPosten);
 		}
 	}
-	
 
 	public void generiereRechnungsnummer(int anzahlRechnungen) {
 		String nummer;
 		DateFormat df = new SimpleDateFormat("ddMMyy");
 		java.util.Date datumUtil = rechnungDatum;
 		String datumFormatiert = df.format(datumUtil);
-		nummer = "KD" + kundeID + "D" + datumFormatiert + "R" + (anzahlRechnungen+1);
+		nummer = "KD" + kundeID + "D" + datumFormatiert + "R" + (anzahlRechnungen + 1);
 		this.rechnungNummer = nummer;
 	}
-	
+
 	public void generiereRechnungsDateiName() {
 		String dateiName;
 		dateiName = rechnungNummer + ".pdf";
 		this.rechnungDateiName = dateiName;
 	}
-	
+
 	// Getter/Setter
-	
-	
 
 	public int getRechnungID() {
 		return rechnungID;
@@ -187,13 +181,4 @@ public class Rechnung {
 		this.rechnungsposten = rechnungsposten;
 	}
 
-//	public boolean isWurdeVerändert() {
-//		return wurdeVerändert;
-//	}
-//
-//	public void setWurdeVerändert(boolean wurdeVerändert) {
-//		this.wurdeVerändert = wurdeVerändert;
-//	}
-	
-	
 }

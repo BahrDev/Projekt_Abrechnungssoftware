@@ -3,21 +3,18 @@ package package_Abrechnungssoftware;
 import java.util.ArrayList;
 
 public class Suchleiste {
-	
+
 	// Attribute
 	private static ArrayList<String> rechnungspositionen;
 
 	private static ArrayList<String> kunden;
-	
+
 	private static ArrayList<String> tempListSuche;
-	
+
 	private static String tempSuchWort;
-	
-	// Konstruktoren
-	
-	
+
 	// Methoden
-	
+
 	public static void generiereArrayLists() {
 		SQLAnbindung sqlAuftrag = new SQLAnbindung();
 		String sqlBefehl = "";
@@ -27,33 +24,31 @@ public class Suchleiste {
 		String rechnungspositionenSpalte = "rechnungspositionName";
 		kunden = new ArrayList<String>();
 		rechnungspositionen = new ArrayList<String>();
-		if(TabProgrammOptionen.isInaktiveKundenAusblenden()) {
+		if (TabProgrammOptionen.isInaktiveKundenAusblenden()) {
 			sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle, "kundeInaktiv", 0);
-		}else {
+		} else {
 			sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", kundenSpalte, kundenTabelle);
 		}
-		
+
 		kunden = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, kundenSpalte);
 		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", rechnungspositionenSpalte, rechnungspositionenTabelle);
 		rechnungspositionen = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, rechnungspositionenSpalte);
-	
+
 	}
-	
+
 	public ArrayList implementiereAutofill() {
 		// Methode schreiben!
 		return tempListSuche;
 	}
-	
+
 	public ArrayList sortiereListe(ArrayList<String> unsortiert) {
 		// Methode schreiben!
 		ArrayList<String> sortiert = unsortiert;
 		return sortiert;
 	}
 
-	
-	
 	// Getter/Setter
-	
+
 	public static ArrayList<String> getRechnungspositionen() {
 		return rechnungspositionen;
 	}
@@ -85,9 +80,5 @@ public class Suchleiste {
 	public static void setTempSuchWort(String tempSuchWort) {
 		Suchleiste.tempSuchWort = tempSuchWort;
 	}
-	
-	
-	
-	
-	
+
 }

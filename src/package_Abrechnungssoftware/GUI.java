@@ -39,11 +39,8 @@ public class GUI {
 
 	private static TabKunde tk1;
 	private static TabRechnungsposition rp1;
-	private static TabProgrammOptionen op1;
-	private static boolean neuerKunde = false;
-	private static boolean neuePosition = false;
 	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
-
+		// Initialisierung der GUI-Elemente zum externen Ansprechen/Abgreifen
 	private static JFrame frame;
 	private static JTextField textField_KundeStrasse;
 	private static JLabel lbl_KundeID_ID;
@@ -233,7 +230,7 @@ public class GUI {
 		panel_KundenDaten.add(lbl_KundeID, gbc_lbl_KundeID);
 
 		lbl_KundeID_ID = new JLabel();
-		lbl_KundeID_ID.setMinimumSize(new Dimension(70, 25));
+		lbl_KundeID_ID.setMinimumSize(new Dimension(270, 25));
 		lbl_KundeID_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lbl_KundeID_ID = new GridBagConstraints();
 		gbc_lbl_KundeID_ID.anchor = GridBagConstraints.WEST;
@@ -430,23 +427,23 @@ public class GUI {
 
 		JPanel panel_Kunde_Abstandshalter_3 = new JPanel();
 		panel_Kunde_Rechnungen.add(panel_Kunde_Abstandshalter_3, BorderLayout.WEST);
-		
+
 		panel_Kunde_Rechnungen_Innen = new JPanel();
 		panel_Kunde_Rechnungen.add(panel_Kunde_Rechnungen_Innen, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_Kunde_Rechnungen_Innen = new GridBagLayout();
-		gbl_panel_Kunde_Rechnungen_Innen.columnWidths = new int[]{0, 0};
-		gbl_panel_Kunde_Rechnungen_Innen.rowHeights = new int[]{0, 0};
-		gbl_panel_Kunde_Rechnungen_Innen.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_Kunde_Rechnungen_Innen.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_Kunde_Rechnungen_Innen.columnWidths = new int[] { 0, 0 };
+		gbl_panel_Kunde_Rechnungen_Innen.rowHeights = new int[] { 0, 0 };
+		gbl_panel_Kunde_Rechnungen_Innen.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_Kunde_Rechnungen_Innen.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panel_Kunde_Rechnungen_Innen.setLayout(gbl_panel_Kunde_Rechnungen_Innen);
-		
+
 		scrollPane_Kunde_Rechnungen = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_Kunde_Rechnungen = new GridBagConstraints();
 		gbc_scrollPane_Kunde_Rechnungen.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_Kunde_Rechnungen.gridx = 0;
 		gbc_scrollPane_Kunde_Rechnungen.gridy = 0;
 		panel_Kunde_Rechnungen_Innen.add(scrollPane_Kunde_Rechnungen, gbc_scrollPane_Kunde_Rechnungen);
-		
+
 		listModel = new DefaultListModel<String>();
 		list_Kunde_Rechnungen = new JList(listModel);
 		scrollPane_Kunde_Rechnungen.setViewportView(list_Kunde_Rechnungen);
@@ -912,16 +909,15 @@ public class GUI {
 
 		tk1 = new TabKunde();
 		rp1 = new TabRechnungsposition();
-		//op1 = new TabOptionen();
+		// op1 = new TabOptionen();
 		list_Kunde_Rechnungen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		if(TabProgrammOptionen.isDatenbankAnbindung()) {
+
+		if (TabProgrammOptionen.isDatenbankAnbindung()) {
 			tk1.comboBox_kunde_kunden_aktualisieren();
 			rp1.comboBox_Position_Positionen_aktualisieren();
 			rp1.comboBox_Position_Kategorie_aktualisieren();
 		}
-		
-		
+
 		buttonActionListenerHinzufügen();
 		textFieldListenerHinzugügen();
 		andereActionListener();
@@ -929,8 +925,7 @@ public class GUI {
 		panel_Position_Daten.setVisible(false);
 		frame.setVisible(true);
 	}
-	
-	
+
 		// Button-Methoden
 	private void buttonActionListenerHinzufügen() {
 		btn_Kunde_Anzeigen_ActionListener();
@@ -947,20 +942,20 @@ public class GUI {
 		btn_Optionen_Speichern_ActionListener();
 
 	}
-	
+
 	private void btn_Kunde_Anzeigen_ActionListener() {
 		btn_Kunde_Anzeigen.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+				if (TabProgrammOptionen.isDatenbankAnbindung()) {
 					if (tk1.getAktuellerKunde() != null) {
-						if(tk1.checkAufUngesicherteDaten()) {
+						if (tk1.checkAufUngesicherteDaten()) {
 							tk1.kundeAnzeigen(false);
 							tabAktualisieren();
 							tk1.getAktuellerKunde().setWurdeVerändert(false);
 						}
-					}else {
+					} else {
 						tk1.maskeSichtbar(true);
 						tk1.kundeAnzeigen(false);
 						tabAktualisieren();
@@ -976,20 +971,22 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+				if (TabProgrammOptionen.isDatenbankAnbindung()) {
 					if (tk1.getAktuellerKunde() != null) {
-						if(tk1.checkAufUngesicherteDaten()) {
+						if (tk1.checkAufUngesicherteDaten()) {
 							tk1.kundeAnzeigen(true);
 							tk1.eingabefelderLeeren();
 							tabAktualisieren();
 							tk1.getAktuellerKunde().setWurdeVerändert(false);
+							comboBox_Kunde_Kunden.setSelectedIndex(-1);
 						}
-					}else {
+					} else {
 						tk1.maskeSichtbar(true);
 						tk1.kundeAnzeigen(true);
 						tk1.eingabefelderLeeren();
 						tabAktualisieren();
 						tk1.getAktuellerKunde().setWurdeVerändert(false);
+						comboBox_Kunde_Kunden.setSelectedIndex(-1);
 					}
 				}
 			}
@@ -1001,7 +998,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(tk1.checkAufUngesicherteDaten()) {
+				if (tk1.checkAufUngesicherteDaten()) {
 					plzAktualisierer();
 					if (tk1.isNeuerKunde() == false) {
 						tk1.speichern();
@@ -1020,12 +1017,12 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(tk1.checkAufUngesicherteDaten()) {
+				if (tk1.checkAufUngesicherteDaten()) {
 					tk1.rechnungStellen();
 					tk1.getAktuellerKunde().ladeRechnungen();
 					tk1.ladeRechnungen();
 				}
-				
+
 			}
 		});
 
@@ -1051,10 +1048,13 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(tk1.checkAufUngesicherteDaten()) {
-					tk1.rechnungKorrigieren();
-					tk1.getAktuellerKunde().ladeRechnungen();
-					tk1.ladeRechnungen();
+				if (tk1.checkAufUngesicherteDaten()) {
+					if(list_Kunde_Rechnungen.getSelectedIndex() != -1) {
+						tk1.rechnungKorrigieren();
+						tk1.getAktuellerKunde().ladeRechnungen();
+						tk1.ladeRechnungen();
+					}
+
 				}
 			}
 		});
@@ -1065,15 +1065,16 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+				if (TabProgrammOptionen.isDatenbankAnbindung()) {
 					if (rp1.getAktuelleRechnungsposition() != null) {
-						if(rp1.checkAufUngesicherteDaten()) {
+						if (rp1.checkAufUngesicherteDaten()) {
 							rp1.positionAnzeigen(false);
 							tabAktualisieren();
 							rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
 						}
-					}else {
-						panel_Position_Daten.setVisible(true);;
+					} else {
+						panel_Position_Daten.setVisible(true);
+						;
 						rp1.positionAnzeigen(false);
 						tabAktualisieren();
 						rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
@@ -1088,27 +1089,29 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(TabProgrammOptionen.isDatenbankAnbindung()) {
+				if (TabProgrammOptionen.isDatenbankAnbindung()) {
 					if (rp1.getAktuelleRechnungsposition() != null) {
-						if(rp1.checkAufUngesicherteDaten()) {
+						if (rp1.checkAufUngesicherteDaten()) {
 							rp1.positionAnzeigen(true);
 							rp1.eingabefelderLeeren();
 							tabAktualisieren();
 							rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+							comboBox_Position_Positionen.setSelectedIndex(-1);
 						}
-					}else {
+					} else {
 						panel_Position_Daten.setVisible(true);
 						rp1.positionAnzeigen(true);
 						rp1.eingabefelderLeeren();
 						tabAktualisieren();
 						rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
+						comboBox_Position_Positionen.setSelectedIndex(-1);
 					}
 				}
 			}
 		});
 	}
 
-	private void btn_Position_Kategorie_Neu_ActionListener() {							// TODO
+	private void btn_Position_Kategorie_Neu_ActionListener() {
 		btn_Position_Kategorie_Neu.addActionListener(new ActionListener() {
 
 			@Override
@@ -1124,7 +1127,7 @@ public class GUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(rp1.checkAufUngesicherteDaten()) {
+				if (rp1.checkAufUngesicherteDaten()) {
 					rp1.speichern();
 					rp1.comboBox_Position_Positionen_aktualisieren();
 					rp1.getAktuelleRechnungsposition().setWurdeVerändert(false);
@@ -1155,7 +1158,7 @@ public class GUI {
 	}
 
 		// TextField-Methoden
-	
+
 	private void textFieldListenerHinzugügen() {
 		textField_KundeName_DokumentListener();
 		textField_KundeOrt_DokumentListener();
@@ -1168,227 +1171,227 @@ public class GUI {
 		textField_Positionsname_DokumentListener();
 		textField_Position_Kategorie_Satz_in_Euro_DokumentListener();
 	}
-	
+
 	private void textField_KundeName_DokumentListener() {
 		textField_KundeName.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeName(textField_KundeName.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeName(textField_KundeName.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				System.out.println("ChangeTrigger bei Listener für KundeName hat getriggert");
 			}
 		});
 	}
-	
+
 	public void textField_KundeOrt_DokumentListener() {
 		textField_KundeOrt.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeOrt(textField_KundeOrt.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeOrt(textField_KundeOrt.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
+
 	public void textField_KundeTelefon_DokumentListener() {
 		textField_KundeTelefon.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeTelefon(textField_KundeTelefon.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeTelefon(textField_KundeTelefon.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
+
 	public void textField_KundeEmail_DokumentListener() {
 		textField_KundeEmail.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeEmail(textField_KundeEmail.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeEmail(textField_KundeEmail.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
+
 	public void textField_KundeSteuerNummer_DokumentListener() {
 		textField_KundeSteuerNummer.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeSteuerNummer(textField_KundeSteuerNummer.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeSteuerNummer(textField_KundeSteuerNummer.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
+
 	public void textField_KundeHausnummer_DokumentListener() {
 		textField_KundeHausnummer.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeHausnummer(textField_KundeHausnummer.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeHausnummer(textField_KundeHausnummer.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
-	public void textField_KundePLZ_DokumentListener() {	
+
+	public void textField_KundePLZ_DokumentListener() {
 		textField_KundePLZ.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
-				if(textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
+				if (textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
 					tk1.getAktuellerKunde().setKundePLZ(Integer.parseInt(textField_KundePLZ.getText()));
 				}
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
-				if(textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
+				if (textField_KundePLZ.getText().matches("[0-9]+") && textField_KundePLZ.getText().length() < 6) {
 					tk1.getAktuellerKunde().setKundePLZ(Integer.parseInt(textField_KundePLZ.getText()));
-				}else if(textField_KundePLZ.getText().length() >= 6) {
+				} else if (textField_KundePLZ.getText().length() >= 6) {
 					tk1.plzWarnung();
-				}else if(!textField_KundePLZ.getText().matches("[0-9]+")) {
+				} else if (!textField_KundePLZ.getText().matches("[0-9]+")) {
 					tk1.plzWarnung();
 				}
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-		
+
 	}
-	
+
 	public void textField_KundeStrasse_DokumentListener() {
 		textField_KundeStrasse.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tk1.getAktuellerKunde().setKundeStrasse(textField_KundeStrasse.getText());
 				tk1.getAktuellerKunde().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				System.out.println("test");
-				
+
 			}
 		});
 	}
-	
+
 	public void textField_Positionsname_DokumentListener() {
 		textField_Positionsname.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				rp1.getAktuelleRechnungsposition().setRechnungspositionName(textField_Positionsname.getText());
 				rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
-				
+
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				rp1.getAktuelleRechnungsposition().setRechnungspositionName(textField_Positionsname.getText());
 				rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
-				
+
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
+
 	public void textField_Position_Kategorie_Satz_in_Euro_DokumentListener() {
 		textField_Position_Kategorie_Satz_in_Euro.getDocument().addDocumentListener(new DocumentListener() {
-			
+
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				String wert = textField_Position_Kategorie_Satz_in_Euro.getText();
@@ -1399,7 +1402,7 @@ public class GUI {
 				rp1.getAktuelleRechnungsposition().setRechnungspositionBetrag(Double.parseDouble(wert));
 				rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				String wert = textField_Position_Kategorie_Satz_in_Euro.getText();
@@ -1407,7 +1410,7 @@ public class GUI {
 				rp1.getAktuelleRechnungsposition().setRechnungspositionBetrag(Double.parseDouble(wert));
 				rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
 			}
-			
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				String wert = textField_Position_Kategorie_Satz_in_Euro.getText();
@@ -1418,7 +1421,8 @@ public class GUI {
 		});
 	}
 
-	
+	// Andere ActionListener
+
 	public void andereActionListener() {
 		comboBox_Position_Kategorie_ActionListener();
 		rdbtn_Position_Stundensatz_ActionListener();
@@ -1426,92 +1430,91 @@ public class GUI {
 		rdbtn_Position_Honorarsatz_ActionListener();
 		chckbx_Kunde_Inaktiv_ActionListener();
 	}
-	
+
 	public void comboBox_Position_Kategorie_ActionListener() {
 		comboBox_Position_Kategorie.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(rp1.getAktuelleRechnungsposition() != null) {
-					if(comboBox_Position_Kategorie.getSelectedIndex() != -1) {
-						rp1.getAktuelleRechnungsposition().setKategoriepositionName(comboBox_Position_Kategorie.getSelectedItem().toString());
+				if (rp1.getAktuelleRechnungsposition() != null) {
+					if (comboBox_Position_Kategorie.getSelectedIndex() != -1) {
+						rp1.getAktuelleRechnungsposition()
+								.setKategoriepositionName(comboBox_Position_Kategorie.getSelectedItem().toString());
 						SQLAnbindung sqlAuftrag = new SQLAnbindung();
 						String sqlBefehl;
-						sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", "kategoriepositionID", "kategorieposition", "kategoriepositionName", rp1.getAktuelleRechnungsposition().getKategoriepositionName());
+						sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", "kategoriepositionID", "kategorieposition",
+								"kategoriepositionName", rp1.getAktuelleRechnungsposition().getKategoriepositionName());
 						int kategoriepositionID = sqlAuftrag.holeIntAusDatenbank(sqlBefehl, "kategoriepositionID");
 						rp1.getAktuelleRechnungsposition().setKategoriepositionID(kategoriepositionID);
 						rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
 					}
 				}
-				
+
 			}
 		});
 	}
 
 	public void rdbtn_Position_Stundensatz_ActionListener() {
 		rdbtn_Position_Stundensatz.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtn_Position_Stundensatz.isSelected()) {
+				if (rdbtn_Position_Stundensatz.isSelected()) {
 					rp1.getAktuelleRechnungsposition().setRechnungspositionSatz("Stundensatz");
 					rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
 				}
-				
+
 			}
 		});
 	}
-	
+
 	public void rdbtn_Position_Tagessatz_ActionListener() {
 		rdbtn_Position_Tagessatz.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtn_Position_Tagessatz.isSelected()) {
+				if (rdbtn_Position_Tagessatz.isSelected()) {
 					rp1.getAktuelleRechnungsposition().setRechnungspositionSatz("Tagessatz");
 					rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
 				}
-				
+
 			}
 		});
 	}
-	
+
 	public void rdbtn_Position_Honorarsatz_ActionListener() {
 		rdbtn_Position_Honorarsatz.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtn_Position_Honorarsatz.isSelected()) {
+				if (rdbtn_Position_Honorarsatz.isSelected()) {
 					rp1.getAktuelleRechnungsposition().setRechnungspositionSatz("Honorarbasis");
 					rp1.getAktuelleRechnungsposition().setWurdeVerändert(true);
 				}
-				
+
 			}
 		});
 	}
-	
+
 	public void chckbx_Kunde_Inaktiv_ActionListener() {
 		chckbx_Kunde_Inaktiv.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(chckbx_Kunde_Inaktiv.isSelected()) {
+				if (chckbx_Kunde_Inaktiv.isSelected()) {
 					tk1.getAktuellerKunde().setInaktiv(true);
-				}else {
+				} else {
 					tk1.getAktuellerKunde().setInaktiv(false);
 				}
-				
+
 			}
 		});
 	}
-	
-	
-	
+
 		// Sonstige Methoden
 	public void tabAktualisieren() {
-		if(tk1.getAktuellerKunde() != null) {
+		if (tk1.getAktuellerKunde() != null) {
 			textField_KundeName.setText(tk1.getAktuellerKunde().getKundeName());
-			lbl_KundeID_ID.setText(Integer.toString(tk1.getAktuellerKunde().getKundeID()));
 			textField_KundeStrasse.setText(tk1.getAktuellerKunde().getKundeStrasse());
 			textField_KundeHausnummer.setText(tk1.getAktuellerKunde().getKundeHausnummer());
 			textField_KundeOrt.setText(tk1.getAktuellerKunde().getKundeOrt());
@@ -1520,29 +1523,30 @@ public class GUI {
 			textField_KundeEmail.setText(tk1.getAktuellerKunde().getKundeEmail());
 			textField_KundeSteuerNummer.setText(tk1.getAktuellerKunde().getKundeSteuerNummer());
 			chckbx_Kunde_Inaktiv.setSelected(tk1.getAktuellerKunde().isInaktiv());
+			if(tk1.getAktuellerKunde().getKundeID() != 0) {
+				lbl_KundeID_ID.setText(Integer.toString(tk1.getAktuellerKunde().getKundeID()));
+			}
 		}
 		if (rp1.getAktuelleRechnungsposition() != null) {
 			textField_Positionsname.setText(rp1.getAktuelleRechnungsposition().getRechnungspositionName());
-			textField_Position_Kategorie_Satz_in_Euro.setText(geldformatierung.format(rp1.getAktuelleRechnungsposition().getRechnungspositionBetrag()));
-			comboBox_Position_Kategorie.setSelectedItem(rp1.getAktuelleRechnungsposition().getKategoriepositionName());		
+			textField_Position_Kategorie_Satz_in_Euro
+					.setText(geldformatierung.format(rp1.getAktuelleRechnungsposition().getRechnungspositionBetrag()));
+			comboBox_Position_Kategorie.setSelectedItem(rp1.getAktuelleRechnungsposition().getKategoriepositionName());
 		}
-		
+
 		frame.revalidate();
 		frame.repaint();
 	}
 
 	public void plzAktualisierer() {
 		String plz = textField_KundePLZ.getText();
-		plz = plz.replaceAll("[^0-9]","");
-		while(plz.length() >5) {
-			plz = plz.substring(0, plz.length()-1);
+		plz = plz.replaceAll("[^0-9]", "");
+		while (plz.length() > 5) {
+			plz = plz.substring(0, plz.length() - 1);
 		}
 		textField_KundePLZ.setText(plz);
 	}
-	
-	
-	
-	
+
 	// Getter/Setter
 
 	public static JFrame getFrame() {
@@ -2006,22 +2010,6 @@ public class GUI {
 		GUI.rp1 = rp1;
 	}
 
-	public static TabProgrammOptionen getOp1() {
-		return op1;
-	}
-
-	public static void setOp1(TabProgrammOptionen op1) {
-		GUI.op1 = op1;
-	}
-
-	public static boolean isNeuerKunde() {
-		return neuerKunde;
-	}
-
-	public static void setNeuerKunde(boolean neuerKunde) {
-		GUI.neuerKunde = neuerKunde;
-	}
-
 	public static DefaultListModel getListModel() {
 		return listModel;
 	}
@@ -2030,16 +2018,12 @@ public class GUI {
 		GUI.listModel = listModel;
 	}
 
-	
 	public static JLabel getLbl_KundeID_ID() {
 		return lbl_KundeID_ID;
 	}
-	
 
 	public static void setLbl_KundeID_ID(JLabel lbl_KundeID_ID) {
 		GUI.lbl_KundeID_ID = lbl_KundeID_ID;
 	}
 
-	
-	
 }

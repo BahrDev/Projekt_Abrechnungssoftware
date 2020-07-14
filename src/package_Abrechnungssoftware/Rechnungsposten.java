@@ -2,7 +2,7 @@ package package_Abrechnungssoftware;
 
 public class Rechnungsposten {
 
-	//Attribute
+	// Attribute
 	private int rechnungspostenID;
 	private int rechnungID;
 	private int rechnungspositionID;
@@ -12,44 +12,51 @@ public class Rechnungsposten {
 	private int rechnungspostenEinheiten;
 	private double rechnungspostenSatzEuro;
 	private double rechnungspostenGesamtEuro;
-	
+
 	// Konstruktoren
-	
+
 	public Rechnungsposten(Integer rechnungspostenID) {
 		this.rechnungspostenID = rechnungspostenID;
 		ladePostenDaten();
 	}
-	
+
 	public Rechnungsposten() {
 
 	}
-	
+
 	// Methoden
-	
+
 	public void ladePostenDaten() {
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl = "";
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungID", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungID", "rechnungsposten", "rechnungspostenID",
+				rechnungspostenID);
 		this.rechnungID = sql.holeIntAusDatenbank(sqlBefehl, "rechnungID");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionID", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspositionID", "rechnungsposten", "rechnungspostenID",
+				rechnungspostenID);
 		this.rechnungspositionID = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspositionID");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenNummer", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenNummer", "rechnungsposten", "rechnungspostenID",
+				rechnungspostenID);
 		this.rechnungspostenNummer = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspostenNummer");
-		sqlBefehl = sql.erstelleBefehl("SELECT", true, "rechnungspositionName", "rechnungsposten", "rechnungsposition", "rechnungspositionID", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", true, "rechnungspositionName", "rechnungsposten", "rechnungsposition",
+				"rechnungspositionID", "rechnungspostenID", rechnungspostenID);
 		this.rechnungspositionName = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspositionName");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenSatz", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenSatz", "rechnungsposten", "rechnungspostenID",
+				rechnungspostenID);
 		this.rechnungspostenSatz = sql.holeStringAusDatenbank(sqlBefehl, "rechnungspostenSatz");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenEinheit", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenEinheit", "rechnungsposten", "rechnungspostenID",
+				rechnungspostenID);
 		this.rechnungspostenEinheiten = sql.holeIntAusDatenbank(sqlBefehl, "rechnungspostenEinheit");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenBetrag", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenBetrag", "rechnungsposten", "rechnungspostenID",
+				rechnungspostenID);
 		this.rechnungspostenSatzEuro = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspostenBetrag");
-		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenGesamt", "rechnungsposten", "rechnungspostenID", rechnungspostenID);
+		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungspostenGesamt", "rechnungsposten", "rechnungspostenID",
+				rechnungspostenID);
 		this.rechnungspostenGesamtEuro = sql.holeDoubleAusDatenbank(sqlBefehl, "rechnungspostenGesamt");
 	}
 
-	
 	// Getter/Setter
-	
+
 	public int getRechnungspostenID() {
 		return rechnungspostenID;
 	}
@@ -122,7 +129,4 @@ public class Rechnungsposten {
 		this.rechnungspostenEinheiten = rechnungspostenEinheiten;
 	}
 
-	
-	
-	
 }

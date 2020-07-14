@@ -917,7 +917,15 @@ public class GUI {
 			rp1.comboBox_Position_Positionen_aktualisieren();
 			rp1.comboBox_Position_Kategorie_aktualisieren();
 		}
-
+		
+		/*
+		 * Diese Klasse (AutoCompletion) 
+		 * haben wir Importiert.
+		 * Sie stammt von dieser URL: http://www.orbital-computer.de/JComboBox/
+		 * Der Download stammt vom 14.07.2020
+		 */
+		AutoCompletion.enable(comboBox_Kunde_Kunden);
+		AutoCompletion.enable(comboBox_Position_Positionen);
 		buttonActionListenerHinzufügen();
 		textFieldListenerHinzugügen();
 		andereActionListener();
@@ -951,12 +959,14 @@ public class GUI {
 				if (TabProgrammOptionen.isDatenbankAnbindung()) {
 					if (tk1.getAktuellerKunde() != null) {
 						if (tk1.checkAufUngesicherteDaten()) {
+							Suchleiste.kundenSelector(comboBox_Kunde_Kunden.getSelectedItem().toString());
 							tk1.kundeAnzeigen(false);
 							tabAktualisieren();
 							tk1.getAktuellerKunde().setWurdeVerändert(false);
 						}
 					} else {
 						tk1.maskeSichtbar(true);
+						Suchleiste.kundenSelector(comboBox_Kunde_Kunden.getSelectedItem().toString());
 						tk1.kundeAnzeigen(false);
 						tabAktualisieren();
 						tk1.getAktuellerKunde().setWurdeVerändert(false);

@@ -127,8 +127,8 @@ public class TabKunde {
 	public void comboBox_kunde_kunden_aktualisieren() {
 		Suchleiste.generiereArrayLists();
 		GUI.getComboBox_Kunde_Kunden().removeAllItems();
-		for (int i = 0; i < Suchleiste.getKunden().size(); i++) {
-			GUI.getComboBox_Kunde_Kunden().addItem(Suchleiste.getKunden().get(i));
+		for (int i = 0; i < Suchleiste.getKundenComboBoxListe().size(); i++) {
+			GUI.getComboBox_Kunde_Kunden().addItem(Suchleiste.getKundenComboBoxListe().get(i));
 		}
 		if (aktuellerKunde != null) {
 			GUI.getComboBox_Kunde_Kunden().setSelectedItem(aktuellerKunde.getKundeName());

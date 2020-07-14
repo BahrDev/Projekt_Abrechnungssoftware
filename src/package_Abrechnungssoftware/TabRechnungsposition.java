@@ -1,6 +1,7 @@
 package package_Abrechnungssoftware;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JOptionPane;
 
@@ -81,6 +82,7 @@ public class TabRechnungsposition {
 		kategorie = new ArrayList<String>();
 		sqlBefehl = sqlAuftrag.erstelleBefehl("SELECT", "kategoriepositionName", "kategorieposition");
 		kategorie = sqlAuftrag.holeStringArrayAusDatenbank(sqlBefehl, "kategoriepositionName");
+		Collections.sort(kategorie);
 	}
 
 	public void comboBox_Position_Positionen_aktualisieren() {

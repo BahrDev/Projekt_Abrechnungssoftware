@@ -45,7 +45,9 @@ public class Rechnung {
 	public void ladeRechnungsdaten() {
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl = "";
-		this.kundeID = GUI.getTk1().getAktuellerKunde().getKundeID();
+		//this.kundeID = GUI.getTk1().getAktuellerKunde().getKundeID();
+		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeID", "rechnung", "rechnungID", rechnungID);
+		this.kundeID = sql.holeIntAusDatenbank(sqlBefehl, "kundeID");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungBetreff", "rechnung", "rechnungID", rechnungID);
 		this.rechnungBetreff = sql.holeStringAusDatenbank(sqlBefehl, "rechnungBetreff");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungAnrede", "rechnung", "rechnungID", rechnungID);

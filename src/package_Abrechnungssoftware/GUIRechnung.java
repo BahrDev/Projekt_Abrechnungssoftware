@@ -118,6 +118,7 @@ public class GUIRechnung {
 		lbl_Rechnung_Rechnung_PLZ_Stadt = new JLabel("KundePLZ/Stadt");
 		lbl_Rechnung_Rechnung_PLZ_Stadt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lbl_Rechnung_Rechnung_PLZ_Stadt = new GridBagConstraints();
+		gbc_lbl_Rechnung_Rechnung_PLZ_Stadt.anchor = GridBagConstraints.WEST;
 		gbc_lbl_Rechnung_Rechnung_PLZ_Stadt.insets = new Insets(0, 0, 5, 0);
 		gbc_lbl_Rechnung_Rechnung_PLZ_Stadt.gridx = 1;
 		gbc_lbl_Rechnung_Rechnung_PLZ_Stadt.gridy = 5;
@@ -133,6 +134,8 @@ public class GUIRechnung {
 		frame_Rechnung.getContentPane().add(lbl_Rechnung_Rechnung_Betreff, gbc_lbl_Rechnung_Rechnung_Betreff);
 
 		textArea_Rechnung_Rechnung_Betreff = new JTextArea();
+		textArea_Rechnung_Rechnung_Betreff.setLineWrap(true);
+		textArea_Rechnung_Rechnung_Betreff.setWrapStyleWord(true);
 		textArea_Rechnung_Rechnung_Betreff.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textArea_Rechnung_Rechnung_Betreff.setPreferredSize(new Dimension(575, 75));
 		textArea_Rechnung_Rechnung_Betreff.setMinimumSize(new Dimension(575, 75));
@@ -190,6 +193,8 @@ public class GUIRechnung {
 		panel_Rechnung_Anschreiben.setLayout(gbl_panel_Rechnung_Anschreiben);
 
 		textArea_Rechnung_Rechnung_Anschreiben = new JTextArea();
+		textArea_Rechnung_Rechnung_Anschreiben.setWrapStyleWord(true);
+		textArea_Rechnung_Rechnung_Anschreiben.setLineWrap(true);
 		textArea_Rechnung_Rechnung_Anschreiben.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textArea_Rechnung_Rechnung_Anschreiben.setMinimumSize(new Dimension(575, 130));
 		textArea_Rechnung_Rechnung_Anschreiben.setMaximumSize(new Dimension(575, 130));

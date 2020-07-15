@@ -74,9 +74,9 @@ public class DateiGenerierung {
 		String rechnung_Anschreiben = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung()
 				.getRechnungAnschreiben();
 		String summe_Netto = "Summe Netto: " + geldformatierung
-				.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungSummeNetto());
+				.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungSummeNetto())  + "€";
 		String summe_Gesamt = "Summe Gesamt: " + geldformatierung
-				.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungEndbetrag());
+				.format(GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung().getRechnungEndbetrag()) + "€";
 		String rechnung_Dateiname = GUI.getTk1().getNeueGUIRechnung().getTr1().getAktuelleRechnung()
 				.getRechnungDateiName();
 
@@ -98,7 +98,7 @@ public class DateiGenerierung {
 		kunde_Strasse_pdf.setReadOnly(true);
 
 		PDField kunde_Ort_pdf = pdAcroForm.getField("Kunde_Ort");
-		kunde_Ort_pdf.setValue(kunde_Ort + " " + kunde_PLZ_String);
+		kunde_Ort_pdf.setValue(kunde_PLZ_String + " " + kunde_Ort);
 		kunde_Ort_pdf.setReadOnly(true);
 
 		PDField rechnung_Datum_pdf = pdAcroForm.getField("Rechnung_Datum");

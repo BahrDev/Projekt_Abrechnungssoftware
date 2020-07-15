@@ -290,7 +290,6 @@ public class TabRechnung {
 					.format(aktuelleRechnung.getRechnungsposten().get(postenNummer - 1).getRechnungspostenSatzEuro()));
 			lbl_Rechnung_Posten_Gesamt_in_Euro.setText(geldformatierung.format(
 					aktuelleRechnung.getRechnungsposten().get(postenNummer - 1).getRechnungspostenGesamtEuro()));
-			// aktuelleRechnung.setWurdeVerändert(false);
 		}
 		aktuelleRechnung.getRechnungsposten().get(postenNummer - 1)
 				.setRechnungspostenNummer(Integer.valueOf(lbl_Rechnung_Posten_Nr.getText()));

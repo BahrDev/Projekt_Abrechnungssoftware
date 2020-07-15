@@ -16,9 +16,6 @@ public class Suchleiste {
 	
 	private static String ausgewählterKundenName;
 
-//	private static ArrayList<String> tempListSuche;
-//
-//	private static String tempSuchWort;
 
 	// Methoden
 
@@ -89,17 +86,6 @@ public class Suchleiste {
 		
 	}
 
-//	public ArrayList implementiereAutofill() {
-//		// Methode schreiben!
-//		return tempListSuche;
-//	}
-
-//	public ArrayList sortiereListe(ArrayList<String> unsortiert) {
-//		// Methode schreiben!
-//		ArrayList<String> sortiert = unsortiert;
-//		return sortiert;
-//	}
-
 	
 	// Getter/Setter
 	
@@ -143,62 +129,4 @@ public class Suchleiste {
 		Suchleiste.kundenComboBoxListe = kundenComboBoxListe;
 	}
 
-
-
-	
-	
-//	public static ArrayList<String> getRechnungspositionen() {
-//		return rechnungspositionen;
-//	}
-//
-//	public static void setRechnungspositionen(ArrayList<String> rechnungspositionen) {
-//		Suchleiste.rechnungspositionen = rechnungspositionen;
-//	}
-//
-//	public static ArrayList<String> getKunden() {
-//		return kundenNamen;
-//	}
-//
-//	public static void setKunden(ArrayList<String> kunden) {
-//		Suchleiste.kundenNamen = kunden;
-//	}
-//
-//	public static ArrayList<String> getKundenNamen() {
-//		return kundenNamen;
-//	}
-//
-//	public static void setKundenNamen(ArrayList<String> kundenNamen) {
-//		Suchleiste.kundenNamen = kundenNamen;
-//	}
-//
-//	public static String getAusgewählterKundenName() {
-//		return ausgewählterKundenName;
-//	}
-//
-//	public static void setAusgewählterKundenName(String ausgewählterKundenName) {
-//		Suchleiste.ausgewählterKundenName = ausgewählterKundenName;
-//	}
-//
-//	public static void setKunden(ArrayList<Kunde> kunden) {
-//		Suchleiste.kunden = kunden;
-//	}
-
-//	public static ArrayList<String> getTempListSuche() {
-//		return tempListSuche;
-//	}
-//
-//	public static void setTempListSuche(ArrayList<String> tempListSuche) {
-//		Suchleiste.tempListSuche = tempListSuche;
-//	}
-//
-//	public static String getTempSuchWort() {
-//		return tempSuchWort;
-//	}
-//
-//	public static void setTempSuchWort(String tempSuchWort) {
-//		Suchleiste.tempSuchWort = tempSuchWort;
-//	}
-
-	
-	
 }

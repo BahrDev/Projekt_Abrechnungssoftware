@@ -25,7 +25,7 @@ public class GUIRechnung {
 	// Attribute
 	private static NumberFormat geldformatierung = new DecimalFormat("0.00");
 
-	// Initialisierung der GUI-Elemente zum externen Ansprechen/Abgreifen
+		// Initialisierung der GUI-Elemente zum externen Ansprechen/Abgreifen
 	private JTextField textField_Rechnung_Posten_Einheiten_1;
 	private JTextField textField_Rechnung_Posten_Satz_in_Euro_1;
 	private JTextField textField_Rechnung_Posten_Einheiten_2;
@@ -453,12 +453,12 @@ public class GUIRechnung {
 		gbc_btn_Rechnung_Rechnung_Drucken.gridy = 0;
 		panel_Rechnung_Speichern_Buttons.add(btn_Rechnung_Rechnung_Drucken, gbc_btn_Rechnung_Rechnung_Drucken);
 
-		// ButtonListener hinzufügen
+		//Listener hinzufügen
 		buttonActionListenerHinzufügen();
 		documentListenerHinzufügen();
 	}
 
-	// Button-Methoden
+		// Button-Methoden
 	public void buttonActionListenerHinzufügen() {
 		btn_Rechnung_Posten_Plus_ActionListener();
 		btn_Rechnung_Posten_Minus_ActionListener();
@@ -574,13 +574,11 @@ public class GUIRechnung {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
-				// tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				tr1.getAktuelleRechnung().setRechnungAnrede(textField_Rechnung_Rechnung_Anrede.getText());
-				// tr1.getAktuelleRechnung().setWurdeVerändert(true);
 			}
 
 			@Override
@@ -610,7 +608,7 @@ public class GUIRechnung {
 		});
 	}
 
-	// sonstige Methoden
+		// sonstige Methoden
 	public void fensterAktualisieren() {
 		if (tr1.getAktuelleRechnung() != null) {
 			lbl_Rechnung_Kunden_Name.setText(GUI.getTk1().getAktuellerKunde().getKundeName());

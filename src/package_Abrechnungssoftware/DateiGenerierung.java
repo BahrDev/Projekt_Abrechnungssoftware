@@ -23,7 +23,7 @@ public class DateiGenerierung {
 	private ArrayList<Rechnungsposten> rechnungsposten;
 
 	// Methoden
-	// erstellt die config.ini mit den Programmoptionen
+		// erstellt die config.ini mit den Programmoptionen
 	public void generiereConfigDatei(String speicherpfad, String dbAdresse, String dbBenutzername, String dbPasswort,
 			boolean inaktiveKundenAusblenden) {
 		try {
@@ -53,7 +53,7 @@ public class DateiGenerierung {
 
 	}
 
-	// generiert die PDF-Datei einer Rechnung, inkl boolean Option auf Druckfunktion
+		// generiert die PDF-Datei einer Rechnung, inkl boolean Option auf Druckfunktion
 	public void generierePDFAusVorlage(boolean mitDruckauftrag) throws IOException, PrinterException {
 		// holt sich alle wichtigen Daten zu Beginn zwecks Übersichthaltung des
 		// restlichen Codes
@@ -82,7 +82,7 @@ public class DateiGenerierung {
 
 		// PDF Dokumentvorlage in unsere neue PDF laden
 
-		File file = new File("F:/Rechnung_Vorlage_Bahr_Herzog_JD_Studio_v5.pdf");
+		File file = new File("Vorlage.pdf");
 		PDDocument pdf_Test = PDDocument.load(file);
 
 		PDDocumentCatalog pdCatalog = pdf_Test.getDocumentCatalog();
@@ -151,7 +151,7 @@ public class DateiGenerierung {
 		pdf_Test.close();
 	}
 
-	// Druckfunktion
+		// Druckfunktion
 	public void pdfDrucken(String rechnung_Dateiname) {
 		File pdf_print = new File(TabProgrammOptionen.getSpeicherpfad() + rechnung_Dateiname);
 		try {
@@ -164,10 +164,10 @@ public class DateiGenerierung {
 		}
 	}
 
-	// Generiert einen fortlaufenden String indem alle Rechnungsposten und ihre
-	// Daten enthalten sind
-	// Formatierung exakt angepasst auf das Textfeld unserer PDF-Vorlage
-	// (erspart den umständlichen Umgang mit Tabellen-Importen)
+		// Generiert einen fortlaufenden String indem alle Rechnungsposten und ihre
+		// Daten enthalten sind
+		// Formatierung exakt angepasst auf das Textfeld unserer PDF-Vorlage
+		// (erspart den umständlichen Umgang mit Tabellen-Importen)
 	public String generiereRechnungsPostenStream() {
 		int markerBezeichnung = 5;
 		int markerSatz = 41;
@@ -211,8 +211,7 @@ public class DateiGenerierung {
 		return ausgabe;
 	}
 
-	// Auffüllermethode, füllt ungenutzte Zeichen im String der Rechnungsposten mit
-	// Leerzeichen
+		// Auffüllermethode, füllt ungenutzte Zeichen im String der Rechnungsposten mit Leerzeichen
 	public String auffüller(String eingabe, int marker) {
 		String ausgabe;
 		ausgabe = eingabe;
@@ -220,7 +219,6 @@ public class DateiGenerierung {
 			ausgabe += " ";
 		}
 		return ausgabe;
-
 	}
-
+	
 }

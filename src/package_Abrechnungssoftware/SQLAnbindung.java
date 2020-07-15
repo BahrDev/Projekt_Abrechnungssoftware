@@ -173,8 +173,8 @@ public class SQLAnbindung {
 		return retDouble;
 	}
 
-	// Einzel-Methoden die als Methoden-Konstruktoren dienen und ihre Werte an die
-	// Ziel-Methode weiterreichen
+		// Einzel-Methoden die als Methoden-Konstruktoren dienen und ihre Werte an die
+		// Ziel-Methode weiterreichen
 	public String erstelleBefehl(String selectALL, String auswahl, String tabelle1) {
 		return erstelleBefehl(selectALL, auswahl, tabelle1, null, null, null, null, null, null, null, null, 0, 0, 0.0,
 				false, false);
@@ -336,7 +336,7 @@ public class SQLAnbindung {
 				false, false);
 	}
 
-	// Ziel-Methode die eigentlich die Befehle zusammen stellt
+		// Ziel-Methode die eigentlich die Befehle zusammen stellt
 	public String erstelleBefehl(String befehl, String auswahl, String tabelle1, String tabelle2, String suchSpalte1,
 			String suchSpalte2, String keySpalte, String spalte1, String spalte2, String wert1String,
 			String wert2String, int wert1Int, int wert2Int, double wert1Dbl, boolean befehlMarker, boolean wert1Bool) {
@@ -438,7 +438,7 @@ public class SQLAnbindung {
 	}
 
 	
-	// Log-Methode
+		// Log-Methode
 	public void logGenerierung(String artDerÄnderung, String tabelle, String auswahlSpalte, String neuerString, int neuerInt, double neuerDouble, boolean neuerBool, String suchSpalte2, int suchWert2) {
 		Timestamp logDatum = new Timestamp(System.currentTimeMillis());
 		String befehlBau = "INSERT INTO log ";
@@ -510,11 +510,5 @@ public class SQLAnbindung {
 		if (neuerWert.equals(alterWert)) {
 			geloggt = true;
 		}
-		
-//		logBefehl = 
-//				
-//				INSERT INTO `log`(`logDatum`, `logArt`, `tabelle`, `spalte`, `zeile` `neuerWert`, `alterWert`) 
-//				VALUES (1, "XXX", "Stundensatz", "0.00");
-				
 	}
 }

@@ -909,7 +909,6 @@ public class GUI {
 
 		tk1 = new TabKunde();
 		rp1 = new TabRechnungsposition();
-		// op1 = new TabOptionen();
 		list_Kunde_Rechnungen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		if (TabProgrammOptionen.isDatenbankAnbindung()) {
@@ -1368,7 +1367,7 @@ public class GUI {
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				System.out.println("test");
+				// TODO Auto-generated method stub
 
 			}
 		});
@@ -1431,7 +1430,7 @@ public class GUI {
 		});
 	}
 
-	// Andere ActionListener
+		// Andere ActionListener
 
 	public void andereActionListener() {
 		comboBox_Position_Kategorie_ActionListener();

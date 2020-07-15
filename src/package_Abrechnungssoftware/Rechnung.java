@@ -45,7 +45,6 @@ public class Rechnung {
 	public void ladeRechnungsdaten() {
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl = "";
-		//this.kundeID = GUI.getTk1().getAktuellerKunde().getKundeID();
 		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeID", "rechnung", "rechnungID", rechnungID);
 		this.kundeID = sql.holeIntAusDatenbank(sqlBefehl, "kundeID");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungBetreff", "rechnung", "rechnungID", rechnungID);
@@ -58,7 +57,6 @@ public class Rechnung {
 		this.rechnungSummeNetto = sql.holeIntAusDatenbank(sqlBefehl, "rechnungSummeNetto");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungEndbetrag", "rechnung", "rechnungID", rechnungID);
 		this.rechnungEndbetrag = sql.holeIntAusDatenbank(sqlBefehl, "rechnungEndbetrag");
-		// Date wird nicht aus der Datenbank abgerufen (Vermutlich)
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungNummer", "rechnung", "rechnungID", rechnungID);
 		this.rechnungNummer = sql.holeStringAusDatenbank(sqlBefehl, "rechnungNummer");
 		sqlBefehl = sql.erstelleBefehl("SELECT", "rechnungDateiName", "rechnung", "rechnungID", rechnungID);

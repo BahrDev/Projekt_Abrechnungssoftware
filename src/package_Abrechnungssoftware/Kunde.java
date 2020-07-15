@@ -34,7 +34,7 @@ public class Kunde {
 	// Methoden
 	
 	public void ladeKundenDaten() {
-		this.kundeName = GUI.getComboBox_Kunde_Kunden().getSelectedItem().toString();
+		this.kundeName = Suchleiste.getAusgewählterKundenName();
 		SQLAnbindung sql = new SQLAnbindung();
 		String sqlBefehl = "";
 		sqlBefehl = sql.erstelleBefehl("SELECT", "kundeID", "kunde", "kundeName", kundeName);

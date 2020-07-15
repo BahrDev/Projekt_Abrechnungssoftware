@@ -5,6 +5,9 @@ Eine Gruppenarbeit mit Patrick Herzog
 Dies ist eine Projektarbeit im Fach Anwendungsentwicklung 2 bei Herrn Thomas Jackisch.
 Sie wird gemeinsam erarbeitet und wir nutzen GitHub zur Versionsverwaltung.
 
+Download
+v1.1.1: https://www.dropbox.com/s/og68kpyy5tdj5ed/AbrechnungssoftwareHerzogBahr%20v1.1.1.rar?dl=0
+
 Die Originalaufgabe lautet wie folgt:
 
 PROJEKT 2 – AUFTRAGS- UND ABRECHNUNGSSOFTWARE MADE BY CC_AE_KURS
